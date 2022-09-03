@@ -1,0 +1,52 @@
+.req-text{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: medium;
+    margin: 1cm;
+}
+.req-text.removable{
+    cursor: pointer;
+    transition: 0.3s;
+}
+.req-text.removable:hover{
+    color: rgb(255, 0, 0);
+}
+.req-text.not-selected{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: medium;
+    margin: 1cm;
+    color: rgba(255, 255, 255, 0.123);
+}
+.req-toggle-button{
+    animation: infinite;
+}
+.sigSelContainer{
+    margin: auto;
+    width: fit-content;
+    margin-top: 9mm;
+    margin-bottom: 1cm;
+    padding: 1cm;
+}
+
+.relPosContainer{
+    margin: auto;
+    width: fit-content;
+    margin-top: 15mm;
+    margin-bottom: 2cm;
+}
+.file-upload-container{
+    width: fit-content;
+    margin: auto;
+    margin-top: 10mm;
+    align-items: center;
+    max-width: fit-content;
+}
+.submit-button{
+    width: fit-content;
+    margin: auto;
+    align-items: center;
+    margin-bottom: 2cm;
+    color: white;
+}
+.file-input{
+    display: none;
+}

@@ -1,0 +1,6 @@
+export enum AdESRelPosition{
+    ENVELOPED,
+    ENVELOPING,
+    DATACHED,
+    INTERNALLY_DETACHED
+}
