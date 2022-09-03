@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AdESRelPosition } from 'src/app/model/enums/adESRelPosition';
-import { AdESType } from 'src/app/model/enums/adESType';
+import { AdESRelPosition } from '../../model/enums/adESRelPosition';
+import { AdESType } from '../../model/enums/adESType';
 
 @Component({
   selector: 'app-validation-request',
@@ -35,16 +35,16 @@ export class ValidationRequestComponent implements OnInit {
   /**
    * Original files uploaded by the client
    */
-  originalFiles:Array<string>;
+  originalFiles:Array<File>;
 
-  signedFile?: string;
+  signedFile?: File;
 
   constructor() { }
 
   ngOnInit(): void {
     this.selected = undefined;
     this.relativePosition = undefined;
-    this.originalFiles = new Array<string>();
+    this.originalFiles = new Array<File>();
     this.signedFile = undefined;
   }
 
@@ -62,6 +62,14 @@ export class ValidationRequestComponent implements OnInit {
     list.forEach(elem => (elem as HTMLInputElement).checked = false);
   }
 
+  getOriginalFileNames(): Array<string> {
+    var ret = new Array<string>();
+    for(const file of this.originalFiles){
+      ret.push(file.name);
+    }
+    return ret;
+  }
+
   /**
    * Handles the selected original files event
    * @param event
@@ -70,9 +78,9 @@ export class ValidationRequestComponent implements OnInit {
     var selected = (event.target as HTMLInputElement).files;
     var size = selected != undefined ? selected?.length : 0;
     for(var i = 0; i<size; i++){
-      if(selected?.item(i)?.name != undefined){
-        var name = selected?.item(i)?.name as string;
-        this.originalFiles.push(name);
+      if(selected?.item(i) != undefined){
+        var file = selected?.item(i) as File;
+        this.originalFiles.push(file);
       }
     }
   }
@@ -83,8 +91,8 @@ export class ValidationRequestComponent implements OnInit {
    */
   onSignedFileSelected(event:Event) {
     var selected = (event.target as HTMLInputElement).files;
-    if(selected?.item(0)?.name != null){
-      this.signedFile = selected?.item(0)?.name as string;
+    if(selected?.item(0) != undefined){
+      this.signedFile = selected?.item(0) as File;
     }
   }
 
@@ -98,6 +106,10 @@ export class ValidationRequestComponent implements OnInit {
         this.selected != undefined &&
             (this.selected != this.asic ? this.relativePosition != undefined : true) &&
             (this.relativePosition == this.detached ? this.originalFiles.length>0:true);
+  }
+
+  sumbit(): void {
+
   }
 
   /**

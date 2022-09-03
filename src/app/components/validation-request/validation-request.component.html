@@ -74,7 +74,7 @@
                 </button>
                 <label class="req-text {{originalFiles.length > 0 ? 'removable' : ''}}"
                     (click)="clearLastOriginalFile()">
-                    {{ originalFiles.length > 0 ? originalFiles.toString() : 'No original files uploaded yet.' }}
+                    {{ originalFiles.length > 0 ? getOriginalFileNames() : 'No original files uploaded yet.' }}
                 </label>
                 <input type="file" class="file-input"
                     (change)="onOriginalFilesSelected($event)"
@@ -89,7 +89,7 @@
                 </button>
                 <label class="req-text {{signedFile != null ? 'removable' : ''}}"
                     (click)="signedFile = undefined">
-                    {{ signedFile != undefined ? signedFile : 'No signed file uploaded yet.' }}
+                    {{ signedFile != undefined ? signedFile.name : 'No signed file uploaded yet.' }}
                 </label>
                 <input type="file" class="file-input"
                     (change)="onSignedFileSelected($event)"
