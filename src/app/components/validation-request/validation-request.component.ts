@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Encoding } from 'src/app/model/utils/encoding';
+import { ValRequestAssembler } from 'src/app/model/utils/valReqAssembler';
+import { ValidationRequest } from 'src/app/model/validationRequest';
 import { AdESRelPosition } from '../../model/enums/adESRelPosition';
 import { AdESType } from '../../model/enums/adESType';
 
@@ -108,8 +111,10 @@ export class ValidationRequestComponent implements OnInit {
             (this.relativePosition == this.detached ? this.originalFiles.length>0:true);
   }
 
-  sumbit(): void {
-
+  async submit(): Promise<void> {
+    var valReqAssembler = new ValRequestAssembler(this.signedFile!, this.originalFiles);
+    var validationRequest = <ValidationRequest>await valReqAssembler.assembleValRequest();
+    console.log(JSON.stringify(validationRequest));
   }
 
   /**
@@ -129,3 +134,7 @@ export class ValidationRequestComponent implements OnInit {
       this.originalFiles.pop();
   }
 }
+function arrayBufferToB64String(buffer: ArrayBuffer): any {
+  throw new Error('Function not implemented.');
+}
+

@@ -97,7 +97,10 @@
             </div>
         </div>
         <div class="file-upload-container">
-            <button mat-raised-button [disabled]="!readyToSubmit()">
+            <button mat-raised-button 
+                type="submit"
+                [disabled]="!readyToSubmit()"
+                (click)="submit()">
                 Validate
             </button>
         </div>
