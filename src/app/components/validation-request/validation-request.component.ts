@@ -1,7 +1,8 @@
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Encoding } from 'src/app/model/utils/encoding';
 import { ValRequestAssembler } from 'src/app/model/utils/valReqAssembler';
 import { ValidationRequest } from 'src/app/model/validationRequest';
+import { ValidationService } from 'src/app/service/validation.service';
 import { AdESRelPosition } from '../../model/enums/adESRelPosition';
 import { AdESType } from '../../model/enums/adESType';
 
@@ -42,7 +43,7 @@ export class ValidationRequestComponent implements OnInit {
 
   signedFile?: File;
 
-  constructor() { }
+  constructor(private http: HttpClient, private validationService: ValidationService) { }
 
   ngOnInit(): void {
     this.selected = undefined;
@@ -114,7 +115,7 @@ export class ValidationRequestComponent implements OnInit {
   async submit(): Promise<void> {
     var valReqAssembler = new ValRequestAssembler(this.signedFile!, this.originalFiles);
     var validationRequest = <ValidationRequest>await valReqAssembler.assembleValRequest();
-    console.log(JSON.stringify(validationRequest));
+    this.validationService.validate(validationRequest);
   }
 
   /**
@@ -133,8 +134,5 @@ export class ValidationRequestComponent implements OnInit {
     if(this.originalFiles.length>0)
       this.originalFiles.pop();
   }
-}
-function arrayBufferToB64String(buffer: ArrayBuffer): any {
-  throw new Error('Function not implemented.');
 }
 

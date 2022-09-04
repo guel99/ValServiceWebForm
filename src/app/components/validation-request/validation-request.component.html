@@ -95,14 +95,14 @@
                     (change)="onSignedFileSelected($event)"
                     #signedFileUpload>
             </div>
-        </div>
-        <div class="file-upload-container">
-            <button mat-raised-button 
-                type="submit"
-                [disabled]="!readyToSubmit()"
-                (click)="submit()">
-                Validate
-            </button>
+            <div class="file-upload-container">
+                <button mat-raised-button 
+                    type="button"
+                    [disabled]="!readyToSubmit()"
+                    (click)="submit()">
+                    Validate
+                </button>
+            </div>
         </div>
 
     </form>
