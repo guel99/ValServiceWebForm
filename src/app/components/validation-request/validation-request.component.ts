@@ -2,6 +2,8 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ValRequestAssembler } from 'src/app/model/utils/valReqAssembler';
 import { ValidationRequest } from 'src/app/model/validationRequest';
+import { ValidationResponse } from 'src/app/model/validationResponse';
+import { ResponseHandlingService } from 'src/app/service/responseHandling.service';
 import { ValidationService } from 'src/app/service/validation.service';
 import { AdESRelPosition } from '../../model/enums/adESRelPosition';
 import { AdESType } from '../../model/enums/adESType';
@@ -43,7 +45,8 @@ export class ValidationRequestComponent implements OnInit {
 
   signedFile?: File;
 
-  constructor(private http: HttpClient, private validationService: ValidationService) { }
+  constructor(private validationService: ValidationService, 
+    private responseHandlingService: ResponseHandlingService) { }
 
   ngOnInit(): void {
     this.selected = undefined;
@@ -112,10 +115,24 @@ export class ValidationRequestComponent implements OnInit {
             (this.relativePosition == this.detached ? this.originalFiles.length>0:true);
   }
 
-  async submit(): Promise<void> {
+  submit() {
+    console.log('start submit');
     var valReqAssembler = new ValRequestAssembler(this.signedFile!, this.originalFiles);
-    var validationRequest = <ValidationRequest>await valReqAssembler.assembleValRequest();
-    this.validationService.validate(validationRequest);
+    valReqAssembler.assembleValRequest().then(validationRequest => {
+      console.log(validationRequest)
+      this.validationService.validate(validationRequest).then(validationResponse => {
+        validationResponse.subscribe(valResponse => {
+          console.log("print val response")
+          console.log(valResponse);
+          console.log(this.responseHandlingService.etsiReport(valResponse));
+
+          this.responseHandlingService.otherReports(valResponse).then(map => {
+            map.get("SimpleReport.html")?.then(simpleReport => console.log(simpleReport));
+          })
+        })
+      });
+      return validationRequest;
+    });
   }
 
   /**

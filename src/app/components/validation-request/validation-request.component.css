@@ -1,3 +1,37 @@
+mat-toolbar{
+    background: rgb(4, 56, 134);
+    color: white;
+}
+
+mat-sidenav {
+    margin: 16px;
+    width: 200px;
+    border-right: none;
+    color: white;
+    background: rgb(4, 38, 90);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+}
+
+mat-sidenav-container{
+    height: calc(100vh - 65px);
+}
+
+mat-divider{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.menu-button{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1rem;
+}
+
 .req-text{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: medium;
@@ -20,11 +54,13 @@
     animation: infinite;
 }
 .sigSelContainer{
+    height: calc(100vh - 98px);
     margin: auto;
     width: fit-content;
-    margin-top: 9mm;
+    margin-top: 2mm;
     margin-bottom: 1cm;
     padding: 1cm;
+    justify-content: center;
 }
 
 .relPosContainer{
@@ -49,4 +85,11 @@
 }
 .file-input{
     display: none;
+}
+
+.valRequest{
+    border: 3px solid black;
+    width: fit-content;
+    margin: auto;
+    background-color: white;
 }
