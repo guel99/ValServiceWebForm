@@ -8,7 +8,7 @@ mat-sidenav {
     width: 200px;
     border-right: none;
     color: white;
-    background: rgb(4, 38, 90);
+    background: rgb(4, 56, 134);
     border-radius: 10px;
     padding: 16px;
     text-align: center;
@@ -16,12 +16,71 @@ mat-sidenav {
 
 mat-sidenav-container{
     height: calc(100vh - 65px);
+    background-color: white;
 }
 
 mat-divider{
     margin-top: 20px;
     margin-bottom: 20px;
     background-color: rgba(255, 255, 255, 0.5);
+}
+
+.sigSelContainer{
+    height: calc(100vh - 98px);
+    margin: auto;
+    margin-top: 5mm;
+    margin-bottom: 1cm;
+    padding: 1cm;
+    padding-top: 5mm;
+    justify-content: center;
+    align-items: center;
+    background: white;
+}
+
+mat-card{
+    background: white;
+    padding: 0mm;
+    padding-bottom: 7mm;
+}
+
+mat-card .mat-card-title{
+    padding-top: 7mm;
+    padding-bottom: 7mm;
+    padding-left: 5mm;
+    margin-bottom: 7mm;
+    background: rgb(4, 56, 134);
+    vertical-align: middle;
+    border-radius: 4px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: x-large;
+    color: white;
+    display: flex;
+}
+
+mat-tab-group{
+    color: black;
+    background-color: rgba(4, 56, 134, 0.397);
+    border-radius: 4px;
+}
+
+mat-tab{
+    background-color: rgb(4, 56, 134);
+    color: white;
+}
+
+pre {
+    display: block;
+    font-size: 87.5%;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    overflow: auto;
+    padding: 7mm;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+pre.prettyprint {
+    padding: 20px;
+    border: 1px solid #888;
 }
 
 .menu-button{
@@ -36,6 +95,7 @@ mat-divider{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: medium;
     margin: 1cm;
+    color: rgb(15, 26, 56);
 }
 .req-text.removable{
     cursor: pointer;
@@ -48,40 +108,42 @@ mat-divider{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: medium;
     margin: 1cm;
-    color: rgba(255, 255, 255, 0.123);
+    color: rgb(196, 196, 196);
 }
 .req-toggle-button{
     animation: infinite;
 }
-.sigSelContainer{
-    height: calc(100vh - 98px);
-    margin: auto;
-    width: fit-content;
-    margin-top: 2mm;
-    margin-bottom: 1cm;
-    padding: 1cm;
-    justify-content: center;
-}
 
-.relPosContainer{
+.internalContainer{
     margin: auto;
     width: fit-content;
-    margin-top: 15mm;
-    margin-bottom: 2cm;
-}
-.file-upload-container{
-    width: fit-content;
-    margin: auto;
-    margin-top: 10mm;
-    align-items: center;
-    max-width: fit-content;
+    margin-bottom: 1cm;
 }
 .submit-button{
-    width: fit-content;
     margin: auto;
+    display: flex;
     align-items: center;
-    margin-bottom: 2cm;
+    justify-content: center;
+    margin-top: 1.2cm;
     color: white;
+    background: rgb(4, 56, 134);
+}
+.attach-button{
+    color: white;
+    background: rgb(4, 56, 134);
+}
+.attach-button.disabled{
+    color: white;
+    background: rgba(4, 56, 134, 0.26);
+}
+.submit-button.disabled{
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.2cm;
+    color: white;
+    background: rgba(4, 56, 134, 0.26);
 }
 .file-input{
     display: none;

@@ -45,6 +45,19 @@ export class ValidationRequestComponent implements OnInit {
 
   signedFile?: File;
 
+  /**
+   * Response sent by the backoffice component
+   */
+  validationResponse: ValidationResponse | null = null;
+
+  /**
+   * Reports to be displayed
+   */
+  simpleReport: string | null = null;
+  detailedReport: string | null = null;
+  diagnosticData: string | null  = null;
+  etsiReport: string | null = null;
+
   constructor(private validationService: ValidationService, 
     private responseHandlingService: ResponseHandlingService) { }
 
@@ -122,16 +135,11 @@ export class ValidationRequestComponent implements OnInit {
       console.log(validationRequest)
       this.validationService.validate(validationRequest).then(validationResponse => {
         validationResponse.subscribe(valResponse => {
-          console.log("print val response")
-          console.log(valResponse);
-          console.log(this.responseHandlingService.etsiReport(valResponse));
-
-          this.responseHandlingService.otherReports(valResponse).then(map => {
-            map.get("SimpleReport.html")?.then(simpleReport => console.log(simpleReport));
-          })
-        })
+          this.validationResponse = valResponse;
+          this.setEtsiValidationReport();
+          this.setOtherReports();
+        });
       });
-      return validationRequest;
     });
   }
 
@@ -150,6 +158,28 @@ export class ValidationRequestComponent implements OnInit {
   clearLastOriginalFile() : void {
     if(this.originalFiles.length>0)
       this.originalFiles.pop();
+  }
+
+  setEtsiValidationReport() {
+    this.etsiReport = this.responseHandlingService.etsiReport(this.validationResponse!);
+  }
+
+  setOtherReports() {
+    return this.responseHandlingService.otherReports(this.validationResponse!).then(map => {
+      map.get("SimpleReport.html")?.then(simpleReport => {
+        this.simpleReport = simpleReport;
+      });
+      map.get("DetailedReport.html")?.then(detailedReport => {
+        this.detailedReport = detailedReport;
+      });
+      map.get("DiagnosticData.xml")?.then(diagnosticData => {
+        this.diagnosticData = diagnosticData;
+      })
+    });
+  }
+
+  clear(){
+    this.validationResponse = null;
   }
 }
 

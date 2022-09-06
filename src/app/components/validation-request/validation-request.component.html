@@ -1,21 +1,21 @@
 <mat-toolbar>
-    <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon *ngIf="!sidenav.opened">
             menu
         </mat-icon>
         <mat-icon *ngIf="sidenav.opened">
             close
         </mat-icon>
-    </button>  
-    Validation Request
+    </button>
+    eIDAS Validation Service
 </mat-toolbar>
 <mat-sidenav-container>
-    <mat-sidenav mode="over" opened="false" #sidenav>
+    <mat-sidenav mode="side" opened="false" #sidenav>
         <button mat-button class="menu-button">
             <mat-icon>home</mat-icon>
             <span>Home</span>
         </button>
-        <button mat-button class="menu-button">
+        <button mat-button class="menu-button" (click)="clear()">
             <mat-icon>check_circle_outline</mat-icon>
             <span>Validate</span>
         </button>
@@ -29,78 +29,74 @@
             <span>Help</span>
         </button>
     </mat-sidenav>
-    <mat-sidenav-content>
-        <div>
-            <form>
-                <div class="sigSelContainer mat-elevation-z4">
-                    <label class="req-text">
-                        <input type="radio" class="req-toggle-button" name="adesType" 
-                        (change)="selectAdESType(asic);uncheckAllRelativePosOpts();clearFileInputs()">
-                        ASiC
-                    </label>
-                    <label class="req-text">
-                        <input type="radio" class="req-toggle-button" name="adesType" 
-                        (change)="selectAdESType(cades);uncheckAllRelativePosOpts();clearFileInputs()">
-                        CAdES
-                    </label>
-                    <label class="req-text">
-                        <input type="radio" class="req-toggle-button" name="adesType" 
-                        (change)="selectAdESType(jades);uncheckAllRelativePosOpts();clearFileInputs()">
-                        JAdES
-                    </label>
-                    <label class="req-text">
-                        <input type="radio" class="req-toggle-button" name="adesType" 
-                        (change)="selectAdESType(pades);uncheckAllRelativePosOpts();clearFileInputs()">
-                        PAdES
-                    </label>
-                    <label class="req-text">
-                        <input type="radio" class="req-toggle-button" name="adesType" 
-                        (change)="selectAdESType(xades);uncheckAllRelativePosOpts();clearFileInputs()">
-                        XAdES
-                    </label>
-                    <div class="relPosContainer">
-                        <label class="req-text {{ selected == asic || selected == cades || selected == jades ? 'not-selected':'' }}">
-                            <input type="radio"  #envelopedRBtn
-                                class="req-toggle-button" 
-                                name="relPosType" id="enveloped" 
-                                [disabled]="selected == cades || selected == jades || selected == asic"
+    <mat-sidenav-content class="sigSelContainer mat-elevation-z4">
+        <mat-card>
+            <mat-card-title class="sub-title">{{validationResponse == null ? 'Validate' : 'Validation Result'}}</mat-card-title>
+            <mat-card-content id="card-content">
+                <form *ngIf="validationResponse == null" #form>
+                    <div class="internalContainer">
+                        <label class="req-text">
+                            <input type="radio" class="req-toggle-button" name="adesType"
+                                (change)="selectAdESType(asic);uncheckAllRelativePosOpts();clearFileInputs()">
+                            ASiC
+                        </label>
+                        <label class="req-text">
+                            <input type="radio" class="req-toggle-button" name="adesType"
+                                (change)="selectAdESType(cades);uncheckAllRelativePosOpts();clearFileInputs()">
+                            CAdES
+                        </label>
+                        <label class="req-text">
+                            <input type="radio" class="req-toggle-button" name="adesType"
+                                (change)="selectAdESType(jades);uncheckAllRelativePosOpts();clearFileInputs()">
+                            JAdES
+                        </label>
+                        <label class="req-text">
+                            <input type="radio" class="req-toggle-button" name="adesType"
+                                (change)="selectAdESType(pades);uncheckAllRelativePosOpts();clearFileInputs()">
+                            PAdES
+                        </label>
+                        <label class="req-text">
+                            <input type="radio" class="req-toggle-button" name="adesType"
+                                (change)="selectAdESType(xades);uncheckAllRelativePosOpts();clearFileInputs()">
+                            XAdES
+                        </label>
+                    </div>
+                    <div class="internalContainer">
+                        <label
+                            class="req-text {{ selected == asic || selected == cades || selected == jades ? 'not-selected':'' }}">
+                            <input type="radio" #envelopedRBtn class="req-toggle-button" name="relPosType"
+                                id="enveloped" [disabled]="selected == cades || selected == jades || selected == asic"
                                 (change)="selectRelPosition(enveloped);clearFileInputs()">
                             Enveloped
                         </label>
                         <label class="req-text {{selected == pades || selected == asic ? 'not-selected':'' }}">
-                            <input type="radio" #envelopingRBtn
-                                class="req-toggle-button" 
-                                name="relPosType" 
-                                id="enveloping" 
-                                [disabled]="selected == pades || selected == asic"
+                            <input type="radio" #envelopingRBtn class="req-toggle-button" name="relPosType"
+                                id="enveloping" [disabled]="selected == pades || selected == asic"
                                 (change)="selectRelPosition(enveloping);clearFileInputs()">
                             Enveloping
                         </label>
                         <br>
                         <label class="req-text {{selected == pades || selected == asic ? 'not-selected':'' }}">
-                            <input type="radio" #detachedRBtn
-                                class="req-toggle-button" 
-                                name="relPosType" 
-                                id="detached"
+                            <input type="radio" #detachedRBtn class="req-toggle-button" name="relPosType" id="detached"
                                 [disabled]="selected == pades || selected == asic"
                                 (change)="selectRelPosition(detached);clearFileInputs()">
                             Detached
                         </label>
-                        <label class="req-text {{selected != undefined && (selected !== xades || selected == asic) ? 'not-selected':'' }}">
-                            <input type="radio" #IntDetachedRBtn
-                            class="req-toggle-button"
-                            name="relPosType" 
-                            id="int_detached"
-                            [disabled]="selected != undefined && (selected !== xades || selected == asic)"
-                            (change)="selectRelPosition(internally_detached);clearFileInputs()">
+                        <label
+                            class="req-text {{selected != undefined && (selected !== xades || selected == asic) ? 'not-selected':'' }}">
+                            <input type="radio" #IntDetachedRBtn class="req-toggle-button" name="relPosType"
+                                id="int_detached"
+                                [disabled]="selected != undefined && (selected !== xades || selected == asic)"
+                                (change)="selectRelPosition(internally_detached);clearFileInputs()">
                             Internally detached
                         </label>
                     </div>
-                    <div class="file-upload-container">
+                    <div class="internalContainer">
                         <label class="req-text">
                             Original File(s)
                         </label>
-                        <button mat-mini-fab type="button" (click)="originalFilesUpload.click()"
+                        <button class="attach-button {{relativePosition != detached ? 'disabled' : ''}}" mat-mini-fab
+                            type="button" (click)="originalFilesUpload.click()"
                             [disabled]="relativePosition != detached">
                             <mat-icon>attach_file</mat-icon>
                         </button>
@@ -108,36 +104,46 @@
                             (click)="clearLastOriginalFile()">
                             {{ originalFiles.length > 0 ? getOriginalFileNames() : 'No original files uploaded yet.' }}
                         </label>
-                        <input type="file" class="file-input"
-                            (change)="onOriginalFilesSelected($event)"
-                             #originalFilesUpload>
+                        <input type="file" class="file-input" (change)="onOriginalFilesSelected($event)"
+                            #originalFilesUpload>
                     </div>
-                    <div class="file-upload-container">
+                    <div class="internalContainer">
                         <label class="req-text">
                             Signed File
                         </label>
-                        <button mat-mini-fab type="button" (click)="signedFileUpload.click()">
+                        <button class="attach-button" mat-mini-fab type="button" (click)="signedFileUpload.click()">
                             <mat-icon>attach_file</mat-icon>
                         </button>
                         <label class="req-text {{signedFile != null ? 'removable' : ''}}"
                             (click)="signedFile = undefined">
                             {{ signedFile != undefined ? signedFile.name : 'No signed file uploaded yet.' }}
                         </label>
-                        <input type="file" class="file-input"
-                            (change)="onSignedFileSelected($event)"
-                            #signedFileUpload>
+                        <input type="file" class="file-input" (change)="onSignedFileSelected($event)" #signedFileUpload>
                     </div>
-                    <div class="file-upload-container">
-                        <button mat-raised-button 
-                            type="button"
-                            [disabled]="!readyToSubmit()"
-                            (click)="submit()">
-                            Validate
-                        </button>
-                    </div>
-                </div>
-        
-            </form>
-        </div>
+                    <button mat-raised-button type="button" class="submit-button {{readyToSubmit() ? '':'disabled'}}"
+                        (click)="submit()"
+                        [disabled]="!readyToSubmit()" disabled="true" #submitButton>
+                        Validate
+                    </button>
+                </form>
+                <mat-tab-group mat-align-tabs="center" color="accent" *ngIf="validationResponse != null" #reportsTab>
+                    <mat-tab label="Simple Report">
+                        <pre class="prettyprint xml prettyprinted">
+                            {{ simpleReport }}
+                        </pre>
+                    </mat-tab>
+                    <mat-tab label="Detailed Report">
+                        <pre class="prettyprint xml prettyprinted">
+                            {{ detailedReport }}
+                        </pre>
+                    </mat-tab>
+                    <mat-tab label="ETSI Validation Report">
+                        <pre class="prettyprint lang-xml prettyprinted" style>
+                            {{ etsiReport}}
+                        </pre>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card-content>
+        </mat-card>
     </mat-sidenav-content>
 </mat-sidenav-container>
