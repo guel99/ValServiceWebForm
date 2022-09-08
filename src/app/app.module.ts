@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -15,10 +17,13 @@ import { MatDividerModule} from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 
+import { SafeHtmlPipe } from 'src/app/pipes/safeHtmlPipe';
+
 @NgModule({
   declarations: [
     AppComponent,
-    ValidationRequestComponent
+    ValidationRequestComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSidenavModule,
     MatDividerModule,
     MatCardModule,
-    MatTabsModule
+    MatTabsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

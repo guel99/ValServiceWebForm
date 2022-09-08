@@ -94,7 +94,9 @@ pre.prettyprint {
 .req-text{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: medium;
-    margin: 1cm;
+    margin: 0.4cm;
+    margin-left: 1cm;
+    margin-right: 1cm;
     color: rgb(15, 26, 56);
 }
 .req-text.removable{
@@ -107,7 +109,6 @@ pre.prettyprint {
 .req-text.not-selected{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: medium;
-    margin: 1cm;
     color: rgb(196, 196, 196);
 }
 .req-toggle-button{
@@ -117,7 +118,6 @@ pre.prettyprint {
 .internalContainer{
     margin: auto;
     width: fit-content;
-    margin-bottom: 1cm;
 }
 .submit-button{
     margin: auto;
