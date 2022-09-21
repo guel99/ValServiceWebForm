@@ -1,0 +1,48 @@
+<html>
+<header>
+</header>
+
+<body>
+    <mat-toolbar>
+        <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon *ngIf="!sidenav.opened">
+                menu
+            </mat-icon>
+            <mat-icon *ngIf="sidenav.opened">
+                close
+            </mat-icon>
+        </button>
+        eIDAS Validation Service
+    </mat-toolbar>
+
+    <mat-sidenav-container>
+        <mat-sidenav mode="side" opened="false" #sidenav>
+            <a mat-button class="menu-button">
+                <mat-icon>home</mat-icon>
+                <span>Home</span>
+            </a>
+            <a mat-button routerLink="/validate" class="menu-button">
+                <mat-icon>check_circle_outline</mat-icon>
+                <span>Validate</span>
+            </a>
+            <a mat-button routerLink="/policy" class="menu-button">
+                <mat-icon>assignment_turned_in</mat-icon>
+                <span>Policy</span>
+            </a>
+            <mat-divider></mat-divider>
+            <a mat-button class="menu-button">
+                <mat-icon>info</mat-icon>
+                <span>About</span>
+            </a>
+            <a mat-button class="menu-button">
+                <mat-icon>help</mat-icon>
+                <span>Help</span>
+            </a>
+        </mat-sidenav>
+        <mat-sidenav-content class="content mat-elevation-z4">
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</body>
+
+</html>

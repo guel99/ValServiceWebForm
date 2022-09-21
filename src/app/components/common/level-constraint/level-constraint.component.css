@@ -1,0 +1,53 @@
+.form-item{
+    margin-left: 3mm;
+    margin-right: 3mm;
+}
+
+.form-group{
+    margin: auto;
+    display: block;
+}
+
+mat-card{
+    background: white;
+    padding: 0mm;
+    padding-bottom: 7mm;
+    align-items: center;
+    width: 15cm;
+    margin: auto;
+}
+
+mat-card.collapsed{
+    background: white;
+    padding: 0mm;
+    align-items: center;
+    width: 15cm;
+    margin: auto;
+}
+
+mat-card .mat-card-title{
+    padding-top: 3mm;
+    padding-bottom: 3mm;
+    padding-left: 5mm;
+    margin-bottom: 7mm;
+    background: rgb(4, 56, 134);
+    vertical-align: middle;
+    border-radius: 4px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: x-large;
+    color: white;
+    display: flex;
+    cursor: pointer;
+}
+
+mat-card.collapsed .mat-card-title{
+    background: rgba(4, 56, 134, 0.322);
+    color: black;
+}
+
+mat-card .mat-card-content{
+    color: black;
+    align-items: center;
+    display: flex;
+    margin: auto;
+}

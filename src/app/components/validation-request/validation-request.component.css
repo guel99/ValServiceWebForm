@@ -1,29 +1,5 @@
-mat-toolbar{
-    background: rgb(4, 56, 134);
-    color: white;
-}
-
-mat-sidenav {
-    margin: 16px;
-    width: 200px;
-    border-right: none;
-    color: white;
-    background: rgb(4, 56, 134);
-    border-radius: 10px;
-    padding: 16px;
-    text-align: center;
-}
-
-mat-sidenav-container{
-    height: calc(100vh - 65px);
-    background-color: white;
-}
-
-mat-divider{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background-color: rgba(255, 255, 255, 0.5);
-}
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css");
+@import url("https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/prettify.css");
 
 .sigSelContainer{
     height: calc(100vh - 98px);

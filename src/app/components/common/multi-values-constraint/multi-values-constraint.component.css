@@ -1,0 +1,45 @@
+@import '../level-constraint/level-constraint.component.css';
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css");
+
+.values-container{
+    padding: 5mm;
+    margin-top: 5mm;
+    display: flex;
+    border-radius: 5px;
+    margin-bottom: 5mm;
+}
+
+.values-container input[type=text]{
+    text-align: center;
+    width: max-content;
+    padding: 12px 20px;
+    margin: auto;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid rgb(4, 56, 134);;
+}
+
+.add-button{
+    color: rgb(3, 110, 3);
+}
+
+.add-button.disabled{
+    color: rgba(3, 110, 3, 0.178);
+}
+
+.delete-button{
+    color: rgb(209, 209, 0);
+}
+
+.clear-button{
+    color: rgb(185, 0, 0);
+    margin-left: 5cm;
+}
+
+.new-value{
+    margin: auto;
+}
+
+.alert-dark{
+    display: flex;
+}
