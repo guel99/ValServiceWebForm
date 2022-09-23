@@ -1,0 +1,39 @@
+
+mat-card{
+    background: white;
+    padding: 0mm;
+    padding-bottom: 7mm;
+    align-items: center;
+}
+
+mat-card .mat-card-title{
+    padding-top: 7mm;
+    padding-bottom: 7mm;
+    padding-left: 5mm;
+    margin-bottom: 7mm;
+    background: rgb(4, 56, 134);
+    vertical-align: middle;
+    border-radius: 4px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: x-large;
+    color: white;
+    display: flex;
+}
+
+mat-card .mat-card-content{
+    color: black;
+    align-items: center;
+    display: flex;
+}
+
+.constraint{
+    margin: auto;
+    width: 25cm;
+    padding: 10px;
+}
+
+.instruction{
+    margin: auto;
+    padding: 0px 20px 10px;
+    width: fit-content;
+}

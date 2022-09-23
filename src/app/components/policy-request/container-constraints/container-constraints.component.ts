@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { type } from 'os';
-import { ContainerConstraints } from 'src/app/configs/container-constraints';
+import { ContainerConstraints } from 'src/app/configs/constraints-types/container-constraints';
 import { ConstraintType } from 'src/app/model/enums/policy/constraint-types';
 
 @Component({
@@ -13,12 +13,12 @@ export class ContainerConstraintsComponent implements OnInit {
   /**
    * The container constraints instruction to be given to the user
    */
-  instruction: string = ContainerConstraints.instruction;
+  instruction: string = new ContainerConstraints().instruction;
 
   /**
    * The containerConstraints object
    */
-  constraints = ContainerConstraints.constraints;
+  constraints = new ContainerConstraints().constraints;
 
   constructor() { }
 

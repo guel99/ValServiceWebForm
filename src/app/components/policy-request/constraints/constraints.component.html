@@ -1,0 +1,26 @@
+<mat-card class="mat-elevation-z4">
+    <mat-card-title>Container Constraints</mat-card-title>
+    <div class="instruction">
+        <label class="alert alert-dark">{{ instruction }}</label>
+    </div>
+    <mat-card-content *ngFor="let constraint of constraints">
+
+        <app-level-constraint 
+            class="constraint" 
+            *ngIf="isLevelConstraint(constraint)"
+            [disabled]="true"
+            [ruleName]="constraint.ruleName">
+        </app-level-constraint>
+        
+        <app-multi-values-constraint 
+            class="constraint" 
+            *ngIf="isMultiValuesConstraint(constraint)"
+            [disabled]="true"
+            [ruleName]="constraint.ruleName" 
+            [pattern]="constraint.pattern"
+            [placeholder]="constraint.placeholder"
+            [onEmptyValue]="constraint.onEmptyValue"
+            [onWrongValue]="constraint.onWrongValue">
+        </app-multi-values-constraint>
+    </mat-card-content>
+</mat-card>

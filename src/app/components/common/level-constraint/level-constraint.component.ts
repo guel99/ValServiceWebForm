@@ -15,6 +15,8 @@ export class LevelConstraintComponent implements OnInit {
 
   selected?: string;
 
+  readonly availableLevels: Array<string> = ["FAIL", "WARN", "INFORM", "IGNORE"];
+
   constructor() {
   }
 

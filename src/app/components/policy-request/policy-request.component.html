@@ -1,6 +1,12 @@
 <mat-tab-group class="mat-elevation-z4" backgroundColor="accent" mat-align-tabs="center" color="basic">
-    <mat-tab label="Container"><app-container-constraints #containerConstraints></app-container-constraints></mat-tab>
-    <mat-tab label="Signature">Signature</mat-tab>
+    <mat-tab label="Container">
+        <app-constraints 
+            [instruction]="containerConst.instruction"
+            [constraints]="containerConst.constraints"
+            #containerConstraints>
+        </app-constraints>
+    </mat-tab>
+    <mat-tab label="Signature"><app-signature-constraints></app-signature-constraints></mat-tab>
     <mat-tab label="CounterSignature">CounterSignature</mat-tab>
     <mat-tab label="Timestamp">Timestamp</mat-tab>
     <mat-tab label="Revocation">Revocation</mat-tab>

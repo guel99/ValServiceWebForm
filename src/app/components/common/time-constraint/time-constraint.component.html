@@ -1,0 +1,30 @@
+<mat-card class="{{ disabled ? 'collapsed' : ''}}">
+    <mat-card-title (click)="disable()">
+        {{ruleName == null ? 'null' : ruleName}}
+    </mat-card-title>
+    <mat-card-content *ngIf="!disabled">
+        <form class="form-group">
+            <label class="form-item" *ngFor="let level of availableLevels">
+                <input type="radio" [id]="level" [name]="ruleName" (change)="setLevel($event)">
+                {{ level }}
+            </label>
+            <div class="values-container mat-elevation-z4">
+                <input [(ngModel)]="value" ngModel name="newAcceptedValue" type="text" required minlength="1"
+                    pattern="[0-9]+" #acceptedValue="ngModel">
+                <mat-select ngModel class="mat-elevation-z4" name="timeUnitValue" #timeUnit="ngModel" required minlength="1" (valueChange)="log(timeUnit)">
+                    <mat-option *ngFor="let unit of validTimeUnits" [value]="unit">
+                        {{ unit }}
+                    </mat-option>
+                </mat-select>
+                <button class="add-button {{ acceptedValue.valid && timeUnit.valid ? '' : 'disabled'}}" mat-icon-button
+                    color="basic" [disabled]="!acceptedValue.valid && timeUnit.valid" #addButton>
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <div class="alert alert-danger" *ngIf="acceptedValue.touched && acceptedValue.errors">
+                You must introduce an integer
+            </div>
+            <div class="alert alert-danger" *ngIf="timeUnit.touched && timeUnit.invalid"></div>
+        </form>
+    </mat-card-content>
+</mat-card>

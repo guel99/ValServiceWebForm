@@ -1,4 +1,5 @@
-import { ConstraintType } from "../model/enums/policy/constraint-types";
+import { Injectable } from "@angular/core";
+import { ConstraintType } from "../../model/enums/policy/constraint-types";
 
 /**
  * Stores the configured container constraints
@@ -8,12 +9,12 @@ export class ContainerConstraints{
     /**
      * The container constraints instruction to be given to the user
      */
-    static instruction = "Please choose the rules you want to apply in the generated signature validation policy. You may enable each rule by clicking in the respective card and fill the required parameters to each of them.";
+    instruction = "Please choose the rules you want to apply in the generated signature validation policy. You may enable each rule by clicking in the respective card and fill the required parameters to each of them.";
 
     /**
      * List that stored all configured container constraints
      */
-    static constraints = [
+    constraints = [
         { 
           ruleName: 'AcceptableContainerTypes', 
           pattern: '^ASiC-S|ASiC-E$',

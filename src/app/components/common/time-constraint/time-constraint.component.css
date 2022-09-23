@@ -1,0 +1,25 @@
+@import '../level-constraint/level-constraint.component.css';
+@import '../multi-values-constraint/multi-values-constraint.component.css';
+
+mat-select{
+    background-color: rgb(4, 56, 134);
+    border-radius: 10px;
+    text-align: center;
+    color: rgb(4, 56, 134);
+    height: 40px;
+    width: 4cm;
+    margin-top: 35px;
+    display: flex;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.values-container input[type=text]{
+    width: 4cm;
+    margin: 8mm;
+}
+
+.add-button{
+    margin-top: 32px;
+    margin-left: 30px;
+}

@@ -25,6 +25,11 @@ import { ContainerConstraintsComponent } from './components/policy-request/conta
 import { MatInputModule } from '@angular/material/input';
 import { LevelConstraintComponent } from './components/common/level-constraint/level-constraint.component';
 import { MultiValuesConstraintComponent } from './components/common/multi-values-constraint/multi-values-constraint.component';
+import { SignatureConstraintsComponent } from './components/policy-request/signature-constraints/signature-constraints.component';
+import { ConstraintsComponent } from './components/policy-request/constraints/constraints.component';
+import { TimeConstraintComponent } from './components/common/time-constraint/time-constraint.component';
+
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,10 @@ import { MultiValuesConstraintComponent } from './components/common/multi-values
     MainToolbarComponent,
     ContainerConstraintsComponent,
     LevelConstraintComponent,
-    MultiValuesConstraintComponent
+    MultiValuesConstraintComponent,
+    SignatureConstraintsComponent,
+    ConstraintsComponent,
+    TimeConstraintComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +59,8 @@ import { MultiValuesConstraintComponent } from './components/common/multi-values
     MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
