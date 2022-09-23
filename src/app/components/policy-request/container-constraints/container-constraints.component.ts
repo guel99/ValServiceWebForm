@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { type } from 'os';
+import { ContainerConstraints } from 'src/app/configs/container-constraints';
 import { ConstraintType } from 'src/app/model/enums/policy/constraint-types';
 
 @Component({
@@ -9,42 +10,15 @@ import { ConstraintType } from 'src/app/model/enums/policy/constraint-types';
 })
 export class ContainerConstraintsComponent implements OnInit {
 
-  constraints = [
-    { 
-      ruleName: 'AcceptableContainerTypes', 
-      pattern: '^ASiC-S|ASiC-E$',
-      type: ConstraintType.MULTI_VALUES_CONSTRAINT
-    },
-    {
-      ruleName: 'ZipCommentPresent',
-      type: ConstraintType.LEVEL_CONSTRAINT
-    },
-    {
-      ruleName: 'AcceptableZipComment',
-      type: ConstraintType.MULTI_VALUES_CONSTRAINT
-    },
-    {
-      ruleName: 'MimeTypeFilePresent',
-      type: ConstraintType.LEVEL_CONSTRAINT
-    },
-    {
-      ruleName: 'AcceptableMimeTypeFileContent',
-      pattern: '^[-\\w.]+/[\\+-\\w.]+$',
-      type: ConstraintType.MULTI_VALUES_CONSTRAINT
-    },
-    {
-      ruleName: 'ManifestFilePresent',
-      type: ConstraintType.LEVEL_CONSTRAINT
-    },
-    {
-      ruleName: 'SignedFilesPresent',
-      type: ConstraintType.LEVEL_CONSTRAINT
-    },
-    {
-      ruleName: 'AllFilesSigned',
-      type: ConstraintType.LEVEL_CONSTRAINT
-    }
-  ]
+  /**
+   * The container constraints instruction to be given to the user
+   */
+  instruction: string = ContainerConstraints.instruction;
+
+  /**
+   * The containerConstraints object
+   */
+  constraints = ContainerConstraints.constraints;
 
   constructor() { }
 

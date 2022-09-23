@@ -1,6 +1,6 @@
-<mat-card class="{{collapsed ? 'collapsed':''}}">
+<mat-card class="{{disabled ? 'collapsed':''}}">
     <mat-card-title (click)="disable()">{{ruleName == null ? 'null' : ruleName}}</mat-card-title>
-    <mat-card-content *ngIf="!collapsed">
+    <mat-card-content *ngIf="!disabled">
         <form class="form-group">
             <label class="form-item">
                 <input type="radio" id="fail" [name]="ruleName" (change)="setLevel($event)">

@@ -10,12 +10,12 @@ export class LevelConstraintComponent implements OnInit {
   @Input()
   ruleName: string;
 
-  collapsed: boolean;
+  @Input()
+  disabled: boolean;
 
   selected?: string;
 
-  constructor() { 
-    this.collapsed = false;
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class LevelConstraintComponent implements OnInit {
    * Disable the constraint
    */
   disable() {
-    this.collapsed = !this.collapsed;
+    this.disabled = !this.disabled;
     this.selected = undefined;
     //console.log(this.getLevelString());
   }

@@ -7,16 +7,23 @@
     display: flex;
     border-radius: 5px;
     margin-bottom: 5mm;
+    min-width: 12cm;
 }
 
 .values-container input[type=text]{
     text-align: center;
-    width: max-content;
-    padding: 12px 20px;
+    width: 8cm;
+    padding: 12px 10px;
     margin: auto;
     box-sizing: border-box;
     border: none;
     border-bottom: 2px solid rgb(4, 56, 134);;
+}
+
+.levels-container{
+    display: flex;
+    width: fit-content;
+    margin: auto;
 }
 
 .add-button{

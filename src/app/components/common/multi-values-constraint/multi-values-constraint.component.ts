@@ -20,6 +20,13 @@ export class MultiValuesConstraintComponent implements OnInit {
   ruleName: string;
 
   /**
+   * The instruction to be given to the user in order 
+   * to specify the container constraints required by him
+   */
+  @Input()
+  instruction: string;
+
+  /**
    * Regular expression to validate a new 
    * value introduced by the user
    */
@@ -27,8 +34,32 @@ export class MultiValuesConstraintComponent implements OnInit {
   pattern?: string;
 
   /**
+   * Message to be displayed in the text 
+   * input placeholder
+   */
+  @Input()
+  placeholder?: string;
+
+  /**
+   * Error message to be displayed when the 
+   * introduced value is not valid acording 
+   * with the required pattern
+   */
+  @Input()
+  onWrongValue?: string;
+
+  /**
+   * Error message to be displayed when the 
+   * input is changed and the introduced value 
+   * is an empty string
+   */
+  @Input()
+  onEmptyValue?: string;
+
+  /**
    * True if the rule is disabled
    */
+  @Input()
   disabled: boolean;
 
   /**
@@ -42,8 +73,7 @@ export class MultiValuesConstraintComponent implements OnInit {
    */
   acceptedValues: Array<string>;
 
-  constructor() { 
-    this.disabled = false;
+  constructor() {
     this.level = undefined;
     this.acceptedValues = new Array<string>();
   }

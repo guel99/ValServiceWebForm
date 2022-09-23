@@ -23,11 +23,17 @@ mat-card .mat-card-title{
 mat-card .mat-card-content{
     color: black;
     align-items: center;
-    display: block;
+    display: flex;
 }
 
 .constraint{
     margin: auto;
-    width: 15cm;
+    width: 25cm;
     padding: 10px;
+}
+
+.instruction{
+    margin: auto;
+    padding: 0px 20px 10px;
+    width: fit-content;
 }
