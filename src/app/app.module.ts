@@ -30,6 +30,8 @@ import { ConstraintsComponent } from './components/policy-request/constraints/co
 import { TimeConstraintComponent } from './components/common/time-constraint/time-constraint.component';
 
 import {MatSelectModule} from '@angular/material/select';
+import { ValueConstraintComponent } from './components/common/value-constraint/value-constraint.component';
+import { CryptographicConstraintComponent } from './components/common/cryptographic-constraint/cryptographic-constraint.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import {MatSelectModule} from '@angular/material/select';
     MultiValuesConstraintComponent,
     SignatureConstraintsComponent,
     ConstraintsComponent,
-    TimeConstraintComponent
+    TimeConstraintComponent,
+    ValueConstraintComponent,
+    CryptographicConstraintComponent
   ],
   imports: [
     BrowserModule,

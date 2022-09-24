@@ -16,7 +16,12 @@ export class TimeConstraintComponent extends LevelConstraintComponent implements
   /**
    * Value selected by the user to timeUnit
    */
-  timeUnit: string;
+  timeUnitValue: string;
+
+  /**
+   * Tells if the time constraint was close (checked)
+   */
+  checked: boolean;
 
   /**
    * Available time units
@@ -29,6 +34,7 @@ export class TimeConstraintComponent extends LevelConstraintComponent implements
 
   constructor() {
     super();
+    this.checked = false;
   }
 
   override ngOnInit(): void {

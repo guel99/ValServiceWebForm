@@ -1,0 +1,71 @@
+<mat-card class="{{ disabled ? 'collapsed' : ''}}">
+    <mat-card-title (click)="disable()">
+        {{ruleName == null ? 'null' : ruleName}}
+    </mat-card-title>
+    <mat-card-content *ngIf="!disabled">
+        <form class="form-group">
+            <label class="form-item" *ngFor="let level of availableLevels">
+                <input type="radio" [id]="level" [name]="ruleName" (change)="setLevel($event)">
+                {{ level }}
+            </label>
+
+            <!-- The Encryption algorithm container -->
+            <div class="values-container mat-elevation-z4">
+                <label class="titles">
+                    Encryption
+                </label>
+                <mat-select ngModel class="mat-elevation-z4" name="newEncryptionAlgo" #encryptionAlgo="ngModel" required minlength="1" 
+                    [(ngModel)]="newEncryptionAlgo" [disabled]="encryptionChecked">
+                    <mat-option *ngFor="let algo of availableEncryptionAlgos" [value]="algo">
+                        {{ algo }}
+                    </mat-option>
+                </mat-select>
+                
+                <input [(ngModel)]="newEncryptionAlgoKeySize" ngModel name="newEncryptionAlgoKey" type="text" required minlength="1" 
+                    pattern="[0-9]+" [disabled]="encryptionChecked" #encryptionAlgoKey="ngModel"
+                    placeholder="min. key length (bits)">
+                <button class="add-button {{ acceptableEncryptionAlgo.size == 0 ? 'disabled' : ''}}" mat-icon-button
+                    color="basic" [disabled]="acceptableEncryptionAlgo.size == 0" #checkButton
+                    (click)="encryptionChecked = true">
+                    <mat-icon>check</mat-icon>
+                </button>
+                <button class="add-button {{ encryptionAlgo.valid && encryptionAlgoKey.valid ? '' : 'disabled'}}" mat-icon-button
+                    color="basic" [disabled]="!encryptionAlgo.valid || !encryptionAlgoKey.valid" #addButton
+                    (click)="addEncryptionAlgo(newEncryptionAlgo, newEncryptionAlgoKeySize); encryptionAlgoKey.reset(); encryptionAlgo.reset()">
+                    <mat-icon>add</mat-icon>
+                </button>
+                <button class="edit-button {{ !encryptionChecked ? 'disabled' : ''}}" mat-icon-button
+                    color="basic" [disabled]="!encryptionChecked" #editButton
+                    (click)="encryptionChecked = false">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+            <div class="alert alert-dark" *ngIf="acceptableEncryptionAlgo.size > 0">
+                <table>
+                    <tr>
+                        <th>Encryption algorithm</th>
+                        <th>Minimum key length (bits)</th>
+                        <th *ngIf="!encryptionChecked"></th>
+                    </tr>
+                    <tr *ngFor="let value of acceptableEncryptionAlgo | keyvalue">
+                        <td>{{ value.key }}</td>
+                        <td>{{ value.value.size }}</td>
+                        <td *ngIf="!encryptionChecked">
+                            <button class="clear-button" mat-icon-button color="basic" (click)="removeEncryptionAlgo(value.key)">
+                                <mat-icon>delete-outline</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="alert alert-danger" *ngIf="encryptionAlgoKey.touched && encryptionAlgoKey.errors">
+                You must introduce a key size
+            </div>
+            <div class="alert alert-danger" *ngIf="encryptionAlgo.touched && encryptionAlgo.invalid">
+                You must introduce an encryption algorithm
+            </div>
+
+            <!-- The Digest algorithm container -->
+        </form>
+    </mat-card-content>
+</mat-card>

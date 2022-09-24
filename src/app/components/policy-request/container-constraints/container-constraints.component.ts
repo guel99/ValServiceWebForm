@@ -10,6 +10,8 @@ import { ConstraintType } from 'src/app/model/enums/policy/constraint-types';
 })
 export class ContainerConstraintsComponent implements OnInit {
 
+  containerConstraints: ContainerConstraints;
+
   /**
    * The container constraints instruction to be given to the user
    */

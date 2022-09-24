@@ -1,0 +1,11 @@
+@import '../multi-values-constraint/multi-values-constraint.component.css';
+
+
+.edit-button{
+    color: rgb(212, 138, 0);
+    margin-left: 5px;
+}
+
+.edit-button.disabled{
+    color: rgba(212, 138, 0, 0.199);
+}

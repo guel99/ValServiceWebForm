@@ -1,0 +1,44 @@
+@import '../time-constraint/time-constraint.component.css';
+
+.values-container input[type=text] {
+  padding-right: 10px;
+  margin-right: 6mm;
+}
+
+.add-button {
+  margin-left: 10px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #e6e6e6;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #e6e6e6;
+}
+
+.clear-button{
+  margin: 0mm 5mm 0mm;
+}
+
+.titles{
+  background-color:  #dddddd;
+  margin-right: 8mm;
+  border-radius: 10px;
+  padding: 0px 18px 0px;
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
+  height: 1cm;
+  color: white;
+  font-size: 18;
+}
