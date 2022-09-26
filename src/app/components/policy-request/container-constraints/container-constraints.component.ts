@@ -15,7 +15,7 @@ export class ContainerConstraintsComponent implements OnInit {
   /**
    * The container constraints instruction to be given to the user
    */
-  instruction: string = new ContainerConstraints().instruction;
+  instruction?: string = new ContainerConstraints().instruction;
 
   /**
    * The containerConstraints object

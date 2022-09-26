@@ -7,12 +7,12 @@ export class Algo{
     /**
      * The minimal key length
      */
-    size: number;
+    size?: number;
 
     /**
      * The expiration date
      */
-    date: string;
+    date?: string;
 
     public equals(obj: Object) : boolean {
         if(this.value === obj)

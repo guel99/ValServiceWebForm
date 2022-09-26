@@ -1,6 +1,6 @@
 @import '../multi-values-constraint/multi-values-constraint.component.css';
 
-mat-select{
+mat-select {
     background-color: rgb(4, 56, 134);
     border-radius: 10px;
     text-align: center;
@@ -13,22 +13,27 @@ mat-select{
     vertical-align: middle;
 }
 
-.values-container input[type=text]{
+.values-container input[type=text] {
     width: 4cm;
     margin: 8mm;
 }
 
-.add-button{
+.add-button {
     margin-top: 32px;
     margin-left: 20px;
 }
 
-.edit-button{
+.edit-button {
     margin-top: 32px;
     margin-left: 5px;
     color: rgb(212, 138, 0);
 }
 
-.edit-button.disabled{
+.edit-button.disabled {
     color: rgba(212, 138, 0, 0.199);
+}
+
+mat-select {
+    padding: 2.4mm;
+    margin-bottom: 8mm;
 }

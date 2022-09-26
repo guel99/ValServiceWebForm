@@ -74,11 +74,31 @@ export class CryptographicConstraintComponent extends LevelConstraintComponent i
   }
 
   /**
+   * Add a new digest algo to the selected list
+   * @param algo The algo name
+   */
+  addDigestAlgo(algo:string){
+    var newAlgo = new Algo();
+    newAlgo.value = algo;
+    newAlgo.size = undefined;
+    if(!this.acceptableDigestAlgo.has(algo))
+      this.acceptableDigestAlgo.set(algo, newAlgo);
+  }
+
+  /**
    * Removes an encryption algo from the list
    * @param algo
    */
   removeEncryptionAlgo(algo: string){
-    this.acceptableEncryptionAlgo.delete(algo);this.acceptableDigestAlgo
+    this.acceptableEncryptionAlgo.delete(algo);
+  }
+
+  /**
+   * 
+   * @param algo Removes a digest algo from the list
+   */
+  removeDigestAlgo(algo: string){
+    this.acceptableDigestAlgo.delete(algo);
   }
 
 }

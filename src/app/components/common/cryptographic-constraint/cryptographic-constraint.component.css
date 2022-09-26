@@ -26,19 +26,34 @@ tr:nth-child(even) {
   background-color: #e6e6e6;
 }
 
-.clear-button{
+.clear-button {
   margin: 0mm 5mm 0mm;
 }
 
-.titles{
-  background-color:  #dddddd;
+.titles {
+  background-color: #9c9c9c;
   margin-right: 8mm;
   border-radius: 10px;
-  padding: 0px 18px 0px;
+  padding: 8px 18px 0px;
   text-align: center;
   vertical-align: middle;
   display: flex;
   height: 1cm;
   color: white;
   font-size: 18;
+}
+
+.digest-container {
+  padding: 5mm;
+  margin-top: 9mm;
+  display: flex;
+  border-radius: 5px;
+  margin-bottom: 5mm;
+  width: 12cm;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.levels-container{
+  display: flex;
 }

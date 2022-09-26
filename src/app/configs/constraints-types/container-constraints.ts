@@ -59,7 +59,7 @@ export class ContainerConstraints extends Constraints {
     }
   ]
 
-  constructor () {
+  constructor() {
     super(ContainerConstraints.instruction, ContainerConstraints.constraints);
   }
 }

@@ -5,10 +5,11 @@ export class CertificateConstraints extends Constraints {
 
     static instruction: string = "Please choose the rules you want to apply in the generated signature validation policy. You may enable each rule by clicking in the respective card and fill the required parameters to each of them.";
 
-    static constraints = [
+    static constraints: Array<any> = [
         {
             ruleName: 'Recognition',
-            type: ConstraintType.LEVEL_CONSTRAINT
+            instruction: 'asdasdasdasd',
+            type: ConstraintType.LEVEL_CONSTRAINT,
         },
         {
             ruleName: 'Signature',
@@ -123,7 +124,7 @@ export class CertificateConstraints extends Constraints {
         },
         {
             ruleName: 'Policy Ids',
-            pattern: '^[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|^([0-2])((\.0)|(\.[1-9][0-9]*))*$$',
+            pattern: '^[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$|^([0-2])((\.0)|(\.[1-9][0-9]*))*$',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
             placeholder: "e.g. http://awesome-policy.com or 2.16.840.1.113883.3.3190.100",
             onWrongValue: "Insert a valid URL or OID",
@@ -147,13 +148,12 @@ export class CertificateConstraints extends Constraints {
             type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
-            ruleName: 'Certificate constraint',
-            type: ConstraintType.CERTIFICATE_CONSTRAINT,
-            constraints: ''
+            ruleName: 'Cryptographic',
+            type: ConstraintType.CRYPTOGRAPHIC_CONSTRAINT
         }
     ]
 
     constructor () {
-        super(CertificateConstraints.instruction, CertificateConstraints.constraints);
+        super(CertificateConstraints.instruction, CertificateConstraints.constraints as Array<Constraints>);
     }
 }

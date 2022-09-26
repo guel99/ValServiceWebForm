@@ -1,8 +1,7 @@
 <mat-tab-group class="mat-elevation-z4" backgroundColor="accent" mat-align-tabs="center" color="basic">
     <mat-tab label="Container">
-        <app-constraints 
-            [instruction]="containerConst.instruction"
-            [constraints]="containerConst.constraints"
+        <app-constraints
+            [constraints_config]="containerConst"
             #containerConstraints>
         </app-constraints>
     </mat-tab>

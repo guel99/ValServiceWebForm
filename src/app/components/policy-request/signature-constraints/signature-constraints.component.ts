@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SignatureConstraints } from 'src/app/configs/constraints-types/signature-constraints';
 
 @Component({
   selector: 'app-signature-constraints',
@@ -6,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signature-constraints.component.css']
 })
 export class SignatureConstraintsComponent implements OnInit {
+
+  /**
+   * The configured signature constraints
+   */
+  signatureConstraintsConfig: SignatureConstraints = new SignatureConstraints();
 
   constructor() { }
 
