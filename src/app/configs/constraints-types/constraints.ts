@@ -6,7 +6,7 @@ export class Constraints{
 
     instruction?: string;
 
-    constraints?: any;
+    constraints?: Array<Constraints>;
 
     type: ConstraintType;
 
@@ -15,7 +15,8 @@ export class Constraints{
      */
     info?: any;
 
-    constructor (instruction: string, constraints: any) {
+    constructor (ruleName: string, instruction?: string, constraints?: Array<Constraints>) {
+        this.ruleName = ruleName;
         this.instruction = instruction;
         this.constraints = constraints;
     }
@@ -27,13 +28,12 @@ export class Constraints{
      * @param type The constraint type
      * @returns 
      */
-    static isComplex(type: ConstraintType) : boolean {
-        return type == ConstraintType.BASIC_SIGNATURE_CONSTRAINT ||
-                type == ConstraintType.CERTIFICATE_CONSTRAINT ||
-                type == ConstraintType.CRYPTOGRAPHIC_CONSTRAINT ||
-                type == ConstraintType.SIGNED_ATTRIBUTES_CONSTRAINT ||
-                type == ConstraintType.UNSIGNED_ATTRIBUTES_CONSTRAINT ||
-                type == ConstraintType.TIME_STAMP_CONSTRAINTS;
+    isComplex() : boolean {
+        return this.type == ConstraintType.BASIC_SIGNATURE_CONSTRAINT ||
+                this.type == ConstraintType.CERTIFICATE_CONSTRAINT ||
+                this.type == ConstraintType.SIGNED_ATTRIBUTES_CONSTRAINT ||
+                this.type == ConstraintType.UNSIGNED_ATTRIBUTES_CONSTRAINT ||
+                this.type == ConstraintType.TIME_STAMP_CONSTRAINTS;
     }
 
     /**
@@ -44,7 +44,7 @@ export class Constraints{
         var hasComplex = false;
         var i = 0;
         for(i = 0; i<this.constraints!.length && !hasComplex; i++){
-            hasComplex = Constraints.isComplex(this.constraints![i].type!);
+            hasComplex = this.constraints![i].isComplex();
         }
         return hasComplex;
     }
@@ -53,12 +53,45 @@ export class Constraints{
      * Gets the group of basic constraints of a complex constraint configuration
      * @returns 
      */
-    getSimpleConstraintsElements(instruction: string) : Constraints {
-        var list: Array<any> = new Array<any>();
-        for(var elem of this.constraints!){
-            if(Constraints.isComplex(elem.type))
-                list.push(elem);
+    getSimpleConstraintsElements() : Array<Constraints> | undefined {
+        if(this.constraints === undefined)
+            return undefined;
+        var simples: Array<Constraints> = new Array<Constraints>();
+        for(var constraint of this.constraints!){
+            if(!constraint.isComplex())
+                simples.push(constraint);
         }
-        return new Constraints(instruction, list);
+        return simples;
+    }
+
+    getComplexConstraintsElements() : Array<Constraints> | undefined {
+        if(this.constraints === undefined)
+            return undefined;
+        var complex: Array<Constraints> = new Array<Constraints>();
+        for(var constraint of this.constraints!){
+            if(constraint.isComplex())
+                complex.push(constraint);
+        }
+        return complex;
+    }
+
+    isLevelConstraint(): boolean {
+        return this.type == ConstraintType.LEVEL_CONSTRAINT;
+    }
+
+    isMultiValuesConstraint(): boolean{
+        return this.type == ConstraintType.MULTI_VALUES_CONSTRAINT;
+    }
+
+    isTimeConstraint(): boolean {
+        return this.type == ConstraintType.TIME_CONSTRAINT;
+    }
+
+    isCryptographicConstraint() : boolean {
+        return this.type == ConstraintType.CRYPTOGRAPHIC_CONSTRAINT;
+    }
+
+    isValueConstraint() : boolean {
+        return this.type == ConstraintType.VALUE_CONSTRAINT;
     }
 }

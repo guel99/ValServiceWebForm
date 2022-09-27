@@ -48,14 +48,14 @@ export class BasicSignatureConstraints extends Constraints{
           {
             ruleName: 'Signing certificate',
             type: ConstraintType.CERTIFICATE_CONSTRAINT,
-            sub_constraints: CertificateConstraints.constraints
+            constraints: CertificateConstraints.constraints
           },
           {
             ruleName: 'CA Certificate',
             type: ConstraintType.CERTIFICATE_CONSTRAINT,
-            sub_constraints: CertificateConstraints.constraints
+            constraints: CertificateConstraints.constraints
           }
     ]
 
-    constructor (instruction: string) { super(instruction, BasicSignatureConstraints.constraints); }
+    constructor (ruleName: string, instruction: string, constraints?: Array<Constraints>) { super(ruleName, instruction, constraints); }
 }

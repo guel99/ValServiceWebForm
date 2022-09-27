@@ -1,4 +1,5 @@
 import { ConstraintType } from "../../model/enums/policy/constraint-types";
+import { ConfigParser } from "../parser/config-parser";
 import { Constraints } from "./constraints";
 
 /**
@@ -17,11 +18,13 @@ export class ContainerConstraints extends Constraints {
   static constraints = [
     {
       ruleName: 'AcceptableContainerTypes',
-      pattern: '^ASiC-S|ASiC-E$',
       type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-      placeholder: "ASiC-S or ASiC-E",
-      onWrongValue: "Invalid container type",
-      onEmptyValue: "Please specify a container type"
+      info: {
+        pattern: '^ASiC-S|ASiC-E$',
+        placeholder: "ASiC-S or ASiC-E",
+        onWrongValue: "Invalid container type",
+        onEmptyValue: "Please specify a container type"
+      }
     },
     {
       ruleName: 'ZipCommentPresent',
@@ -30,8 +33,10 @@ export class ContainerConstraints extends Constraints {
     {
       ruleName: 'AcceptableZipComment',
       type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-      placeholder: "Type any zip comment you consider valid",
-      onEmptyValue: "Please specify any comment you want"
+      info: {
+        placeholder: "Type any zip comment you consider valid",
+        onEmptyValue: "Please specify any comment you want"
+      }
     },
     {
       ruleName: 'MimeTypeFilePresent',
@@ -39,11 +44,13 @@ export class ContainerConstraints extends Constraints {
     },
     {
       ruleName: 'AcceptableMimeTypeFileContent',
-      pattern: '^[-\\w.]+/[\\+-\\w.]+$',
+      info: {
+        pattern: '^[-\\w.]+/[\\+-\\w.]+$',
+        placeholder: "e.g. application/vnd.etsi.asic-s+zip",
+        onWrongValue: "Invalid mime type",
+        onEmptyValue: "Please specify a valid mime type"
+      },
       type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-      placeholder: "e.g. application/vnd.etsi.asic-s+zip",
-      onWrongValue: "Invalid mime type",
-      onEmptyValue: "Please specify a valid mime type"
     },
     {
       ruleName: 'ManifestFilePresent',
@@ -59,7 +66,7 @@ export class ContainerConstraints extends Constraints {
     }
   ]
 
-  constructor() {
-    super(ContainerConstraints.instruction, ContainerConstraints.constraints);
+  constructor(ruleName:string, instruction: string, constraints?: Array<Constraints>) {
+    super(ruleName, instruction, constraints);
   }
 }

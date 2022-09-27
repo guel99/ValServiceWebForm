@@ -8,11 +8,6 @@ import { SignatureConstraints } from 'src/app/configs/constraints-types/signatur
 })
 export class SignatureConstraintsComponent implements OnInit {
 
-  /**
-   * The configured signature constraints
-   */
-  signatureConstraintsConfig: SignatureConstraints = new SignatureConstraints();
-
   constructor() { }
 
   ngOnInit(): void {

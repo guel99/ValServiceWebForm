@@ -16,8 +16,10 @@ export class SignatureConstraints extends Constraints {
         {
             ruleName: 'Acceptable policies',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-            placeholder: "Type any acceptable policy",
-            onEmptyValue: "Please specify any policy id"
+            info: {
+                placeholder: "Type any acceptable policy",
+                onEmptyValue: "Please specify any policy id"
+            },
         },
         {
             ruleName: 'Policy available',
@@ -34,8 +36,10 @@ export class SignatureConstraints extends Constraints {
         {
             ruleName: 'Acceptable formats',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-            placeholder: "Type any acceptable AdES format",
-            onEmptyValue: "Please specify any AdES format"
+            info: {
+                placeholder: "Type any acceptable AdES format",
+                onEmptyValue: "Please specify any AdES format"
+            }
         },
         {
             ruleName: 'Full scope',
@@ -43,23 +47,25 @@ export class SignatureConstraints extends Constraints {
         },
         {
             ruleName: 'Basic signature constraints',
-            instruction: 'Group of common checks for any kind of signed token (signature, timestamp or revocation data). In this case, related with the signature itself.',
             type: ConstraintType.BASIC_SIGNATURE_CONSTRAINT,
-            sub_constraints: BasicSignatureConstraints.constraints
+            instruction: 'Group of common checks for any kind of signed token (signature, timestamp or revocation data). In this case, related with the signature itself.',
+            constraints: BasicSignatureConstraints.constraints
         },
         {
             ruleName: 'Signed attributes',
             type: ConstraintType.SIGNED_ATTRIBUTES_CONSTRAINT,
-            sub_constraints: SignedAttributesConstraints.constraints
+            instruction: 'Group of common checks for any kind of signed token (signature, timestamp or revocation data). In this case, related with the signature itself.',
+            constraints: SignedAttributesConstraints.constraints
         },
         {
             ruleName: 'Unsigned attributes',
             type: ConstraintType.UNSIGNED_ATTRIBUTES_CONSTRAINT,
-            sub_constraints: UnsignedAttributesConstraints.constraints
+            instruction: 'Group of common checks for any kind of signed token (signature, timestamp or revocation data). In this case, related with the signature itself.',
+            constraints: UnsignedAttributesConstraints.constraints
         }
     ]
 
-    constructor () {
-        super(SignatureConstraints.instruction, SignatureConstraints.constraints);
+    constructor(ruleName: string, instruction: string, constraints?: Array<Constraints>) {
+        super(ruleName, instruction, constraints);
     }
 }

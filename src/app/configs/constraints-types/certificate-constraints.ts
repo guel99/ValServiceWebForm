@@ -49,54 +49,72 @@ export class CertificateConstraints extends Constraints {
         },
         {
             ruleName: 'Key usage',
-            pattern: '^digitalSignature|nonRepudiation|keyEncipherment|dataEncipherment|keyAgreement|keyCertSign|crlSign|encipherOnly|decipherOnly$',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-            placeholder: "e.g. digitalSignature, nonRepudiation, etc",
-            onWrongValue: "Invalid value, see https://ec.europa.eu/digital-building-blocks/DSS/webapp-demo/apidocs/eu/europa/esig/dss/enumerations/KeyUsageBit.html",
-            onEmptyValue: "Please specify a key usage type"
+            info: {
+                placeholder: "e.g. digitalSignature, nonRepudiation, etc",
+                onWrongValue: "Invalid value, see https://ec.europa.eu/digital-building-blocks/DSS/webapp-demo/apidocs/eu/europa/esig/dss/enumerations/KeyUsageBit.html",
+                pattern: '^digitalSignature|nonRepudiation|keyEncipherment|dataEncipherment|keyAgreement|keyCertSign|crlSign|encipherOnly|decipherOnly$',
+                onEmptyValue: "Please specify a key usage type"
+            }
         },
         {
             ruleName: 'Extended key usage',
-            pattern: '^digitalSignature|nonRepudiation|keyEncipherment|dataEncipherment|keyAgreement|keyCertSign|crlSign|encipherOnly|decipherOnly$',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-            placeholder: "e.g. digitalSignature, nonRepudiation, etc",
-            onWrongValue: "Invalid value, see https://ec.europa.eu/digital-building-blocks/DSS/webapp-demo/apidocs/eu/europa/esig/dss/enumerations/KeyUsageBit.html",
-            onEmptyValue: "Please specify a key usage type"
+            info: {
+                placeholder: "e.g. digitalSignature, nonRepudiation, etc",
+                pattern: '^digitalSignature|nonRepudiation|keyEncipherment|dataEncipherment|keyAgreement|keyCertSign|crlSign|encipherOnly|decipherOnly$',
+                onWrongValue: "Invalid value, see https://ec.europa.eu/digital-building-blocks/DSS/webapp-demo/apidocs/eu/europa/esig/dss/enumerations/KeyUsageBit.html",
+                onEmptyValue: "Please specify a key usage type"
+            }
         },
         {
             ruleName: 'Surname',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-            onEmptyValue: "Please specify a name"
+            info: {
+                onEmptyValue: "Please specify a name"
+            }
         },
         {
             ruleName: 'Given name',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-            onEmptyValue: "Please specify a name"
+            info: {
+                onEmptyValue: "Please specify a name"
+            }
         },
         {
             ruleName: 'Common name',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-            onEmptyValue: "Please specify a name"
+            info: {
+                onEmptyValue: "Please specify a name"
+            }
         },
         {
             ruleName: 'Pseudonym',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-            onEmptyValue: "Please specify a pseudonym"
+            info: {
+                onEmptyValue: "Please specify a pseudonym"
+            }
         },
         {
             ruleName: 'Organization unit',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-            onEmptyValue: "Please specify an organization unit"
+            info: {
+                onEmptyValue: "Please specify an organization unit"
+            }
         },
         {
             ruleName: 'Organization name',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-            onEmptyValue: "Please specify a name"
+            info: {
+                onEmptyValue: "Please specify a name"
+            }
         },
         {
             ruleName: 'Country',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
-            onEmptyValue: "Please specify a country"
+            info: {
+                onEmptyValue: "Please specify a country"
+            }
         },
         {
             ruleName: 'Serial number present',
@@ -151,9 +169,9 @@ export class CertificateConstraints extends Constraints {
             ruleName: 'Cryptographic',
             type: ConstraintType.CRYPTOGRAPHIC_CONSTRAINT
         }
-    ]
+    ];
 
-    constructor () {
-        super(CertificateConstraints.instruction, CertificateConstraints.constraints as Array<Constraints>);
+    constructor(ruleName: string, instruction: string, constraints?: Array<Constraints>) {
+        super(ruleName, instruction, constraints);
     }
 }

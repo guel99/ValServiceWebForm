@@ -5,7 +5,11 @@
             #containerConstraints>
         </app-constraints>
     </mat-tab>
-    <mat-tab label="Signature"><app-signature-constraints></app-signature-constraints></mat-tab>
+    <mat-tab label="Signature">
+        <app-constraints 
+            [constraints_config]="signatureConst">
+        </app-constraints>
+    </mat-tab>
     <mat-tab label="CounterSignature">CounterSignature</mat-tab>
     <mat-tab label="Timestamp">Timestamp</mat-tab>
     <mat-tab label="Revocation">Revocation</mat-tab>

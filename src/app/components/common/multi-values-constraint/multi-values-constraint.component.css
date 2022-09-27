@@ -7,7 +7,7 @@
     display: flex;
     border-radius: 5px;
     margin-bottom: 5mm;
-    min-width: 12cm;
+    width: calc(95%);
 }
 
 .values-container input[type=text]{
@@ -49,4 +49,10 @@
 
 .alert-dark{
     display: flex;
+    width: calc(95%);
+}
+
+.alert.alert-danger{
+    display: block;
+    width: calc(95%);
 }

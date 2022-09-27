@@ -24,16 +24,21 @@ mat-card .mat-card-content{
     color: black;
     align-items: center;
     display: flex;
+    height: max-content;
 }
 
 .constraint{
     margin: auto;
-    width: 25cm;
-    padding: 10px;
+    width: calc(95%);
 }
 
 .instruction{
     margin: auto;
     padding: 0px 20px 10px;
     width: fit-content;
+}
+
+mat-tab-group{
+    margin: auto;
+    width: calc(85%);
 }

@@ -15,13 +15,12 @@ export class ContainerConstraintsComponent implements OnInit {
   /**
    * The container constraints instruction to be given to the user
    */
-  instruction?: string = new ContainerConstraints().instruction;
+  instruction?: string = undefined;
 
   /**
    * The containerConstraints object
    */
-  constraints = new ContainerConstraints().constraints;
-
+  constraints = undefined;
   constructor() { }
 
   ngOnInit(): void {

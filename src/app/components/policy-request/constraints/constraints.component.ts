@@ -17,9 +17,18 @@ export class ConstraintsComponent implements OnInit {
   @Input()
   constraints_config: Constraints;
 
+  simpleChildren?: Array<Constraints>;
+
+  complexChildren?: Array<Constraints>;
+
   constructor() { }
 
   ngOnInit(): void {
+
+    this.simpleChildren = this.constraints_config.getSimpleConstraintsElements();
+    //console.log(this.simpleChildren);
+    this.complexChildren = this.constraints_config.getComplexConstraintsElements();
+    console.log(this.complexChildren);
   }
 
   isLevelConstraint(constraint: any): boolean {
@@ -40,18 +49,5 @@ export class ConstraintsComponent implements OnInit {
 
   isCryptographicConstraint(constraint: any): boolean {
     return constraint.type == ConstraintType.CRYPTOGRAPHIC_CONSTRAINT;
-  }
-
-  /**
-   * Tells if a contraint elem is complex or not
-   * @param constraint 
-   * @returns 
-   */
-  isComplexConstraint(constraint: any): boolean {
-    return Constraints.isComplex(constraint.type);
-  }
-
-  getBasicConstraints(instruction: string): Constraints {
-    return this.constraints_config.getSimpleConstraintsElements(instruction);
   }
 }

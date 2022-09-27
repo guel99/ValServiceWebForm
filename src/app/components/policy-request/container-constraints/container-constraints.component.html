@@ -17,10 +17,10 @@
             *ngIf="isMultiValuesConstraint(constraint)"
             [disabled]="true"
             [ruleName]="constraint.ruleName" 
-            [pattern]="constraint.pattern"
-            [placeholder]="constraint.placeholder"
-            [onEmptyValue]="constraint.onEmptyValue"
-            [onWrongValue]="constraint.onWrongValue">
+            [pattern]="constraint.info.pattern"
+            [placeholder]="constraint.info.placeholder"
+            [onEmptyValue]="constraint.info.onEmptyValue"
+            [onWrongValue]="constraint.info.onWrongValue">
         </app-multi-values-constraint>
     </mat-card-content>
 </mat-card>

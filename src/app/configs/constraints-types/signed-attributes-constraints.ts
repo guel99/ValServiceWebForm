@@ -108,7 +108,7 @@ export class SignedAttributesConstraints extends Constraints {
         },
     ]
 
-    constructor () {
-        super(SignedAttributesConstraints.instruction, SignedAttributesConstraints.constraints);
+    constructor (ruleName: string, instruction: string, constraints?: Array<Constraints>) {
+        super(ruleName, instruction, constraints);
     }
 }
