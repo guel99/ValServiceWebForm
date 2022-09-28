@@ -32,6 +32,7 @@ import { TimeConstraintComponent } from './components/common/time-constraint/tim
 import {MatSelectModule} from '@angular/material/select';
 import { ValueConstraintComponent } from './components/common/value-constraint/value-constraint.component';
 import { CryptographicConstraintComponent } from './components/common/cryptographic-constraint/cryptographic-constraint.component';
+import { ModelConstraintComponent } from './components/common/model-constraint/model-constraint.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { CryptographicConstraintComponent } from './components/common/cryptograp
     ConstraintsComponent,
     TimeConstraintComponent,
     ValueConstraintComponent,
-    CryptographicConstraintComponent
+    CryptographicConstraintComponent,
+    ModelConstraintComponent
   ],
   imports: [
     BrowserModule,

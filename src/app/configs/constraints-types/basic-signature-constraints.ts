@@ -48,11 +48,13 @@ export class BasicSignatureConstraints extends Constraints{
           {
             ruleName: 'Signing certificate',
             type: ConstraintType.CERTIFICATE_CONSTRAINT,
+            instruction: 'Group of checks to operate on the signing certificate',
             constraints: CertificateConstraints.constraints
           },
           {
             ruleName: 'CA Certificate',
             type: ConstraintType.CERTIFICATE_CONSTRAINT,
+            instruction: 'Group of checks to operate on the CA certificate(s)',
             constraints: CertificateConstraints.constraints
           }
     ]

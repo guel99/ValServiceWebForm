@@ -17,7 +17,7 @@ export class ConstraintsComponent implements OnInit {
   @Input()
   constraints_config: Constraints;
 
-  simpleChildren?: Array<Constraints>;
+  simpleChildren?: Constraints;
 
   complexChildren?: Array<Constraints>;
 
@@ -25,7 +25,7 @@ export class ConstraintsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.simpleChildren = this.constraints_config.getSimpleConstraintsElements();
+    this.simpleChildren = new Constraints("Simple " + this.constraints_config.ruleName.toLowerCase(), undefined, this.constraints_config.getSimpleConstraintsElements());
     //console.log(this.simpleChildren);
     this.complexChildren = this.constraints_config.getComplexConstraintsElements();
     console.log(this.complexChildren);

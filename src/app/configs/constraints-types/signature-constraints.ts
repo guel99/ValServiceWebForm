@@ -54,13 +54,13 @@ export class SignatureConstraints extends Constraints {
         {
             ruleName: 'Signed attributes',
             type: ConstraintType.SIGNED_ATTRIBUTES_CONSTRAINT,
-            instruction: 'Group of common checks for any kind of signed token (signature, timestamp or revocation data). In this case, related with the signature itself.',
+            instruction: 'Group of checks on the signed attributes/properties.',
             constraints: SignedAttributesConstraints.constraints
         },
         {
             ruleName: 'Unsigned attributes',
             type: ConstraintType.UNSIGNED_ATTRIBUTES_CONSTRAINT,
-            instruction: 'Group of common checks for any kind of signed token (signature, timestamp or revocation data). In this case, related with the signature itself.',
+            instruction: 'Group of checks on the unsigned attributes/properties.',
             constraints: UnsignedAttributesConstraints.constraints
         }
     ]

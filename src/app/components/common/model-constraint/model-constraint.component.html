@@ -1,0 +1,11 @@
+<mat-card class="{{disabled ? 'collapsed':''}}">
+    <mat-card-title (click)="disable()">{{ruleName == null ? 'null' : ruleName}}</mat-card-title>
+    <mat-card-content *ngIf="!disabled">
+        <form class="form-group">
+            <label class="form-item" *ngFor="let model of modelsList">
+                <input type="radio" [id]="model" [name]="ruleName" (change)="setModel($event)">
+                {{ model }}
+            </label>
+        </form>
+    </mat-card-content>
+</mat-card>

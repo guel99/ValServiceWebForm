@@ -16,6 +16,14 @@ export class PolicyRequestComponent implements OnInit {
 
   signatureConst: Constraints = ConstraintsConfiguration.signature;
 
+  counterSigConst: Constraints = ConstraintsConfiguration.counterSignature;
+
+  timestampConst: Constraints = ConstraintsConfiguration.timestamp;
+
+  revocationConst: Constraints = ConstraintsConfiguration.revocation;
+
+  eidasConst: Constraints = ConstraintsConfiguration.eidas;
+
   constructor() { }
 
   ngOnInit(): void {

@@ -10,10 +10,32 @@
             [constraints_config]="signatureConst">
         </app-constraints>
     </mat-tab>
-    <mat-tab label="CounterSignature">CounterSignature</mat-tab>
-    <mat-tab label="Timestamp">Timestamp</mat-tab>
-    <mat-tab label="Revocation">Revocation</mat-tab>
-    <mat-tab label="Cryptographic">Cryptographic</mat-tab>
-    <mat-tab label="Model">Model</mat-tab>
-    <mat-tab label="eIDAS">eIDAS</mat-tab>
+    <mat-tab label="Counter-signature">
+        <app-constraints
+            [constraints_config]="counterSigConst">
+        </app-constraints>
+    </mat-tab>
+    <mat-tab label="Timestamp">
+        <app-constraints
+            [constraints_config]="timestampConst">
+        </app-constraints>
+    </mat-tab>
+    <mat-tab label="Revocation">
+        <app-constraints
+            [constraints_config]="revocationConst">
+        </app-constraints>
+    </mat-tab>
+    <mat-tab label="Cryptographic">
+        <app-cryptographic-constraint ruleName="Cryptographic Constraints">
+
+        </app-cryptographic-constraint>
+    </mat-tab>
+    <mat-tab label="Model">
+        <app-model-constraint ruleName="Model Constraints"></app-model-constraint>
+    </mat-tab>
+    <mat-tab label="eIDAS">
+        <app-constraints
+            [constraints_config]="eidasConst">
+        </app-constraints>
+    </mat-tab>
 </mat-tab-group>

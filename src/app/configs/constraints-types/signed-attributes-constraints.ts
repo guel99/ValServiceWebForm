@@ -52,35 +52,43 @@ export class SignedAttributesConstraints extends Constraints {
         },
         {
             ruleName: 'Content type',
-            pattern: '^([0-2])((\.0)|(\.[1-9][0-9]*))*$',
-            placeholder: 'Specify an OID. e.g. 1.2.840.113549.1.7.1',
-            onEmptyValue: 'Please type an OID',
-            onWrongValue: 'Type a valid OID',
-            type: ConstraintType.VALUE_CONSTRAINT
+            type: ConstraintType.VALUE_CONSTRAINT,
+            info: {
+                pattern: '^([0-2])((\.0)|(\.[1-9][0-9]*))*$',
+                placeholder: 'Specify an OID. e.g. 1.2.840.113549.1.7.1',
+                onEmptyValue: 'Please type an OID',
+                onWrongValue: 'Type a valid OID'
+            }
         },
         {
             ruleName: 'Content hints',
-            placeholder: 'Type a hint (or any (*)',
-            onEmptyValue: 'Please type a hint or * (any)',
-            type: ConstraintType.VALUE_CONSTRAINT
+            type: ConstraintType.VALUE_CONSTRAINT,
+            info: {
+                placeholder: 'Type a hint (or any (*)',
+                onEmptyValue: 'Please type a hint or * (any)'
+            }
         },
         {
             ruleName: 'Content identifier',
-            placeholder: 'Type an identifier (or any (*))',
-            onEmptyValue: 'Please type an identifier or * (any)',
-            type: ConstraintType.VALUE_CONSTRAINT
+            type: ConstraintType.VALUE_CONSTRAINT,
+            info: {
+                placeholder: 'Type an identifier (or any (*))',
+                onEmptyValue: 'Please type an identifier or * (any)'
+            }
         },
         {
             ruleName: 'Message digest or signed properties present',
             type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
-            rule: 'Commitment type indication',
-            pattern: '1.2.840.113549.1.9.16.6.[1-6]',
-            placeholder: 'Type a valid OID. e.g. 1.2.840.113549.1.9.16.6.1',
-            onEmptyValue: 'Please type an OID for a commitment type',
-            onWrongValue: 'Please type a valid commitment type',
-            type: ConstraintType.MULTI_VALUES_CONSTRAINT
+            ruleName: 'Commitment type indication',
+            type: ConstraintType.MULTI_VALUES_CONSTRAINT,
+            info: {
+                pattern: '1.2.840.113549.1.9.16.6.[1-6]',
+                placeholder: 'Type a valid OID. e.g. 1.2.840.113549.1.9.16.6.1',
+                onEmptyValue: 'Please type an OID for a commitment type',
+                onWrongValue: 'Please type a valid commitment type'
+            }
         },
         {
             ruleName: 'Signed location',
@@ -88,15 +96,19 @@ export class SignedAttributesConstraints extends Constraints {
         },
         {
             ruleName: 'Claimed roles',
-            placeholder: 'Type role (or any (*)',
-            onEmptyValue: 'Please type a role or * (any)',
-            type: ConstraintType.MULTI_VALUES_CONSTRAINT
+            type: ConstraintType.MULTI_VALUES_CONSTRAINT,
+            info: {
+                placeholder: 'Type role (or any (*)',
+                onEmptyValue: 'Please type a role or * (any)'
+            }
         },
         {
             ruleName: 'Certified roles',
-            placeholder: 'Type role (or any (*)',
-            onEmptyValue: 'Please type a role or * (any)',
-            type: ConstraintType.MULTI_VALUES_CONSTRAINT
+            type: ConstraintType.MULTI_VALUES_CONSTRAINT,
+            info: {
+                placeholder: 'Type role (or any (*)',
+                onEmptyValue: 'Please type a role or * (any)'
+            }
         },
         {
             ruleName: 'Content timestamp',
@@ -108,7 +120,7 @@ export class SignedAttributesConstraints extends Constraints {
         },
     ]
 
-    constructor (ruleName: string, instruction: string, constraints?: Array<Constraints>) {
+    constructor(ruleName: string, instruction: string, constraints?: Array<Constraints>) {
         super(ruleName, instruction, constraints);
     }
 }

@@ -13,7 +13,7 @@ mat-card{
     padding: 0mm;
     padding-bottom: 7mm;
     align-items: center;
-    width: calc(95%);
+    width: calc(100%);
     margin: auto;
 }
 
@@ -21,7 +21,7 @@ mat-card.collapsed{
     background: white;
     padding: 0mm;
     align-items: center;
-    width: calc(95%);
+    width: calc(100%);
     margin: auto;
 }
 

@@ -36,9 +36,11 @@ mat-card .mat-card-content{
     margin: auto;
     padding: 0px 20px 10px;
     width: fit-content;
+    margin-bottom: 8mm;
 }
 
 mat-tab-group{
     margin: auto;
     width: calc(85%);
+    margin-top: 5.5cm;
 }

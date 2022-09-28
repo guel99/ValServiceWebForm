@@ -8,7 +8,6 @@ export class CertificateConstraints extends Constraints {
     static constraints: Array<any> = [
         {
             ruleName: 'Recognition',
-            instruction: 'asdasdasdasd',
             type: ConstraintType.LEVEL_CONSTRAINT,
         },
         {
@@ -48,6 +47,10 @@ export class CertificateConstraints extends Constraints {
             type: ConstraintType.TIME_CONSTRAINT
         },
         {
+            ruleName: 'Revocation freshness next update',
+            type: ConstraintType.LEVEL_CONSTRAINT
+        },
+        {
             ruleName: 'Key usage',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
             info: {
@@ -71,74 +74,81 @@ export class CertificateConstraints extends Constraints {
             ruleName: 'Surname',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
             info: {
-                onEmptyValue: "Please specify a name"
+                onEmptyValue: "Please specify a name",
+                placeholder: "Specify a name"
             }
         },
         {
             ruleName: 'Given name',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
             info: {
-                onEmptyValue: "Please specify a name"
+                onEmptyValue: "Please specify a name",
+                placeholder: "Specify a name"
             }
         },
         {
             ruleName: 'Common name',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
             info: {
-                onEmptyValue: "Please specify a name"
+                onEmptyValue: "Please specify a name",
+                placeholder: "Specify a name"
             }
         },
         {
             ruleName: 'Pseudonym',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
             info: {
-                onEmptyValue: "Please specify a pseudonym"
+                onEmptyValue: "Please specify a pseudonym",
+                placeholder: "Specify a pseudonym"
             }
         },
         {
             ruleName: 'Organization unit',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
             info: {
-                onEmptyValue: "Please specify an organization unit"
+                onEmptyValue: "Please specify an organization unit",
+                placeholder: "Specify an organization unit"
             }
         },
         {
             ruleName: 'Organization name',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
             info: {
-                onEmptyValue: "Please specify a name"
+                onEmptyValue: "Please specify a name",
+                placeholder: "Specify a name"
             }
         },
         {
             ruleName: 'Country',
             type: ConstraintType.MULTI_VALUES_CONSTRAINT,
             info: {
-                onEmptyValue: "Please specify a country"
+                onEmptyValue: "Please specify a country",
+                placeholder: "Specify a country"
             }
         },
         {
             ruleName: 'Serial number present',
-            type: ConstraintType.TIME_CONSTRAINT
+            type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
             ruleName: 'Not revoked',
-            type: ConstraintType.TIME_CONSTRAINT
+            type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
             ruleName: 'Not on hold',
-            type: ConstraintType.TIME_CONSTRAINT
+            type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
             ruleName: 'Revocation issuer not expired',
-            type: ConstraintType.TIME_CONSTRAINT
+            type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
             ruleName: 'Self signed',
-            type: ConstraintType.TIME_CONSTRAINT
+            type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
             ruleName: 'Not self signed',
-            type: ConstraintType.TIME_CONSTRAINT
+            type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
             ruleName: 'Policy Ids',

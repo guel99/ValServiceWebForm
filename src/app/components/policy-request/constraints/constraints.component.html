@@ -1,45 +1,20 @@
 <mat-card class="mat-elevation-z4">
     <mat-card-title>{{ constraints_config.ruleName }}</mat-card-title>
     <div class="instruction">
-        <label class="alert alert-dark">{{ constraints_config.instruction }}</label>
+        <label class="alert alert-dark" *ngIf="constraints_config.instruction">{{ constraints_config.instruction }}</label>
     </div>
     <mat-card-content *ngIf="complexChildren && complexChildren.length>0; else simpleBlock">
         <mat-tab-group class="mat-elevation-z4" backgroundColor="accent" mat-align-tabs="center" color="basic">
+            <mat-tab [label]="simpleChildren!.ruleName">
+                <app-constraints class="constraint" [constraints_config]="simpleChildren!"></app-constraints>
+            </mat-tab>
             <mat-tab *ngFor="let complex of complexChildren" label="{{ complex.ruleName }}">
                 <app-constraints class="constraint" [constraints_config]="complex"></app-constraints>
-            </mat-tab>
-            <mat-tab label="Simplex Constraints">
-                <ng-template *ngFor="let simple of simpleChildren">
-                    <app-level-constraint class="constraint" *ngIf="simple.isLevelConstraint()" [disabled]="true"
-                        [ruleName]="simple.ruleName">
-                    </app-level-constraint>
-
-                    <app-multi-values-constraint class="constraint" *ngIf="simple.isMultiValuesConstraint()"
-                        [disabled]="true" [ruleName]="simple.ruleName" [pattern]="simple.info?.pattern"
-                        [placeholder]="simple.info?.placeholder" [onEmptyValue]="simple.info?.onEmptyValue"
-                        [onWrongValue]="simple.info?.onWrongValue">
-                    </app-multi-values-constraint>
-
-                    <app-time-constraint class="constraint" *ngIf="simple.isTimeConstraint()" [disabled]="true"
-                        [ruleName]="simple.ruleName">
-                    </app-time-constraint>
-
-                    <app-value-constraint class="constraint" *ngIf="simple.isValueConstraint()" [disabled]="true"
-                        [ruleName]="simple.ruleName" [pattern]="simple.info?.pattern"
-                        [placeholder]="simple.info?.placeholder" , [onEmptyValue]="simple.info?.onEmptyValue"
-                        [onWrongValue]="simple.info?.onWrongValue">
-                    </app-value-constraint>
-
-                    <app-cryptographic-constraint class="constraint" *ngIf="simple.isCryptographicConstraint()"
-                        [disabled]="true" [ruleName]="simple.ruleName">
-                    </app-cryptographic-constraint>
-                </ng-template>
-
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>
     <ng-template #simpleBlock>
-        <mat-card-content *ngFor="let simple of simpleChildren">
+        <mat-card-content *ngFor="let simple of simpleChildren?.constraints">
 
             <app-level-constraint class="constraint" *ngIf="simple.isLevelConstraint()" [disabled]="true"
                 [ruleName]="simple.ruleName">
