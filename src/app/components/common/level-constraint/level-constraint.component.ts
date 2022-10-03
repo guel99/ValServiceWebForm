@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LevelConstraintDTO } from 'src/app/model/dto/level-constraint-dto';
 
 @Component({
   selector: 'app-level-constraint',
@@ -13,11 +14,24 @@ export class LevelConstraintComponent implements OnInit {
   @Input()
   disabled: boolean;
 
+  /**
+   * Triggered event on setted/changed level value of the constraint
+   */
+  @Output()
+  setted: EventEmitter<any> = new EventEmitter();
+
+  /**
+   * Triggered event on disabled constraint
+   */
+  @Output()
+  collapsed: EventEmitter<any> = new EventEmitter();
+
   selected?: string;
 
   readonly availableLevels: Array<string> = ["FAIL", "WARN", "INFORM", "IGNORE"];
 
   constructor() {
+    this.selected = undefined;
   }
 
   ngOnInit(): void {
@@ -28,8 +42,9 @@ export class LevelConstraintComponent implements OnInit {
    * @param event The event triggered by the 
    * constraint level alteration
    */
-  setLevel(event: any){
-    this.selected = event.target.id;
+  setLevel(){
+    this.selected = this.selected;
+    this.setted.emit(this.selected);
     //console.log(this.getLevelString());
   }
 
@@ -37,6 +52,9 @@ export class LevelConstraintComponent implements OnInit {
    * Disable the constraint
    */
   disable() {
+    if(!this.disabled){
+      this.collapsed.emit();
+    }
     this.disabled = !this.disabled;
     this.selected = undefined;
     //console.log(this.getLevelString());

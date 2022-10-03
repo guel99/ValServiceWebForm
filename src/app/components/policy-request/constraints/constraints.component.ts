@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ConstraintsConfiguration } from 'src/app/configs/constraints-config';
 import { Constraints } from 'src/app/configs/constraints-types/constraints';
-import { ContainerConstraints } from 'src/app/configs/constraints-types/container-constraints';
+import { ConstraintDTO } from 'src/app/model/dto/constraint-dto';
 import { ConstraintType } from 'src/app/model/enums/policy/constraint-types';
 
 @Component({
@@ -21,14 +20,21 @@ export class ConstraintsComponent implements OnInit {
 
   complexChildren?: Array<Constraints>;
 
-  constructor() { }
+  /**
+   * The contraints added by the user
+   */
+  enabledConstraints: Map<string, ConstraintDTO>;
+
+  constructor() { 
+    this.enabledConstraints = new Map<string, ConstraintDTO>();
+  }
 
   ngOnInit(): void {
 
     this.simpleChildren = new Constraints("Simple " + this.constraints_config.ruleName.toLowerCase(), undefined, this.constraints_config.getSimpleConstraintsElements());
     //console.log(this.simpleChildren);
     this.complexChildren = this.constraints_config.getComplexConstraintsElements();
-    console.log(this.complexChildren);
+    //console.log(this.complexChildren);
   }
 
   isLevelConstraint(constraint: any): boolean {
@@ -49,5 +55,23 @@ export class ConstraintsComponent implements OnInit {
 
   isCryptographicConstraint(constraint: any): boolean {
     return constraint.type == ConstraintType.CRYPTOGRAPHIC_CONSTRAINT;
+  }
+
+  /**
+   * Adds an item to the enabledConstraints mapping
+   * @param constraintName The name of the constraint being set
+   * @param constraint The constraint enabled
+   */
+  addConstraintDTO(constraintName: string, constraint: string) {
+    this.enabledConstraints.set(constraintName, constraint);
+    console.log(this.enabledConstraints);
+  }
+
+  /**
+   * Delete a constraint from the map
+   * @param constraintName
+   */
+  deleteConstraintDTO(constraintName: string) {
+    this.enabledConstraints.delete(constraintName);
   }
 }

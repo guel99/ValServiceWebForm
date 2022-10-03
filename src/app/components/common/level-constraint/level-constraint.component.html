@@ -2,24 +2,9 @@
     <mat-card-title (click)="disable()">{{ruleName == null ? 'null' : ruleName}}</mat-card-title>
     <mat-card-content *ngIf="!disabled">
         <form class="form-group">
-            <label class="form-item">
-                <input type="radio" id="fail" [name]="ruleName" (change)="setLevel($event)">
-                FAIL
-            </label>
-
-            <label class="form-item">
-                <input type="radio" id="warn" [name]="ruleName" (change)="setLevel($event)">
-                WARN
-            </label>
-
-            <label class="form-item">
-                <input type="radio" id="inform" [name]="ruleName" (change)="setLevel($event)">
-                INFORM
-            </label>
-
-            <label class="form-item">
-                <input type="radio" id="ignore" [name]="ruleName" (change)="setLevel($event)">
-                IGNORE
+            <label class="radio-inline form-item" *ngFor="let level of availableLevels">
+                <input [(ngModel)]="selected" required type="radio" [value]="level" [name]="ruleName" (change)="setLevel()" #level="ngModel">
+                    {{ level }}
             </label>
         </form>
     </mat-card-content>

@@ -34,13 +34,17 @@
     color: rgba(3, 110, 3, 0.178);
 }
 
-.delete-button{
-    color: rgb(209, 209, 0);
+.edit-button {
+    color: rgb(212, 138, 0);
+}
+
+.edit-button.disabled {
+    color: rgba(212, 138, 0, 0.199);
 }
 
 .clear-button{
     color: rgb(185, 0, 0);
-    margin-left: 5cm;
+    margin-left: 6cm;
 }
 
 .new-value{

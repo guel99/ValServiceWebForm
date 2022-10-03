@@ -4,12 +4,10 @@
     </mat-card-title>
     <mat-card-content *ngIf="!disabled">
         <form class="form-group">
-            <div class="levels-container">
-                <label class="form-item" *ngFor="let level of availableLevels">
-                    <input type="radio" [id]="level" [name]="ruleName" (change)="setLevel($event)">
+            <label class="form-item" *ngFor="let level of availableLevels">
+                <input [(ngModel)]="selected" required type="radio" [value]="level" [name]="ruleName" (change)="setLevel()" #level="ngModel">
                     {{ level }}
-                </label>
-            </div>
+            </label>
 
             <!-- The Encryption algorithm container -->
             <div class="values-container mat-elevation-z4">

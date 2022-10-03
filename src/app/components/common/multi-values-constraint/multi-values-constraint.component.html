@@ -2,35 +2,29 @@
     <mat-card-title (click)="disable()">{{ruleName == null ? 'null' : ruleName}}</mat-card-title>
     <mat-card-content *ngIf="!disabled">
         <form class="form-group">
-            <div class="levels-container">
-                <label class="form-item">
-                    <input type="radio" id="fail" [name]="ruleName" (change)="setLevel($event)" required>
-                    FAIL
-                </label>
-
-                <label class="form-item">
-                    <input type="radio" id="warn" [name]="ruleName" (change)="setLevel($event)">
-                    WARN
-                </label>
-
-                <label class="form-item">
-                    <input type="radio" id="inform" [name]="ruleName" (change)="setLevel($event)">
-                    INFORM
-                </label>
-
-                <label class="form-item">
-                    <input type="radio" id="ignore" [name]="ruleName" (change)="setLevel($event)">
-                    IGNORE
+            <div class="form-control levels-container">
+                <label class="radio-inline form-item" *ngFor="let level of availableLevels">
+                    <input [(ngModel)]="selected" required type="radio" [value]="level" [name]="ruleName" (change)="setLevel()" 
+                        [disabled]="!checked" #level="ngModel">
+                    {{ level }}
                 </label>
             </div>
             <div class="values-container mat-elevation-z4">
-                <input [(ngModel)]="newAcceptedValue" ngModel name="newAcceptedValue" type="text"
+                <input [(ngModel)]="newAcceptedValue" ngModel name="newAcceptedValue" type="text" [disabled]="checked"
                     placeholder="{{ placeholder != undefined ? placeholder : ''}}" required minlength="1"
                     pattern="{{pattern != undefined ? pattern : ''}}" #acceptedValue="ngModel"
                     (change)="log(acceptedValue)">
+                <button class="add-button {{ checked || !hasValues() ? 'disabled' : ''}}" mat-icon-button color="basic"
+                    [disabled]="checked || !hasValues()" (click)="check(); acceptedValue.reset()">
+                    <mat-icon>check</mat-icon>
+                </button>
                 <button class="add-button {{ acceptedValue.valid ? '' : 'disabled'}}" mat-icon-button color="basic"
                     [disabled]="!acceptedValue.valid" (click)="add()" #addButton>
                     <mat-icon>add</mat-icon>
+                </button>
+                <button class="edit-button {{ checked ? '' : 'disabled'}}" mat-icon-button color="basic"
+                    [disabled]="!checked" (click)="edit()" #editButton>
+                    <mat-icon>edit</mat-icon>
                 </button>
             </div>
             <div class="alert alert-danger"
@@ -45,7 +39,8 @@
                 <div>
                     <label id="{{value}}" class="new-value">
                         {{value}}
-                        <button class="clear-button" mat-icon-button color="basic" (click)="deleteValue(value)">
+                        <button *ngIf="!checked" class="clear-button" mat-icon-button color="basic"
+                            (click)="deleteValue(value)">
                             <mat-icon>delete-outline</mat-icon>
                         </button>
                     </label>

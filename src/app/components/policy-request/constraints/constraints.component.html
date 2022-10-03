@@ -17,12 +17,14 @@
         <mat-card-content *ngFor="let simple of simpleChildren?.constraints">
 
             <app-level-constraint class="constraint" *ngIf="simple.isLevelConstraint()" [disabled]="true"
-                [ruleName]="simple.ruleName">
+                [ruleName]="simple.ruleName" (setted)="addConstraintDTO(simple.ruleName, $event)" 
+                (collapsed)="deleteConstraintDTO(simple.ruleName)">
             </app-level-constraint>
 
             <app-multi-values-constraint class="constraint" *ngIf="simple.isMultiValuesConstraint()" [disabled]="true"
                 [ruleName]="simple.ruleName" [pattern]="simple.info?.pattern" [placeholder]="simple.info?.placeholder"
-                [onEmptyValue]="simple.info?.onEmptyValue" [onWrongValue]="simple.info?.onWrongValue">
+                [onEmptyValue]="simple.info?.onEmptyValue" [onWrongValue]="simple.info?.onWrongValue"
+                (setted)="addConstraintDTO(simple.ruleName, $event)" (collapsed)="deleteConstraintDTO(simple.ruleName)">
             </app-multi-values-constraint>
 
             <app-time-constraint class="constraint" *ngIf="simple.isTimeConstraint()" [disabled]="true"
