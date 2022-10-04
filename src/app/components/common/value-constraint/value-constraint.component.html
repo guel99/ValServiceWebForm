@@ -3,13 +3,13 @@
         {{ruleName == null ? 'null' : ruleName}}
     </mat-card-title>
     <mat-card-content *ngIf="!disabled">
-        <form class="form-control form-group">
-            <label class="radio-inline form-item" *ngFor="let level of availableLevels">
+        <form class="form-group">
+            <label class="form-item" *ngFor="let level of availableLevels">
                 <input [(ngModel)]="selected" required type="radio" [value]="level" [name]="ruleName" (change)="setLevel()" #level="ngModel">
                     {{ level }}
             </label>
             <div class="values-container mat-elevation-z4">
-                <input [(ngModel)]="value" ngModel name="newAcceptedValue" type="text" required minlength="1"
+                <input [(ngModel)]="value" ngModel name="newAcceptedValue" type="text" required minlength="1" [placeholder]="placeholder != undefined ? placeholder : ''"
                     pattern="{{ pattern != undefined ? pattern : ''}}" #acceptedValue="ngModel" [disabled]="checked">
                 <button class="add-button {{ acceptedValue.valid ? '' : 'disabled'}}" mat-icon-button
                     color="basic" [disabled]="!acceptedValue.valid" #addButton

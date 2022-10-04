@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Constraints } from 'src/app/configs/constraints-types/constraints';
 import { ConstraintDTO } from 'src/app/model/dto/constraint-dto';
 import { ConstraintType } from 'src/app/model/enums/policy/constraint-types';
+import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-constraints',
@@ -24,6 +25,9 @@ export class ConstraintsComponent implements OnInit {
    * The contraints added by the user
    */
   enabledConstraints: Map<string, ConstraintDTO>;
+
+  @Output()
+  changedConstraintSet: EventEmitter; // terminar implementação de evento triggered quando o map enabledConstraints é modificado!!!!
 
   constructor() { 
     this.enabledConstraints = new Map<string, ConstraintDTO>();
@@ -62,7 +66,7 @@ export class ConstraintsComponent implements OnInit {
    * @param constraintName The name of the constraint being set
    * @param constraint The constraint enabled
    */
-  addConstraintDTO(constraintName: string, constraint: string) {
+  addConstraintDTO(constraintName: string, constraint: any) {
     this.enabledConstraints.set(constraintName, constraint);
     console.log(this.enabledConstraints);
   }

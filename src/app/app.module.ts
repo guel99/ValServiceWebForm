@@ -20,7 +20,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { SafeHtmlPipe } from 'src/app/pipes/safeHtmlPipe';
 import { PolicyRequestComponent } from './components/policy-request/policy-request.component';
 import { MainToolbarComponent } from './components/main-toolbar/main-toolbar.component';
-import { ContainerConstraintsComponent } from './components/policy-request/container-constraints/container-constraints.component';
+import { ContainerConstraintsComponent } from './components/policy-constraints/container-constraints/container-constraints.component';
 
 import { MatInputModule } from '@angular/material/input';
 import { LevelConstraintComponent } from './components/common/level-constraint/level-constraint.component';
