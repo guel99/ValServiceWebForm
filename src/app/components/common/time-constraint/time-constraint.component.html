@@ -3,9 +3,10 @@
         {{ruleName == null ? 'null' : ruleName}}
     </mat-card-title>
     <mat-card-content *ngIf="!disabled">
-        <form class="form-control form-group">
-            <label class="radio-inline form-item" *ngFor="let level of availableLevels">
-                <input [(ngModel)]="selected" required type="radio" [value]="level" [name]="ruleName" (change)="setLevel()" #level="ngModel">
+        <form class="form-group">
+            <label class="form-item" *ngFor="let level of availableLevels">
+                <input [(ngModel)]="selected" required type="radio" [value]="level" [name]="ruleName" (change)="setLevel()" 
+                    [disabled]="!checked" #levelRadio="ngModel">
                     {{ level }}
             </label>
             <div class="values-container mat-elevation-z4">

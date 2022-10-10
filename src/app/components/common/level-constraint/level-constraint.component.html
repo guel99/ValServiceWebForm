@@ -3,7 +3,7 @@
     <mat-card-content *ngIf="!disabled">
         <form class="form-group">
             <label class="radio-inline form-item" *ngFor="let level of availableLevels">
-                <input [(ngModel)]="selected" required type="radio" [value]="level" [name]="ruleName" (change)="setLevel()" #level="ngModel">
+                <input [(ngModel)]="selected" required type="radio" [value]="level" [name]="ruleName" (change)="setLevel()" #levelRadio="ngModel">
                     {{ level }}
             </label>
         </form>

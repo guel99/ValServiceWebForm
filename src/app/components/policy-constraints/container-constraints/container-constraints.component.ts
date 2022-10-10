@@ -15,16 +15,16 @@ export class ContainerConstraintsComponent extends ConstraintsComponent implemen
     super();
   }
 
-  private buildDTO() : ContainerConstraintsDTO {
+  createDTO(dic: Map<string, any>) {
     var containerConstraintsDTO: ContainerConstraintsDTO = new ContainerConstraintsDTO();
-    containerConstraintsDTO.AcceptableContainerTypes = this.enabledConstraints.get('AcceptableContainerTypes') as MultiValuesConstraintDTO;
-    containerConstraintsDTO.ZipCommentPresent = this.enabledConstraints.get('ZipCommentPresent') as string;
-    containerConstraintsDTO.AcceptableZipComment = this.enabledConstraints.get('AcceptableZipComment') as MultiValuesConstraintDTO;
-    containerConstraintsDTO.MimeTypeFilePresent = this.enabledConstraints.get('MimeTypeFilePresent') as string;
-    containerConstraintsDTO.AcceptableMimeTypeFileContent = this.enabledConstraints.get('AcceptableMimeTypeFileContent') as MultiValuesConstraintDTO;
-    containerConstraintsDTO.ManifestFilePresent = this.enabledConstraints.get('ManifestFilePresent') as string;
-    containerConstraintsDTO.SignedFilesPresent = this.enabledConstraints.get('SignedFilesPresent') as string;
-    containerConstraintsDTO.AllFilesSigned = this.enabledConstraints.get('AllFilesSigned') as string;
-    return containerConstraintsDTO;
+    containerConstraintsDTO.AcceptableContainerTypes = dic.get('AcceptableContainerTypes') as MultiValuesConstraintDTO;
+    containerConstraintsDTO.ZipCommentPresent = dic.get('ZipCommentPresent') as string;
+    containerConstraintsDTO.AcceptableZipComment = dic.get('AcceptableZipComment') as MultiValuesConstraintDTO;
+    containerConstraintsDTO.MimeTypeFilePresent = dic.get('MimeTypeFilePresent') as string;
+    containerConstraintsDTO.AcceptableMimeTypeFileContent = dic.get('AcceptableMimeTypeFileContent') as MultiValuesConstraintDTO;
+    containerConstraintsDTO.ManifestFilePresent = dic.get('ManifestFilePresent') as string;
+    containerConstraintsDTO.SignedFilesPresent = dic.get('SignedFilesPresent') as string;
+    containerConstraintsDTO.AllFilesSigned = dic.get('AllFilesSigned') as string;
+    this.changedConstraintSet.emit(containerConstraintsDTO);
   }
 }

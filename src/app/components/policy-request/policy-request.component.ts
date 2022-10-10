@@ -29,4 +29,8 @@ export class PolicyRequestComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  log(any: any){
+    console.log(any);
+  }
+
 }

@@ -2,10 +2,10 @@
     <mat-card-title (click)="disable()">{{ruleName == null ? 'null' : ruleName}}</mat-card-title>
     <mat-card-content *ngIf="!disabled">
         <form class="form-group">
-            <div class="form-control levels-container">
+            <div class="levels-container">
                 <label class="radio-inline form-item" *ngFor="let level of availableLevels">
                     <input [(ngModel)]="selected" required type="radio" [value]="level" [name]="ruleName" (change)="setLevel()" 
-                        [disabled]="!checked" #level="ngModel">
+                        [disabled]="!checked" #levelRadio="ngModel">
                     {{ level }}
                 </label>
             </div>
@@ -23,7 +23,7 @@
                     <mat-icon>add</mat-icon>
                 </button>
                 <button class="edit-button {{ checked ? '' : 'disabled'}}" mat-icon-button color="basic"
-                    [disabled]="!checked" (click)="edit()" #editButton>
+                    [disabled]="!checked" (click)="edit(); levelRadio.reset()" #editButton>
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>

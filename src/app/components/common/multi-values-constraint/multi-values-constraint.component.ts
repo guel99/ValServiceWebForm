@@ -70,8 +70,8 @@ export class MultiValuesConstraintComponent extends LevelConstraintComponent imp
     this.acceptedValues = new Array<string>();
   }
 
-  hasValues(): boolean{
-    return this.acceptedValues.length>0;
+  hasValues(): boolean {
+    return this.acceptedValues.length > 0;
   }
 
   override ngOnInit(): void {
@@ -81,7 +81,7 @@ export class MultiValuesConstraintComponent extends LevelConstraintComponent imp
     console.log(value);
   }
 
-  log(x: any){
+  log(x: any) {
     console.log(x);
   }
 
@@ -90,7 +90,7 @@ export class MultiValuesConstraintComponent extends LevelConstraintComponent imp
    * @param event The event triggered by the 
    * constraint level alteration
    */
-   override setLevel(){
+  override setLevel() {
     this.selected = this.selected?.toUpperCase();
     var multiValuesConstraintDTO = new MultiValuesConstraintDTO();
     multiValuesConstraintDTO.level = this.selected!;
@@ -99,14 +99,22 @@ export class MultiValuesConstraintComponent extends LevelConstraintComponent imp
     //console.log(this.getLevelString());
   }
 
+  override disable(): void {
+    if (!this.disabled) {
+      this.collapsed.emit();
+    }
+    this.disabled = !this.disabled;
+    this.selected = undefined;
+  }
+
   add() {
-    if(!this.acceptedValues.includes(this.newAcceptedValue))
+    if (!this.acceptedValues.includes(this.newAcceptedValue))
       this.acceptedValues.push(this.newAcceptedValue);
   }
 
-  deleteValue(value: string){
+  deleteValue(value: string) {
     const index: number = this.acceptedValues.indexOf(value);
-    if(index !== -1) {
+    if (index !== -1) {
       this.acceptedValues.splice(index, 1);
     }
   }
@@ -117,5 +125,6 @@ export class MultiValuesConstraintComponent extends LevelConstraintComponent imp
 
   edit() {
     this.checked = false;
+    this.collapsed.emit();
   }
 }

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { LevelConstraintDTO } from 'src/app/model/dto/level-constraint-dto';
 
 @Component({
@@ -25,6 +26,9 @@ export class LevelConstraintComponent implements OnInit {
    */
   @Output()
   collapsed: EventEmitter<any> = new EventEmitter();
+
+  @ViewChild('levelRadio')
+  levelRadio: NgModel;
 
   selected?: string;
 
