@@ -12,8 +12,7 @@
             <div class="values-container mat-elevation-z4">
                 <input [(ngModel)]="newAcceptedValue" ngModel name="newAcceptedValue" type="text" [disabled]="checked"
                     placeholder="{{ placeholder != undefined ? placeholder : ''}}" required minlength="1"
-                    pattern="{{pattern != undefined ? pattern : ''}}" #acceptedValue="ngModel"
-                    (change)="log(acceptedValue)">
+                    pattern="{{pattern != undefined ? pattern : ''}}" #acceptedValue="ngModel">
                 <button class="add-button {{ checked || !hasValues() ? 'disabled' : ''}}" mat-icon-button color="basic"
                     [disabled]="checked || !hasValues()" (click)="check(); acceptedValue.reset()">
                     <mat-icon>check</mat-icon>
