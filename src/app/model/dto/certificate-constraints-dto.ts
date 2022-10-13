@@ -37,4 +37,8 @@ export class CertificateConstraintsDTO extends ConstraintDTO{
     semanticsIdentifier: MultiValuesConstraintDTO;
     usePseudonym: string;
     cryptographicConstraint: CryptographicConstraintDTO;
+
+    override populate(dic: Map<string, any>): void {
+        
+    }
 }

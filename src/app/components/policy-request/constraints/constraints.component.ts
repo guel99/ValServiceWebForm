@@ -73,6 +73,16 @@ export class ConstraintsComponent implements OnInit {
   }
 
   /**
+   * Joins all simple constraints map to enabled Constraints
+   * @param simpleChildrenConstraintsDTOs
+   */
+  addSimpleChildrenConstraintsDTOs(simpleChildrenConstraintsDTOs: Map<string, ConstraintDTO>){
+    simpleChildrenConstraintsDTOs.forEach((value: ConstraintDTO, key: string) => {
+      this.enabledConstraints.set(key, value);
+    })
+  }
+
+  /**
    * Delete a constraint from the map
    * @param constraintName
    */

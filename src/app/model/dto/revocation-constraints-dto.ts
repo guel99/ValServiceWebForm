@@ -1,6 +1,7 @@
 import { BasicSignatureConstraintsDTO } from "./basic-signature-constraints-dto";
+import { ConstraintDTO } from "./constraint-dto";
 
-export class RevocationConstraintsDTO {
+export class RevocationConstraintsDTO extends ConstraintDTO {
 
     /**
      * hecks the returned status is not unknown
@@ -31,4 +32,8 @@ export class RevocationConstraintsDTO {
  
  
      level: String;
+
+     override populate(dic: Map<string, any>): void {
+         
+     }
 }

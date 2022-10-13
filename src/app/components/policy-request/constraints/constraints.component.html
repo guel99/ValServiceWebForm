@@ -6,10 +6,10 @@
     <mat-card-content *ngIf="complexChildren && complexChildren.length>0; else simpleBlock">
         <mat-tab-group class="mat-elevation-z4" backgroundColor="accent" mat-align-tabs="center" color="basic">
             <mat-tab [label]="simpleChildren!.ruleName">
-                <app-constraints class="constraint" [constraints_config]="simpleChildren!"></app-constraints>
+                <app-constraints class="constraint" (changedConstraintSet)="addSimpleChildrenConstraintsDTOs($event)" [constraints_config]="simpleChildren!"></app-constraints>
             </mat-tab>
             <mat-tab *ngFor="let complex of complexChildren" [label]="complex.ruleName">
-                <app-constraints class="constraint" [constraints_config]="complex"></app-constraints>
+                <app-constraints class="constraint" (changedConstraintSet)="addConstraintDTO(complex.ruleName, $event)" [constraints_config]="complex"></app-constraints>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>

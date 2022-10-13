@@ -142,4 +142,8 @@ export class SignedAttributesConstraintsDTO extends ConstraintDTO {
       */
      
      contentTimeStampMessageImprint: string;
+
+     override populate(dic: Map<string, any>): void {
+         
+     }
 }

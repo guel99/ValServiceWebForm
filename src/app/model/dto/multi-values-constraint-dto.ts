@@ -9,4 +9,8 @@ export class MultiValuesConstraintDTO extends ConstraintDTO{
         super();
         this.acceptedValues = new Array<string>();
     }
+
+    override populate(dic: Map<string, any>): void {
+        
+    }
 }

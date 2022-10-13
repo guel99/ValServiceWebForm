@@ -1,8 +1,9 @@
 import { BasicSignatureConstraintsDTO } from "./basic-signature-constraints-dto";
+import { ConstraintDTO } from "./constraint-dto";
 import { SignedAttributesConstraintsDTO } from "./signed-attributes-constraints-dto";
 import { TimeConstraintDTO } from "./time-constraint-dto";
 
-export class TimeStampConstraintsDTO {
+export class TimeStampConstraintsDTO extends ConstraintDTO{
     /**
      * Checks the delay between the best-signature-time
      * and the claimed signing time
@@ -50,4 +51,8 @@ export class TimeStampConstraintsDTO {
       * Group of checks on the signed attributes/properties
       */
      signedAttributesConstraints: SignedAttributesConstraintsDTO;
+
+     override populate(dic: Map<string, any>): void {
+         
+     }
 }

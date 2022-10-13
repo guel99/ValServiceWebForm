@@ -60,4 +60,8 @@ export class BasicSignatureConstraintsDTO extends ConstraintDTO{
       * Group of cryptographic checks to operate on the current signed token
       */     
      cryptographicConstraints: CryptographicConstraintDTO;
+
+     override populate(dic: Map<string, any>): void {
+         
+     }
 }

@@ -16,15 +16,8 @@ export class ContainerConstraintsComponent extends ConstraintsComponent implemen
   }
 
   createDTO(dic: Map<string, any>) {
-    var containerConstraintsDTO: ContainerConstraintsDTO = new ContainerConstraintsDTO();
-    containerConstraintsDTO.AcceptableContainerTypes = dic.get('AcceptableContainerTypes') as MultiValuesConstraintDTO;
-    containerConstraintsDTO.ZipCommentPresent = dic.get('ZipCommentPresent') as string;
-    containerConstraintsDTO.AcceptableZipComment = dic.get('AcceptableZipComment') as MultiValuesConstraintDTO;
-    containerConstraintsDTO.MimeTypeFilePresent = dic.get('MimeTypeFilePresent') as string;
-    containerConstraintsDTO.AcceptableMimeTypeFileContent = dic.get('AcceptableMimeTypeFileContent') as MultiValuesConstraintDTO;
-    containerConstraintsDTO.ManifestFilePresent = dic.get('ManifestFilePresent') as string;
-    containerConstraintsDTO.SignedFilesPresent = dic.get('SignedFilesPresent') as string;
-    containerConstraintsDTO.AllFilesSigned = dic.get('AllFilesSigned') as string;
+    var containerConstraintsDTO = new ContainerConstraintsDTO();
+    containerConstraintsDTO.populate(dic);
     this.changedConstraintSet.emit(containerConstraintsDTO);
   }
 }

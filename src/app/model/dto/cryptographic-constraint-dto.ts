@@ -18,4 +18,8 @@ export class CryptographicConstraintDTO extends ConstraintDTO{
         this.acceptableDigestAlgo = new Array<Algo>();
         this.miniPublicKeySize = new Array<Algo>();
     }
+
+    override populate(dic: Map<string, any>): void {
+        
+    }
 }

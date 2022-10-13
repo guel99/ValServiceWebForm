@@ -25,14 +25,14 @@ import { ContainerConstraintsComponent } from './components/policy-constraints/c
 import { MatInputModule } from '@angular/material/input';
 import { LevelConstraintComponent } from './components/common/level-constraint/level-constraint.component';
 import { MultiValuesConstraintComponent } from './components/common/multi-values-constraint/multi-values-constraint.component';
-import { SignatureConstraintsComponent } from './components/policy-request/signature-constraints/signature-constraints.component';
 import { ConstraintsComponent } from './components/policy-request/constraints/constraints.component';
 import { TimeConstraintComponent } from './components/common/time-constraint/time-constraint.component';
 
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { ValueConstraintComponent } from './components/common/value-constraint/value-constraint.component';
 import { CryptographicConstraintComponent } from './components/common/cryptographic-constraint/cryptographic-constraint.component';
 import { ModelConstraintComponent } from './components/common/model-constraint/model-constraint.component';
+import { SignatureConstraintsComponent } from './components/policy-constraints/signature-constraints/signature-constraints.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,8 @@ import { ModelConstraintComponent } from './components/common/model-constraint/m
     TimeConstraintComponent,
     ValueConstraintComponent,
     CryptographicConstraintComponent,
-    ModelConstraintComponent
+    ModelConstraintComponent,
+    SignatureConstraintsComponent,
   ],
   imports: [
     BrowserModule,

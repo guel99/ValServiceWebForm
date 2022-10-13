@@ -1,7 +1,8 @@
+import { ConstraintDTO } from "./constraint-dto";
 import { TimeConstraintDTO } from "./time-constraint-dto";
 import { ValueConstraintDTO } from "./value-constraint-dto";
 
-export class EidasDTO{
+export class EidasDTO extends ConstraintDTO{
 
     /**
      * Checks the Trusted List freshness to ensure the validation uses an up-to-date version
@@ -23,4 +24,8 @@ export class EidasDTO{
       * Trusted List is equals to the given value
       */
      tlVersion: ValueConstraintDTO;
+
+     override populate(dic: Map<string, any>): void {
+         
+     }
 }

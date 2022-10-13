@@ -1,3 +1,4 @@
-export class ConstraintDTO{
+export abstract class ConstraintDTO{
     
+    abstract populate(dic: Map<string, any>) : void;
 }

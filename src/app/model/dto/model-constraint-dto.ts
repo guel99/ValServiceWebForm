@@ -7,4 +7,8 @@ export class ModelConstraintDTO extends ConstraintDTO{
     constructor () {
         super();
     }
+
+    override populate(dic: Map<string, any>): void {
+        
+    }
 }
