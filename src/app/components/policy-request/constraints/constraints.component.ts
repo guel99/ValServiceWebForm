@@ -67,6 +67,7 @@ export class ConstraintsComponent implements OnInit {
    * @param constraint The constraint enabled
    */
   addConstraintDTO(constraintName: string, constraint: any) {
+    constraintName = constraintName.replace(/\s+([a-z])/g, function(v) { return v.toUpperCase().replace(" ",""); });
     this.enabledConstraints.set(constraintName, constraint);
     this.changedConstraintSet.emit(this.enabledConstraints);
     //console.log(this.enabledConstraints);
@@ -80,6 +81,7 @@ export class ConstraintsComponent implements OnInit {
     simpleChildrenConstraintsDTOs.forEach((value: ConstraintDTO, key: string) => {
       this.enabledConstraints.set(key, value);
     })
+    this.changedConstraintSet.emit(this.enabledConstraints);
   }
 
   /**

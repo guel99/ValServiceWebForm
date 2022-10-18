@@ -26,6 +26,9 @@ export class EidasDTO extends ConstraintDTO{
      tlVersion: ValueConstraintDTO;
 
      override populate(dic: Map<string, any>): void {
-         
+        this.tlFreshness = dic.get('TlFreshness') as TimeConstraintDTO;
+        this.tlNotExpired = dic.get('TlNotExpired') as String;
+        this.tlWellSigned = dic.get('TlWellSigned') as String;
+        this.tlVersion = dic.get('TlVersion') as ValueConstraintDTO;
      }
 }

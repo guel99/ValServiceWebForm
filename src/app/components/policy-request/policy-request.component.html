@@ -7,11 +7,11 @@
         </app-container-constraints>
     </mat-tab>
     <mat-tab label="Signature">
-        <app-constraints 
+        <app-signature-constraints 
             [constraints_config]="signatureConst"
             (changedConstraintSet)="log($event)"
             #signatureConstraints>
-        </app-constraints>
+        </app-signature-constraints>
     </mat-tab>
     <mat-tab label="Counter-signature">
         <app-constraints

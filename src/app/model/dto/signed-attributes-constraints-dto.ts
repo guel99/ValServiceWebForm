@@ -144,6 +144,26 @@ export class SignedAttributesConstraintsDTO extends ConstraintDTO {
      contentTimeStampMessageImprint: string;
 
      override populate(dic: Map<string, any>): void {
-         
+        this.signingCertificatePresent = dic.get('SigningCertificatePresent') as string;
+        this.unicitySigningCertificate = dic.get('UnicitySigningCertificate') as string;
+        this.signingCertificateRefersCertificateChain = dic.get('SigningCertificateRefersCertificateChain') as string;
+        this.referencesToAllCertificateChainPresent = dic.get('ReferencesToAllCertificateChainPresent') as string;
+        this.signingCertificateDigestAlgorithm = dic.get('SigningCertificateDigestAlgorithm') as string;
+        this.certDigestPresent = dic.get('CertDigestPresent') as string;
+        this.certDigestMatch = dic.get('CertDigestMatch') as string;
+        this.issuerSerialMatch = dic.get('IssuerSerialMatch') as string;
+        this.keyIdentifierPresent = dic.get('KeyIdentifierPresent') as string;
+        this.keyIdentifierMatch = dic.get('KeyIdentifierMatch') as string;
+        this.signingTime = dic.get('SigningTime') as string;
+        this.contentType = dic.get('ContentType') as ValueConstraintDTO;
+        this.contentHints = dic.get('ContentHints') as ValueConstraintDTO;
+        this.contentIdentifier = dic.get('ContentIdentifier') as ValueConstraintDTO;
+        this.messageDigestOrSignedPropertiesPresent = dic.get('MessageDigestOrSignedPropertiesPresent') as string;
+        this.commitmentTypeIndication = dic.get('CommitmentTypeIndication') as MultiValuesConstraintDTO;
+        this.signerLocation = dic.get('SignerLocation') as string;
+        this.claimedRoles = dic.get('ClaimedRoles') as MultiValuesConstraintDTO;
+        this.certifiedRoles = dic.get('CertifiedRoles') as MultiValuesConstraintDTO;
+        this.contentTimeStamp = dic.get('ContentTimeStamp') as string;
+        this.contentTimeStampMessageImprint = dic.get('ContentTimeStampMessageImprint') as string;
      }
 }

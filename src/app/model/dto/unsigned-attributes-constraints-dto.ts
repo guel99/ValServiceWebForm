@@ -8,6 +8,6 @@ export class UnsignedAttributesConstraintsDTO extends ConstraintDTO {
     counterSignature: string;
 
     override populate(dic: Map<string, any>): void {
-        
+        this.counterSignature = dic.get('CounterSignature') as string;
     }
 }

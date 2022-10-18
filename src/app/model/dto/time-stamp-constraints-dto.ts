@@ -53,6 +53,18 @@ export class TimeStampConstraintsDTO extends ConstraintDTO{
      signedAttributesConstraints: SignedAttributesConstraintsDTO;
 
      override populate(dic: Map<string, any>): void {
-         
+        this.timestampDelay = dic.get('TimestampDelay') as TimeConstraintDTO;
+        this.revocationTimeAgainstBestSignatureTime = dic.get('RevocationTimeAgainstBestSignatureTime') as String;
+        this.bestSignatureTimeBeforeExpirationDateOfSigningCertificate = dic.get('BestSignatureTimeBeforeExpirationDateOfSigningCertificate') as String;
+        this.coherence = dic.get('Coherence') as String;
+        this.tsaGeneralNamePresent = dic.get('TsaGeneralNamePresent') as String;
+        this.tsaGeneralNameContentMatch = dic.get('TsaGeneralNameContentMatch') as String;
+        this.tsaGeneralNameOrderMatch = dic.get('TsaGeneralNameOrderMatch') as String;
+
+        this.basicSignatureConstraints = new BasicSignatureConstraintsDTO();
+        this.basicSignatureConstraints.populate(dic.get('BasicSignatureConstraints'));
+
+        this.signedAttributesConstraints = new SignedAttributesConstraintsDTO();
+        this.signedAttributesConstraints.populate(dic.get('SignedAttributesConstraints'));
      }
 }
