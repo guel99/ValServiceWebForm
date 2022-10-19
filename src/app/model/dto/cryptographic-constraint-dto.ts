@@ -10,7 +10,7 @@ export class CryptographicConstraintDTO extends ConstraintDTO{
 
     miniPublicKeySize: Array<Algo>;
 
-    algoExpirationData: AlgoExpirationDateDTO;
+    algoExpirationDate: AlgoExpirationDateDTO;
 
     constructor () {
         super();
