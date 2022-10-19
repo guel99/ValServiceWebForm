@@ -37,7 +37,8 @@
             </app-value-constraint>
 
             <app-cryptographic-constraint class="constraint" *ngIf="simple.isCryptographicConstraint()"
-                [disabled]="true" [ruleName]="simple.ruleName">
+                [disabled]="true" [ruleName]="simple.ruleName"
+                (setted)="addConstraintDTO(simple.ruleName, $event)" (collapsed)="deleteConstraintDTO(simple.ruleName)">
             </app-cryptographic-constraint>
 
         </mat-card-content>

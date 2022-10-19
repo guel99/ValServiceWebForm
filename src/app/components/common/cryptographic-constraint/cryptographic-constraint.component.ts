@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CryptographicConstraintDTO } from 'src/app/model/dto/cryptographic-constraint-dto';
 import { Algo } from 'src/app/model/enums/policy/dto/Algo';
 import { LevelConstraintComponent } from '../level-constraint/level-constraint.component';
 
@@ -60,6 +61,27 @@ export class CryptographicConstraintComponent extends LevelConstraintComponent i
   override ngOnInit(): void {
   }
 
+  override setLevel(): void {
+      this.selected = this.selected?.toUpperCase();
+      var cryptographic = new CryptographicConstraintDTO();
+
+      // here we have to build another instance because the format required in the dto object
+      this.acceptableEncryptionAlgo.forEach(algo => {
+        var encAlgo = new Algo();
+        encAlgo.value = algo.value;
+        var minKeySize = new Algo();
+        minKeySize.value = algo.value;
+        minKeySize.size = algo.size;
+        cryptographic.acceptableEncryptionAlgo.push(encAlgo);
+        cryptographic.miniPublicKeySize.push(minKeySize);
+      });
+      // in the digest algos case, the object has already the required format to be sent to the server
+      this.acceptableDigestAlgo.forEach(algo => {
+        cryptographic.acceptableDigestAlgo.push(algo)
+      });
+      this.setted.emit(cryptographic);
+  }
+
   /**
    * Add a new encryption algo to the selected list
    * @param algo The algo name
@@ -99,6 +121,33 @@ export class CryptographicConstraintComponent extends LevelConstraintComponent i
    */
   removeDigestAlgo(algo: string){
     this.acceptableDigestAlgo.delete(algo);
+  }
+
+  private globallyChecked() {
+    return this.encryptionChecked && this.digestChecked;
+  }
+
+  /**
+   * Triggered when the encryption edit button is clicked
+   */
+  editEncryptionAlgoList() {
+
+    var globallyChecked = this.globallyChecked();
+    this.encryptionChecked = false;
+    // if the constraint was ready to sent we collapse it
+    if (globallyChecked)
+      this.collapsed.emit();
+  }
+
+  /**
+   * Triggered when the digest list edit button is clicked
+   */
+  editDigestAlgoList(){
+    var globallyChecked = this.globallyChecked();
+    this.digestChecked = false;
+    // if the constraint was ready to sent we collapse it
+    if (globallyChecked)
+      this.collapsed.emit();
   }
 
 }

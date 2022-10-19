@@ -5,7 +5,7 @@
     <mat-card-content *ngIf="!disabled">
         <form class="form-group">
             <label class="form-item" *ngFor="let level of availableLevels">
-                <input [(ngModel)]="selected" required type="radio" [value]="level" [name]="ruleName" (change)="setLevel()" #level="ngModel">
+                <input [disabled]="!encryptionChecked || !digestChecked" [(ngModel)]="selected" required type="radio" [value]="level" [name]="ruleName" (change)="setLevel()" #level="ngModel">
                     {{ level }}
             </label>
 
@@ -36,7 +36,7 @@
                 </button>
                 <button class="edit-button {{ !encryptionChecked ? 'disabled' : ''}}" mat-icon-button
                     color="basic" [disabled]="!encryptionChecked" #editButton
-                    (click)="encryptionChecked = false">
+                    (click)="editEncryptionAlgoList()">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>
@@ -89,7 +89,7 @@
                 </button>
                 <button class="edit-button {{ !digestChecked ? 'disabled' : ''}}" mat-icon-button
                     color="basic" [disabled]="!digestChecked" #editButton
-                    (click)="digestChecked = false">
+                    (click)="editDigestAlgoList()">
                     <mat-icon>edit</mat-icon>
                 </button>
             </div>
