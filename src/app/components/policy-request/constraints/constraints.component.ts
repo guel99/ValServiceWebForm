@@ -78,9 +78,13 @@ export class ConstraintsComponent implements OnInit {
    * @param simpleChildrenConstraintsDTOs
    */
   addSimpleChildrenConstraintsDTOs(simpleChildrenConstraintsDTOs: Map<string, ConstraintDTO>){
+    /*
     simpleChildrenConstraintsDTOs.forEach((value: ConstraintDTO, key: string) => {
       this.enabledConstraints.set(key, value);
-    })
+    }) */
+    // we cannot use the previous aproach because when a child is 
+    // deleted is must be deleted also in the parent
+    this.enabledConstraints = simpleChildrenConstraintsDTOs;
     this.changedConstraintSet.emit(this.enabledConstraints);
   }
 
@@ -89,6 +93,8 @@ export class ConstraintsComponent implements OnInit {
    * @param constraintName
    */
   deleteConstraintDTO(constraintName: string) {
+    constraintName = constraintName.replace(/\s+([a-zA-Z])/g, function(v) { return v.toUpperCase().replace(" ",""); });
+    debugger;
     this.enabledConstraints.delete(constraintName);
     this.changedConstraintSet.emit(this.enabledConstraints);
   }
