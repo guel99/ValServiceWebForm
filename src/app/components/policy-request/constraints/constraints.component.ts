@@ -67,7 +67,7 @@ export class ConstraintsComponent implements OnInit {
    * @param constraint The constraint enabled
    */
   addConstraintDTO(constraintName: string, constraint: any) {
-    constraintName = constraintName.replace(/\s+([a-zA-Z])/g, function(v) { return v.toUpperCase().replace(" ",""); });
+    constraintName = this.normalizeConstraintName(constraintName);
     this.enabledConstraints.set(constraintName, constraint);
     this.changedConstraintSet.emit(this.enabledConstraints);
     //console.log(this.enabledConstraints);
@@ -94,8 +94,19 @@ export class ConstraintsComponent implements OnInit {
    */
   deleteConstraintDTO(constraintName: string) {
     constraintName = constraintName.replace(/\s+([a-zA-Z])/g, function(v) { return v.toUpperCase().replace(" ",""); });
-    debugger;
     this.enabledConstraints.delete(constraintName);
     this.changedConstraintSet.emit(this.enabledConstraints);
+  }
+
+  private normalizeConstraintName(constraintName: string) : string {
+    // remove all indications between paranthesis
+    constraintName = constraintName.replace(/[A-Z]{2,}/g, v => v.toLowerCase());
+    constraintName = constraintName.replace(/^[a-z]/, v => v.toUpperCase());
+    constraintName = constraintName.replace(/\s*\(.+\)/g, "");
+    // replace, p.e, 'signature constraint' by 'signatureConstraint'
+    constraintName = constraintName.replace(/\s+([a-zA-Z])/g, v => v.toUpperCase().replace(" ",""));
+    // replace, p.e, 'best-signature-time' by 'bestSignatureTime'
+    constraintName = constraintName.replace(/\-([a-zA-Z])/g, v => v.toUpperCase().replace("-","") );
+    return constraintName;
   }
 }
