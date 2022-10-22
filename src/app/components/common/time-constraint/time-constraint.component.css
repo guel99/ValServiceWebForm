@@ -1,10 +1,10 @@
 @import '../multi-values-constraint/multi-values-constraint.component.css';
 
 mat-select {
-    background-color: rgb(4, 56, 134);
+    background-color: #05487f;
     border-radius: 10px;
     text-align: center;
-    color: rgb(4, 56, 134);
+    color: #05487f;
     height: 40px;
     width: 4cm;
     margin-top: 35px;

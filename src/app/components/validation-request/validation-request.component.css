@@ -24,7 +24,7 @@ mat-card .mat-card-title{
     padding-bottom: 7mm;
     padding-left: 5mm;
     margin-bottom: 7mm;
-    background: rgb(4, 56, 134);
+    background: #05487f;
     vertical-align: middle;
     border-radius: 4px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -40,7 +40,7 @@ mat-tab-group{
 }
 
 mat-tab{
-    background-color: rgb(4, 56, 134);
+    background-color: #05487f;
     color: white;
 }
 
@@ -102,11 +102,11 @@ pre.prettyprint {
     justify-content: center;
     margin-top: 1.2cm;
     color: white;
-    background: rgb(4, 56, 134);
+    background: #05487f;
 }
 .attach-button{
     color: white;
-    background: rgb(4, 56, 134);
+    background: #05487f;
 }
 .attach-button.disabled{
     color: white;
