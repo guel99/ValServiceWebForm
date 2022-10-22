@@ -35,7 +35,9 @@
 
             <app-value-constraint class="constraint" *ngIf="simple.isValueConstraint()" [disabled]="true"
                 [ruleName]="simple.ruleName" [pattern]="simple.info?.pattern" [placeholder]="simple.info?.placeholder"
-                [onEmptyValue]="simple.info?.onEmptyValue" [onWrongValue]="simple.info?.onWrongValue">
+                [onEmptyValue]="simple.info?.onEmptyValue" [onWrongValue]="simple.info?.onWrongValue"
+                (setted)="addConstraintDTO(simple.ruleName, $event)"
+                (collapsed)="deleteConstraintDTO(simple.ruleName)">
             </app-value-constraint>
 
             <app-cryptographic-constraint class="constraint" *ngIf="simple.isCryptographicConstraint()"

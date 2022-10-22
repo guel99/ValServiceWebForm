@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ValueConstraintDTO } from 'src/app/model/dto/value-constraint-dto';
 import { LevelConstraintComponent } from '../level-constraint/level-constraint.component';
 
 @Component({
@@ -47,8 +48,11 @@ export class ValueConstraintComponent extends LevelConstraintComponent implement
 
   constructor() { super(); }
 
-  override ngOnInit(): void {
+  override setLevel(): void {
+      var valueConstraint = new ValueConstraintDTO();
+      valueConstraint.level = this.selected!;
+      valueConstraint.value = this.value;
+      this.setted.emit(valueConstraint);
   }
-
   
 }
