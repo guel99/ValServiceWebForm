@@ -12,11 +12,15 @@ export class RevocationConstraints extends Constraints{
             type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
-            ruleName: 'OCSP certificate hash present',
+            ruleName: 'Unknown status',
             type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
-            ruleName: 'OCSP certificate hash match',
+            ruleName: 'OCSP cert hash present',
+            type: ConstraintType.LEVEL_CONSTRAINT
+        },
+        {
+            ruleName: 'OCSP cert hash match',
             type: ConstraintType.LEVEL_CONSTRAINT
         },
         {

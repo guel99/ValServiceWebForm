@@ -37,10 +37,13 @@ export class RevocationConstraintsDTO extends ConstraintDTO {
         this.unknownStatus = dic.get('UnknownStatus') as String;
         this.ocspCertHashPresent = dic.get('OcspCertHashPresent') as String;
         this.ocspCertHashMatch = dic.get('OcspCertHashMatch') as String;
-        this.selfIssuedOCSP = dic.get('SelfIssuedOCSP') as String;
+        this.selfIssuedOCSP = dic.get('SelfIssuedOcsp') as String;
         this.level = dic.get('Level') as String;
 
-        this.basicSignatureConstraints = new BasicSignatureConstraintsDTO();
-        this.basicSignatureConstraints.populate(dic.get('BasicSignatureConstraints'));
+        var basicSignatureConstraintsDic = dic.get('BasicSignatureConstraints');
+        if (basicSignatureConstraintsDic != undefined) {
+            this.basicSignatureConstraints = new BasicSignatureConstraintsDTO();
+            this.basicSignatureConstraints.populate(dic.get('BasicSignatureConstraints'));
+        }
     }
 }

@@ -3,7 +3,7 @@
     <mat-card-content *ngIf="!disabled">
         <form class="form-group">
             <label class="form-item" *ngFor="let model of modelsList">
-                <input type="radio" [id]="model" [name]="ruleName" (change)="setModel($event)">
+                <input [(ngModel)]="selected" type="radio" [value]="model" [name]="ruleName" (change)="setModel()">
                 {{ model }}
             </label>
         </form>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-model-constraint',
@@ -26,6 +26,18 @@ export class ModelConstraintComponent implements OnInit {
   @Input()
   ruleName: string;
 
+  /**
+   * Triggered event on setted/changed level value of the constraint
+   */
+   @Output()
+   setted: EventEmitter<any> = new EventEmitter();
+ 
+   /**
+    * Triggered event on disabled constraint
+    */
+   @Output()
+   collapsed: EventEmitter<any> = new EventEmitter();
+
   selected?: string;
 
   constructor() { }
@@ -39,14 +51,16 @@ export class ModelConstraintComponent implements OnInit {
    */
   disable() {
     this.disabled = !this.disabled;
+    this.selected = undefined;
+    if(this.disabled) this.collapsed.emit();
   }
 
   /**
    * Select a model on an event trigger
    * @param event
    */
-  setModel(event: any){
-    this.selected = event.target.id;
+  setModel(){
+    this.setted.emit(this.selected);
   }
 
 }

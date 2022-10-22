@@ -27,21 +27,26 @@
         </app-timestamp-constraints>
     </mat-tab>
     <mat-tab label="Revocation">
-        <app-constraints
-            [constraints_config]="revocationConst">
-        </app-constraints>
+        <app-revocation-constraints
+            [constraints_config]="revocationConst"
+            (changedConstraintSet)="this.policyRequest.revocationConstraints = $event; log(this.policyRequest);">
+        </app-revocation-constraints>
     </mat-tab>
     <mat-tab label="Cryptographic">
-        <app-cryptographic-constraint ruleName="Cryptographic Constraints">
-
+        <app-cryptographic-constraint ruleName="Cryptographic Constraints"
+            (setted)="this.policyRequest.cryptographicConstraint = $event; log(this.policyRequest);"
+            (collapsed)="this.policyRequest.cryptographicConstraint = undefined; log(this.policyRequest);">
         </app-cryptographic-constraint>
     </mat-tab>
     <mat-tab label="Model">
-        <app-model-constraint ruleName="Model Constraints"></app-model-constraint>
+        <app-model-constraint ruleName="Model Constraint"
+            (setted)="this.policyRequest.modelConstraint = $event; log(this.policyRequest);"
+            (collapsed)="this.policyRequest.modelConstraint = undefined"></app-model-constraint>
     </mat-tab>
     <mat-tab label="eIDAS">
-        <app-constraints
-            [constraints_config]="eidasConst">
-        </app-constraints>
+        <app-eidas-constraints
+            [constraints_config]="eidasConst"
+            (changedConstraintSet)="this.policyRequest.eIDAS = $event; log(this.policyRequest);">
+        </app-eidas-constraints>
     </mat-tab>
 </mat-tab-group>

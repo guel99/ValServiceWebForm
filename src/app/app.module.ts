@@ -34,6 +34,8 @@ import { CryptographicConstraintComponent } from './components/common/cryptograp
 import { ModelConstraintComponent } from './components/common/model-constraint/model-constraint.component';
 import { SignatureConstraintsComponent } from './components/policy-constraints/signature-constraints/signature-constraints.component';
 import { TimestampConstraintsComponent } from './components/policy-constraints/timestamp-constraints/timestamp-constraints.component';
+import { RevocationConstraintsComponent } from './components/policy-constraints/revocation-constraints/revocation-constraints.component';
+import { EidasConstraintsComponent } from './components/policy-constraints/eidas-constraints/eidas-constraints.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { TimestampConstraintsComponent } from './components/policy-constraints/t
     ModelConstraintComponent,
     SignatureConstraintsComponent,
     TimestampConstraintsComponent,
+    RevocationConstraintsComponent,
+    EidasConstraintsComponent,
   ],
   imports: [
     BrowserModule,

@@ -94,8 +94,10 @@ export class ConstraintsComponent implements OnInit {
    */
   deleteConstraintDTO(constraintName: string) {
     constraintName = constraintName.replace(/\s+([a-zA-Z])/g, function(v) { return v.toUpperCase().replace(" ",""); });
-    this.enabledConstraints.delete(constraintName);
-    this.changedConstraintSet.emit(this.enabledConstraints);
+    if(this.enabledConstraints.has(constraintName)){
+      this.enabledConstraints.delete(constraintName);
+      this.changedConstraintSet.emit(this.enabledConstraints);
+    }
   }
 
   private normalizeConstraintName(constraintName: string) : string {
