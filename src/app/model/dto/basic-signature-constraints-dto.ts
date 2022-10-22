@@ -80,7 +80,7 @@ export class BasicSignatureConstraintsDTO extends ConstraintDTO {
       else
          this.signingCertificateConstraints = undefined;
 
-      var caCertificateConstraintsDic = dic.get('CACertificate');
+      var caCertificateConstraintsDic = dic.get('CaCertificate');
       if (caCertificateConstraintsDic != undefined) {
          this.caCertificateConstraints = new CertificateConstraintsDTO();
          this.caCertificateConstraints.populate(caCertificateConstraintsDic);

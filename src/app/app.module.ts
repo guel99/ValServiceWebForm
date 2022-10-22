@@ -33,6 +33,7 @@ import { ValueConstraintComponent } from './components/common/value-constraint/v
 import { CryptographicConstraintComponent } from './components/common/cryptographic-constraint/cryptographic-constraint.component';
 import { ModelConstraintComponent } from './components/common/model-constraint/model-constraint.component';
 import { SignatureConstraintsComponent } from './components/policy-constraints/signature-constraints/signature-constraints.component';
+import { TimestampConstraintsComponent } from './components/policy-constraints/timestamp-constraints/timestamp-constraints.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { SignatureConstraintsComponent } from './components/policy-constraints/s
     CryptographicConstraintComponent,
     ModelConstraintComponent,
     SignatureConstraintsComponent,
+    TimestampConstraintsComponent,
   ],
   imports: [
     BrowserModule,

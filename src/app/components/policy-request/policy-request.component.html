@@ -2,26 +2,29 @@
     <mat-tab label="Container">
         <app-container-constraints
             [constraints_config]="containerConst"
-            (changedConstraintSet)="log($event)"
+            (changedConstraintSet)="this.policyRequest.containerConstraints = $event; log(this.policyRequest)"
             #containerConstraints>
         </app-container-constraints>
     </mat-tab>
     <mat-tab label="Signature">
         <app-signature-constraints 
             [constraints_config]="signatureConst"
-            (changedConstraintSet)="log($event)"
+            (changedConstraintSet)="this.policyRequest.signatureConstraints = $event; log(this.policyRequest)"
             #signatureConstraints>
         </app-signature-constraints>
     </mat-tab>
     <mat-tab label="Counter-signature">
-        <app-constraints
-            [constraints_config]="counterSigConst">
-        </app-constraints>
+        <app-signature-constraints
+            [constraints_config]="counterSigConst"
+            (changedConstraintSet)="this.policyRequest.counterSignatureConstraints = $event; log(this.policyRequest)"
+            #counterSignatureConstraints>
+        </app-signature-constraints>
     </mat-tab>
     <mat-tab label="Timestamp">
-        <app-constraints
-            [constraints_config]="timestampConst">
-        </app-constraints>
+        <app-timestamp-constraints
+            [constraints_config]="timestampConst"
+            (changedConstraintSet)="this.policyRequest.timeStampConstraints = $event; log(this.policyRequest)">
+        </app-timestamp-constraints>
     </mat-tab>
     <mat-tab label="Revocation">
         <app-constraints

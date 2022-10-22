@@ -13,7 +13,7 @@ export class TimeStampConstraints extends Constraints{
             type: ConstraintType.TIME_CONSTRAINT
         },
         {
-            ruleName: 'Revocation time againts best-signature-time',
+            ruleName: 'Revocation time against best-signature-time',
             type: ConstraintType.LEVEL_CONSTRAINT
         },
         {

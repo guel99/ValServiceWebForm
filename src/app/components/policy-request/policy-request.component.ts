@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConstraintsConfiguration } from 'src/app/configs/constraints-config';
 import { Constraints } from 'src/app/configs/constraints-types/constraints';
+import { ValidationPolicyDTO } from 'src/app/model/dto/validation-policy-dto';
 
 @Component({
   selector: 'app-policy-request',
@@ -10,21 +11,20 @@ import { Constraints } from 'src/app/configs/constraints-types/constraints';
 export class PolicyRequestComponent implements OnInit {
 
   /**
-   * The containerConstraints
+   * The confired constraint objects to be displayed to the user
    */
   containerConst: Constraints = ConstraintsConfiguration.container;
-
   signatureConst: Constraints = ConstraintsConfiguration.signature;
-
   counterSigConst: Constraints = ConstraintsConfiguration.counterSignature;
-
   timestampConst: Constraints = ConstraintsConfiguration.timestamp;
-
   revocationConst: Constraints = ConstraintsConfiguration.revocation;
-
   eidasConst: Constraints = ConstraintsConfiguration.eidas;
 
-  constructor() { }
+  policyRequest: ValidationPolicyDTO;
+
+  constructor() { 
+    this.policyRequest = new ValidationPolicyDTO();
+  }
 
   ngOnInit(): void {
   }

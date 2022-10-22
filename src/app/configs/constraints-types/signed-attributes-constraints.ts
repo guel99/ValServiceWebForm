@@ -15,11 +15,11 @@ export class SignedAttributesConstraints extends Constraints {
             type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
-            ruleName: 'Signing certificate refers cert. chain',
+            ruleName: 'Signing certificate refers certificate chain',
             type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
-            ruleName: 'References to all cert. chain present',
+            ruleName: 'References to all certificate chain present',
             type: ConstraintType.LEVEL_CONSTRAINT
         },
         {
@@ -91,7 +91,7 @@ export class SignedAttributesConstraints extends Constraints {
             }
         },
         {
-            ruleName: 'Signed location',
+            ruleName: 'Signer location',
             type: ConstraintType.LEVEL_CONSTRAINT
         },
         {

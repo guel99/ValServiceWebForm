@@ -75,7 +75,7 @@ export class SignatureConstraintsDTO extends ConstraintDTO {
       else
          this.basicSignatureConstraints = undefined;
 
-      var signedAttributesConstraintsDic = dic.get('SignedAttributesConstraints')
+      var signedAttributesConstraintsDic = dic.get('SignedAttributes')
       if (signedAttributesConstraintsDic != undefined) {
          this.signedAttributesConstraints = new SignedAttributesConstraintsDTO();
          this.signedAttributesConstraints.populate(signedAttributesConstraintsDic);
@@ -83,7 +83,7 @@ export class SignatureConstraintsDTO extends ConstraintDTO {
       else
          this.signedAttributesConstraints = undefined;
 
-      var unsignedAttributesConstraintsDic = dic.get('UnsignedAttributesConstraints');
+      var unsignedAttributesConstraintsDic = dic.get('UnsignedAttributes');
       if (unsignedAttributesConstraintsDic != undefined) {
          this.unsignedAttributesConstraints = new UnsignedAttributesConstraintsDTO();
          this.unsignedAttributesConstraints.populate(unsignedAttributesConstraintsDic);
