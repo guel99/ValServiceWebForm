@@ -17,7 +17,7 @@ export class ContainerConstraints extends Constraints {
    */
   static constraints = [
     {
-      ruleName: 'AcceptableContainerTypes',
+      ruleName: 'Acceptable container types',
       type: ConstraintType.MULTI_VALUES_CONSTRAINT,
       info: {
         pattern: '^ASiC-S|ASiC-E$',
@@ -27,11 +27,11 @@ export class ContainerConstraints extends Constraints {
       }
     },
     {
-      ruleName: 'ZipCommentPresent',
+      ruleName: 'Zip comment present',
       type: ConstraintType.LEVEL_CONSTRAINT
     },
     {
-      ruleName: 'AcceptableZipComment',
+      ruleName: 'Acceptable zip comment',
       type: ConstraintType.MULTI_VALUES_CONSTRAINT,
       info: {
         placeholder: "Type any zip comment you consider valid",
@@ -39,11 +39,11 @@ export class ContainerConstraints extends Constraints {
       }
     },
     {
-      ruleName: 'MimeTypeFilePresent',
+      ruleName: 'Mime-type file present',
       type: ConstraintType.LEVEL_CONSTRAINT
     },
     {
-      ruleName: 'AcceptableMimeTypeFileContent',
+      ruleName: 'Acceptable mime-type file content',
       info: {
         pattern: '^[-\\w.]+/[\\+-\\w.]+$',
         placeholder: "e.g. application/vnd.etsi.asic-s+zip",
@@ -53,15 +53,15 @@ export class ContainerConstraints extends Constraints {
       type: ConstraintType.MULTI_VALUES_CONSTRAINT,
     },
     {
-      ruleName: 'ManifestFilePresent',
+      ruleName: 'Manifest file present',
       type: ConstraintType.LEVEL_CONSTRAINT
     },
     {
-      ruleName: 'SignedFilesPresent',
+      ruleName: 'Signed files present',
       type: ConstraintType.LEVEL_CONSTRAINT
     },
     {
-      ruleName: 'AllFilesSigned',
+      ruleName: 'All files signed',
       type: ConstraintType.LEVEL_CONSTRAINT
     }
   ]

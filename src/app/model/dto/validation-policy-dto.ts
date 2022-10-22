@@ -16,46 +16,46 @@ export class ValidationPolicyDTO{
      /**
       * ASiC specific constraints
       */
-     containerConstraints: ContainerConstraintsDTO;
+     containerConstraints?: ContainerConstraintsDTO;
  
      /**
       * Constraints on the signature (signed/unsigned properties, coverage,...)
       */
-     signatureConstraints: SignatureConstraintsDTO;
+     signatureConstraints?: SignatureConstraintsDTO;
  
      /**
       * Constraints related to the counter-signatures
       */
-     counterSignatureConstraints: SignatureConstraintsDTO;
+     counterSignatureConstraints?: SignatureConstraintsDTO;
  
      /**
       * Constraints on the timestamps
       */
-     timeStampConstraints: TimeStampConstraintsDTO;
+     timeStampConstraints?: TimeStampConstraintsDTO;
  
      /**
       * Constraints related to the revocation data
       */
-     revocationConstraints: RevocationConstraintsDTO;
+     revocationConstraints?: RevocationConstraintsDTO;
  
      /**
       * Global constraints about cryptographic usage (encryption, digest, key length, algorithm deprecation,...).
       * If no specific constraints is added in Signature/Timestamp/... elements, this configuration will be used.
       */
-     cryptographicConstraint: CryptographicConstraintDTO;
+     cryptographicConstraint?: CryptographicConstraintDTO;
  
      /**
       * Checks / Defines the validation model shell, chain or hybrid
       */
-     modelConstraint: ModelConstraintDTO;
+     modelConstraint?: ModelConstraintDTO;
  
      /**
       * Constraints related to the European context (trusted list validity,...)
       */
-     eIDAS: EidasDTO;
+     eIDAS?: EidasDTO;
  
      /**
       * The policy Name
       */
-     name: String;
+     name?: String;
 }
