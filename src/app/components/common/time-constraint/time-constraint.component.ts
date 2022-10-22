@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TimeConstraintDTO } from 'src/app/model/dto/time-constraint-dto';
 import { LevelConstraintComponent } from '../level-constraint/level-constraint.component';
 
 @Component({
@@ -38,6 +39,13 @@ export class TimeConstraintComponent extends LevelConstraintComponent implements
   }
 
   override ngOnInit(): void {
+  }
+
+  override setLevel(): void {
+      var timeConstraint = new TimeConstraintDTO();
+      timeConstraint.timeUnit = this.timeUnitValue;
+      timeConstraint.value = this.value;
+      this.setted.emit(timeConstraint);
   }
 
   log(obj: any){

@@ -28,7 +28,9 @@
             </app-multi-values-constraint>
 
             <app-time-constraint class="constraint" *ngIf="simple.isTimeConstraint()" [disabled]="true"
-                [ruleName]="simple.ruleName">
+                [ruleName]="simple.ruleName"
+                (setted)="addConstraintDTO(simple.ruleName, $event)"
+                (collapsed)="deleteConstraintDTO(simple.ruleName)">
             </app-time-constraint>
 
             <app-value-constraint class="constraint" *ngIf="simple.isValueConstraint()" [disabled]="true"
