@@ -20,7 +20,21 @@ export class PolicyRequestComponent implements OnInit {
   revocationConst: Constraints = ConstraintsConfiguration.revocation;
   eidasConst: Constraints = ConstraintsConfiguration.eidas;
 
+  /**
+   * The validation policy request object built based on the angular app
+   */
   policyRequest: ValidationPolicyDTO;
+
+  /**
+   * The instruction that is displayed to the user
+   */
+  pageInstruction: string = "Here you can assemble your own signature validation policy!";
+
+  /**
+   * The error message that will be displayed to the user 
+   * if the policy description is not provided by the user.
+   */
+  requiredErrorMessage: string = "The policy discription is the only mandatory parameter for a DSS signature validation policy."
 
   constructor() { 
     this.policyRequest = new ValidationPolicyDTO();

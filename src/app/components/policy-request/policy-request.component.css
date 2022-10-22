@@ -4,3 +4,34 @@ mat-tab-group{
     min-width : 0px;
     background-color : white;
 }
+
+.description-label{
+    margin-left: 5mm;
+    color: black;
+    padding-bottom: 5mm;
+    font-size: 25px;
+}
+
+.instruction{
+    margin: auto;
+    padding: 0px 20px 10px;
+    width: max-content;
+    margin-bottom: 8mm;
+}
+
+.form-group{
+    margin-bottom: 2cm;
+}
+
+.alert-danger{
+    margin: auto;
+    margin-top: 5mm;
+}
+
+.description-container{
+    padding: 6mm 2mm 2mm 2mm;
+    background-color: #bccad4;
+    border-color: black;
+    border-radius: 5px;
+    margin-bottom: 14mm;
+}
