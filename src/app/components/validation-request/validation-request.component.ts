@@ -1,12 +1,8 @@
-import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ValRequestAssembler } from 'src/app/model/utils/valReqAssembler';
-import { ValidationRequest } from 'src/app/model/validationRequest';
 import { ValidationResponse } from 'src/app/model/validationResponse';
 import { ResponseHandlingService } from 'src/app/service/responseHandling.service';
 import { ValidationService } from 'src/app/service/validation.service';
-import { AdESRelPosition } from '../../model/enums/adESRelPosition';
-import { AdESType } from '../../model/enums/adESType';
 
 @Component({
   selector: 'app-validation-request',
@@ -15,28 +11,34 @@ import { AdESType } from '../../model/enums/adESType';
 })
 export class ValidationRequestComponent implements OnInit {
 
-  readonly asic:AdESType = AdESType.ASiC;
-  readonly cades:AdESType = AdESType.CAdES;
-  readonly jades:AdESType = AdESType.JAdES;
-  readonly pades:AdESType = AdESType.PAdES;
-  readonly xades:AdESType = AdESType.XAdES;
+  readonly adesTypes: Array<string> = ["ASiC", "CAdES", "JAdES", "PAdES", "XAdES"];
 
-  readonly enveloped:AdESRelPosition = AdESRelPosition.ENVELOPED;
-  readonly enveloping:AdESRelPosition = AdESRelPosition.ENVELOPING;
-  readonly detached:AdESRelPosition = AdESRelPosition.DATACHED;
-  readonly internally_detached:AdESRelPosition = AdESRelPosition.INTERNALLY_DETACHED;
+  readonly adesRelPosition = ["Enveloped", "Enveloping", "Detached", "Internally detached"];
+
+  readonly availablePackagingPerAdesType : Map<string, Array<boolean>> = new Map<string, Array<boolean>> ([
+    ["ASiC", [true, true, true, true]],
+    ["CAdES", [true, false, false, true]],
+    ["JAdES", [true, false, false, true]],
+    ["PAdES", [false, true, true, true]],
+    ["XAdES", [false, false, false, false]]
+  ]);
+
+  /**
+   * The disabled status of each packaging type
+   */
+  packagingStatus : Array<boolean> = [true, true, true, true];
 
   /**
    * The type of AdES signature 
    * selected
    */
-  selected?:AdESType;
+  selected?:string = undefined;
 
   /**
    * The singature relative position 
    * to signed data
    */
-  relativePosition?:AdESRelPosition;
+  relativePosition?:string = undefined;
 
   /**
    * Original files uploaded by the client
@@ -44,6 +46,11 @@ export class ValidationRequestComponent implements OnInit {
   originalFiles:Array<File>;
 
   signedFile?: File;
+
+  /**
+   * Boolean that indicates if the ETSI validation report must be signed
+   */
+  signedEtsiReport: boolean = true;
 
   /**
    * Response sent by the backoffice component
@@ -68,13 +75,9 @@ export class ValidationRequestComponent implements OnInit {
     this.signedFile = undefined;
   }
 
-  selectAdESType(type:AdESType){
-    this.selected = type;
+  setAdesPossiblePackagingOptions(selected: string){
+    this.packagingStatus = this.availablePackagingPerAdesType.get(selected)!;
     this.relativePosition = undefined;
-  }
-
-  selectRelPosition(type:AdESRelPosition){
-    this.relativePosition = type;
   }
 
   uncheckAllRelativePosOpts() : void {
@@ -124,13 +127,13 @@ export class ValidationRequestComponent implements OnInit {
   readyToSubmit(): boolean {
     return this.signedFile != undefined &&
         this.selected != undefined &&
-            (this.selected != this.asic ? this.relativePosition != undefined : true) &&
-            (this.relativePosition == this.detached ? this.originalFiles.length>0:true);
+            (this.selected != this.adesTypes[0] ? this.relativePosition != undefined : true) &&
+            (this.relativePosition == this.adesRelPosition[2] ? this.originalFiles.length>0:true);
   }
 
   submit() {
     console.log('start submit');
-    var valReqAssembler = new ValRequestAssembler(this.signedFile!, this.originalFiles);
+    var valReqAssembler = new ValRequestAssembler(this.signedFile!, this.originalFiles, this.signedEtsiReport);
     valReqAssembler.assembleValRequest().then(validationRequest => {
       console.log(validationRequest)
       this.validationService.validate(validationRequest).then(validationResponse => {
@@ -180,6 +183,10 @@ export class ValidationRequestComponent implements OnInit {
 
   clear(){
     this.validationResponse = null;
+  }
+
+  debug(event:any){
+    console.log(event); // https://stackoverflow.com/questions/44301560/angular-2-two-way-binding-with-disabled
   }
 }
 

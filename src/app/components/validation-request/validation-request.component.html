@@ -2,60 +2,42 @@
     <mat-card-title class="sub-title">{{validationResponse == null ? 'Validate' : 'Validation Result'}}
     </mat-card-title>
     <mat-card-content id="card-content">
-        <form *ngIf="validationResponse == null" #form>
-            <div class="internalContainer">
-                <label class="req-text">
-                    <input type="radio" class="req-toggle-button" name="adesType"
-                        (change)="selectAdESType(asic);uncheckAllRelativePosOpts();clearFileInputs()">
-                    ASiC
-                </label>
-                <label class="req-text">
-                    <input type="radio" class="req-toggle-button" name="adesType"
-                        (change)="selectAdESType(cades);uncheckAllRelativePosOpts();clearFileInputs()">
-                    CAdES
-                </label>
-                <label class="req-text">
-                    <input type="radio" class="req-toggle-button" name="adesType"
-                        (change)="selectAdESType(jades);uncheckAllRelativePosOpts();clearFileInputs()">
-                    JAdES
-                </label>
-                <label class="req-text">
-                    <input type="radio" class="req-toggle-button" name="adesType"
-                        (change)="selectAdESType(pades);uncheckAllRelativePosOpts();clearFileInputs()">
-                    PAdES
-                </label>
-                <label class="req-text">
-                    <input type="radio" class="req-toggle-button" name="adesType"
-                        (change)="selectAdESType(xades);uncheckAllRelativePosOpts();clearFileInputs()">
-                    XAdES
-                </label>
+        <form class="form" *ngIf="validationResponse == null" #form="ngForm">
+            <div class="sigSelContainer">
+                <div *ngFor="let adesType of adesTypes">
+                    <label class="req-text">
+                        <input [(ngModel)]="selected" required type="radio" [value]="adesType"
+                            (ngModelChange)="setAdesPossiblePackagingOptions($event)" class="req-toggle-button"
+                            name="adesType" (change)="clearFileInputs()"
+                            #adesRadioGroup="ngModel">
+                        {{ adesType }}
+                    </label>
+                </div>
             </div>
             <div class="internalContainer">
-                <label
-                    class="req-text {{ selected == asic || selected == cades || selected == jades ? 'not-selected':'' }}">
-                    <input type="radio" #envelopedRBtn class="req-toggle-button" name="relPosType" id="enveloped"
-                        [disabled]="selected == cades || selected == jades || selected == asic"
-                        (change)="selectRelPosition(enveloped);clearFileInputs()">
+                <label class="req-text {{ packagingStatus[0] ? 'not-selected':'' }}">
+                    <input [(ngModel)]="relativePosition" type="radio" class="req-toggle-button" name="relPosType"
+                        id="Enveloped" [attr.disabled]="packagingStatus[0] ? true : null" value="Enveloped"
+                        (change)="clearFileInputs()">
                     Enveloped
                 </label>
-                <label class="req-text {{selected == pades || selected == asic ? 'not-selected':'' }}">
-                    <input type="radio" #envelopingRBtn class="req-toggle-button" name="relPosType" id="enveloping"
-                        [disabled]="selected == pades || selected == asic"
-                        (change)="selectRelPosition(enveloping);clearFileInputs()">
+                <label class="req-text {{packagingStatus[1] ? 'not-selected':'' }}">
+                    <input [(ngModel)]="relativePosition" type="radio" class="req-toggle-button" name="relPosType"
+                        id="Enveloping" value="Enveloping" [attr.disabled]="packagingStatus[1] ? true : null"
+                        (change)="clearFileInputs()">
                     Enveloping
                 </label>
                 <br>
-                <label class="req-text {{selected == pades || selected == asic ? 'not-selected':'' }}">
-                    <input type="radio" #detachedRBtn class="req-toggle-button" name="relPosType" id="detached"
-                        [disabled]="selected == pades || selected == asic"
-                        (change)="selectRelPosition(detached);clearFileInputs()">
+                <label class="req-text {{packagingStatus[2] ? 'not-selected':'' }}">
+                    <input [(ngModel)]="relativePosition" type="radio" class="req-toggle-button" name="relPosType"
+                        id="Detached" value="Detached" [attr.disabled]="packagingStatus[2] ? true : null"
+                        (change)="clearFileInputs()">
                     Detached
                 </label>
-                <label
-                    class="req-text {{selected != undefined && (selected !== xades || selected == asic) ? 'not-selected':'' }}">
-                    <input type="radio" #IntDetachedRBtn class="req-toggle-button" name="relPosType" id="int_detached"
-                        [disabled]="selected != undefined && (selected !== xades || selected == asic)"
-                        (change)="selectRelPosition(internally_detached);clearFileInputs()">
+                <label class="req-text {{packagingStatus[3] ? 'not-selected':'' }}">
+                    <input [(ngModel)]="relativePosition" type="radio" class="req-toggle-button" name="relPosType"
+                        id="Internally detached" [attr.disabled]="packagingStatus[3] ? true : null"
+                        value="Internally detached" (change)="clearFileInputs()">
                     Internally detached
                 </label>
             </div>
@@ -63,8 +45,9 @@
                 <label class="req-text">
                     Original File(s)
                 </label>
-                <button class="attach-button {{relativePosition != detached ? 'disabled' : ''}}" mat-mini-fab
-                    type="button" (click)="originalFilesUpload.click()" [disabled]="relativePosition != detached">
+                <button class="attach-button {{relativePosition != this.adesRelPosition[2] ? 'disabled' : ''}}"
+                    mat-mini-fab type="button" (click)="originalFilesUpload.click()"
+                    [disabled]="relativePosition != this.adesRelPosition[2]">
                     <mat-icon>attach_file</mat-icon>
                 </button>
                 <label class="req-text {{originalFiles.length > 0 ? 'removable' : ''}}"
@@ -85,6 +68,15 @@
                     {{ signedFile != undefined ? signedFile.name : 'No signed file uploaded yet.' }}
                 </label>
                 <input type="file" class="file-input" (change)="onSignedFileSelected($event)" #signedFileUpload>
+            </div>
+            <div class="other_options">
+                <label class="req-text switch">
+                    <input [(ngModel)]="signedEtsiReport" type="checkbox" name="signedETSIReport">
+                    <span class="slider round"></span>
+                </label>
+                <label class="req-text">
+                    Signed ETSI report
+                </label>
             </div>
             <button mat-raised-button type="button" class="submit-button {{readyToSubmit() ? '':'disabled'}}"
                 (click)="submit()" [disabled]="!readyToSubmit()" disabled="true" #submitButton>
