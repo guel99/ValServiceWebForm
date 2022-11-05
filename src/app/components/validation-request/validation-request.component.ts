@@ -58,6 +58,12 @@ export class ValidationRequestComponent implements OnInit {
   validationResponse: ValidationResponse | null = null;
 
   /**
+   * Boolean that indicates if the request was 
+   * sent to the back-end server
+   */
+  sentRequest: boolean = false;
+
+  /**
    * Reports to be displayed
    */
   simpleReport: string | null = null;
@@ -133,6 +139,7 @@ export class ValidationRequestComponent implements OnInit {
 
   submit() {
     console.log('start submit');
+    this.sentRequest = true;
     var valReqAssembler = new ValRequestAssembler(this.signedFile!, this.originalFiles, this.signedEtsiReport);
     valReqAssembler.assembleValRequest().then(validationRequest => {
       console.log(validationRequest)

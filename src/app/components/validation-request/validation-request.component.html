@@ -78,9 +78,10 @@
                     Signed ETSI report
                 </label>
             </div>
-            <button mat-raised-button type="button" class="submit-button {{readyToSubmit() ? '':'disabled'}}"
+            <button mat-raised-button type="btn button" class="submit-button {{readyToSubmit() ? '':'disabled'}}"
                 (click)="submit()" [disabled]="!readyToSubmit()" disabled="true" #submitButton>
-                Validate
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="sentRequest"></span>
+                {{ sentRequest ? 'Loading...' : 'Validate'}}
             </button>
         </form>
         <mat-tab-group mat-align-tabs="center" color="accent" *ngIf="validationResponse != null" #reportsTab>
