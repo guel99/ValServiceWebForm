@@ -36,6 +36,18 @@ export class PolicyRequestComponent implements OnInit {
    */
   requiredErrorMessage: string = "The policy discription is the only mandatory parameter for a DSS signature validation policy."
 
+  /**
+   * Boolean that indicates if the request was submitted by the user
+   */
+  submittedRequest: boolean = false;
+
+  /**
+   * Policy creation modes
+   */
+  policyCreationModes: Array<string> = ["free", "safe"];
+
+  selectedMode?: string = "safe";
+
   constructor() { 
     this.policyRequest = new ValidationPolicyDTO();
   }

@@ -3,45 +3,40 @@
 </div>
 <div class="form-group description-container">
     <label class="description-label" for="description">Validation policy description</label>
-    <textarea [(ngModel)]="this.policyRequest.description" 
-        name="description" class="form-control" id="description" 
+    <textarea [(ngModel)]="this.policyRequest.description" name="description" class="form-control" id="description"
         cols="30" rows="10" #description="ngModel" required></textarea>
     <div>
-        <label class="alert alert-danger" *ngIf="description.touched && description.invalid">{{ requiredErrorMessage }}</label>
+        <label class="alert alert-danger" *ngIf="description.touched && description.invalid">{{ requiredErrorMessage
+            }}</label>
     </div>
 </div>
 
-<mat-tab-group class="mat-elevation-z4" backgroundColor="accent" mat-align-tabs="center" color="basic">
+<mat-tab-group class="mat-elevation-z4 form-group" backgroundColor="accent" mat-align-tabs="center" color="basic">
     <mat-tab label="Container">
-        <app-container-constraints
-            [constraints_config]="containerConst"
+        <app-container-constraints [constraints_config]="containerConst"
             (changedConstraintSet)="this.policyRequest.containerConstraints = $event; log(this.policyRequest)"
             #containerConstraints>
         </app-container-constraints>
     </mat-tab>
     <mat-tab label="Signature">
-        <app-signature-constraints 
-            [constraints_config]="signatureConst"
+        <app-signature-constraints [constraints_config]="signatureConst"
             (changedConstraintSet)="this.policyRequest.signatureConstraints = $event; log(this.policyRequest)"
             #signatureConstraints>
         </app-signature-constraints>
     </mat-tab>
     <mat-tab label="Counter-signature">
-        <app-signature-constraints
-            [constraints_config]="counterSigConst"
+        <app-signature-constraints [constraints_config]="counterSigConst"
             (changedConstraintSet)="this.policyRequest.counterSignatureConstraints = $event; log(this.policyRequest)"
             #counterSignatureConstraints>
         </app-signature-constraints>
     </mat-tab>
     <mat-tab label="Timestamp">
-        <app-timestamp-constraints
-            [constraints_config]="timestampConst"
+        <app-timestamp-constraints [constraints_config]="timestampConst"
             (changedConstraintSet)="this.policyRequest.timeStampConstraints = $event; log(this.policyRequest)">
         </app-timestamp-constraints>
     </mat-tab>
     <mat-tab label="Revocation">
-        <app-revocation-constraints
-            [constraints_config]="revocationConst"
+        <app-revocation-constraints [constraints_config]="revocationConst"
             (changedConstraintSet)="this.policyRequest.revocationConstraints = $event; log(this.policyRequest);">
         </app-revocation-constraints>
     </mat-tab>
@@ -57,9 +52,22 @@
             (collapsed)="this.policyRequest.modelConstraint = undefined"></app-model-constraint>
     </mat-tab>
     <mat-tab label="eIDAS">
-        <app-eidas-constraints
-            [constraints_config]="eidasConst"
+        <app-eidas-constraints [constraints_config]="eidasConst"
             (changedConstraintSet)="this.policyRequest.eIDAS = $event; log(this.policyRequest);">
         </app-eidas-constraints>
     </mat-tab>
 </mat-tab-group>
+
+<div class="form-group btn-group btn-group-toggle d-flex justify-content-center" data-toggle="buttons">
+    <label class="btn btn-secondary {{ selectedMode === mode ? 'active' : ''}}" *ngFor="let mode of policyCreationModes">
+        <input [(ngModel)]="selectedMode" (change)="log(selectedMode)" type="radio" name="mode" [value]="mode" [id]="mode" autocomplete="off" [checked]="selectedMode === mode">
+        {{ mode.toUpperCase()}}
+    </label>
+</div>
+
+<div class="d-flex justify-content-center">
+    <button type="button" class="btn btn-primary" #submitButton>
+        <span *ngIf="submittedRequest" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{ submittedRequest ? 'Loading...' : 'Send policy creation request' }}
+    </button>
+</div>
