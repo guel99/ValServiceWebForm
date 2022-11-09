@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ConstraintsConfiguration } from 'src/app/configs/constraints-config';
 import { Constraints } from 'src/app/configs/constraints-types/constraints';
 import { ValidationPolicyDTO } from 'src/app/model/dto/validation-policy-dto';
+import { Encoding } from 'src/app/model/utils/encoding';
+import { FeedBackService } from 'src/app/service/feedback.service';
+import { FileSaveService } from 'src/app/service/file-save.service';
+import { PolicyService } from 'src/app/service/policy.service';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Component({
   selector: 'app-policy-request',
@@ -48,7 +53,7 @@ export class PolicyRequestComponent implements OnInit {
 
   selectedMode?: string = "safe";
 
-  constructor() { 
+  constructor(private policyService: PolicyService, private feedbackService: FeedBackService, private fileSaveService: FileSaveService) { 
     this.policyRequest = new ValidationPolicyDTO();
   }
 
@@ -57,6 +62,39 @@ export class PolicyRequestComponent implements OnInit {
 
   log(any: any){
     console.log(any);
+  }
+
+  submit(){
+    this.log(this.policyRequest);
+    this.submittedRequest = true;
+    this.policyService.createPolicy(this.policyRequest, this.selectedMode!).then(response => {
+      response.subscribe(policyResponse => {
+        this.alert("Policy created", this.feedbackService.getSuccessMessage(policyResponse.policyId, policyResponse.timestamp), 'success').then(save => {
+          if(save.value){
+            this.policyService.get(policyResponse.policyId).then(response => {
+              response.subscribe(policyData => {
+                this.fileSaveService.save(policyResponse.policyId, 'xml', Encoding.fromB4String(policyData.policyXmlB64), 'application/xml');
+                window.location.reload();
+              });
+            });
+          }
+        });
+      });
+    }).catch(error => {
+      this.alert("Error on policy creation process", error, 'error');
+    });
+  }
+
+  alert(title: string, message: string, icon: SweetAlertIcon) {
+    return Swal.fire<boolean>({
+      title: title,
+      text: message,
+      icon: icon,
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      confirmButtonColor: '#05487f'
+    });
   }
 
 }
