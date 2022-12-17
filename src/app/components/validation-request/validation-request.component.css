@@ -14,12 +14,6 @@
     border-radius: 4px;
 }
 
-.form{
-    display: inline;
-    align-items: center;
-    justify-content: center;
-}
-
 mat-card {
     background: white;
     padding: 0mm;
@@ -216,13 +210,18 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
-.other_options{
-    display: flex;
+.other-options{
+    display: block;
     margin-top: 1cm;
     margin-left: auto;
     margin-right: auto;
-    width:fit-content;
+    width:calc(50%);
     border: 3px solid #05487f;
     border-radius: 8px;
     padding: 5mm;
+}
+
+.opt-input{
+    margin: auto;
+    width: calc(40%);
 }

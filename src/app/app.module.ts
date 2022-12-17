@@ -36,6 +36,7 @@ import { SignatureConstraintsComponent } from './components/policy-constraints/s
 import { TimestampConstraintsComponent } from './components/policy-constraints/timestamp-constraints/timestamp-constraints.component';
 import { RevocationConstraintsComponent } from './components/policy-constraints/revocation-constraints/revocation-constraints.component';
 import { EidasConstraintsComponent } from './components/policy-constraints/eidas-constraints/eidas-constraints.component';
+import { OptionalValidationInputsComponent } from './components/common/optional-validation-inputs/optional-validation-inputs.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { EidasConstraintsComponent } from './components/policy-constraints/eidas
     TimestampConstraintsComponent,
     RevocationConstraintsComponent,
     EidasConstraintsComponent,
+    OptionalValidationInputsComponent,
   ],
   imports: [
     BrowserModule,

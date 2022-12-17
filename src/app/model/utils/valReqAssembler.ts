@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import { SignatureObject } from "../valRequestElems/sigObj/signatureObject";
 import { OptionalInputs } from "../valRequestElems/optInp/optionalInputs";
 import { ReturnValReportType } from "../valRequestElems/optInp/returnValReportType";
+import * as JSZip from 'jszip';
+import { AdditionalKeyInfoType } from "../valRequestElems/optInp/additionalKeyInfoType";
 
 export class ValRequestAssembler {
 
@@ -26,10 +28,34 @@ export class ValRequestAssembler {
      */
     signETSIReport: boolean;
 
-    constructor(signedFile: File, originalFiles: Array<File>, signETSIReport: boolean) {
+    /**
+     * The certificate source that may be sepcified by the user
+     */
+    certificateSource?: Array<File>;
+
+    constructor(signedFile: File, originalFiles: Array<File>, signETSIReport: boolean, certificateSource: Array<File> | undefined = undefined) {
         this.signedFile = signedFile;
         this.originalFiles = originalFiles;
         this.signETSIReport = signETSIReport;
+        if (certificateSource != undefined)
+            this.certificateSource = certificateSource;
+    }
+
+    /**
+   * Builds a base-64 string with the content of all certificates passed as parameter
+   * @param certificateSource An array containing all the certificates
+   * @returns A base-64 encoded string
+   */
+    async assembleCertificateSource(certificateSourceFiles: Array<File>): Promise<AdditionalKeyInfoType[]> {
+        var certificateSource = new Array<AdditionalKeyInfoType>();
+        var zip = JSZip();
+        for (var file of certificateSourceFiles) {
+            var certBuffer = await file.arrayBuffer();
+            var cert = new AdditionalKeyInfoType();
+            cert.cert = Encoding.arrayBufferToB64String(certBuffer);
+            certificateSource.push(cert);
+        }
+        return certificateSource;
     }
 
 
@@ -61,6 +87,11 @@ export class ValRequestAssembler {
         request.sigObj.b64Sig = new Base64DataType();
         var sigBuffer = <ArrayBuffer>await this.signedFile.arrayBuffer();
         request.sigObj.b64Sig.val = Encoding.arrayBufferToB64String(sigBuffer);
+
+        if(this.certificateSource != undefined && this.certificateSource.length > 0){
+            var certificateSource = await this.assembleCertificateSource(this.certificateSource);
+            request.optInp.addKeyInfo = certificateSource;
+        }
         return request;
     }
 }

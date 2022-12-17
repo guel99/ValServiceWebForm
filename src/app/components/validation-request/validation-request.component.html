@@ -69,15 +69,7 @@
                 </label>
                 <input type="file" class="file-input" (change)="onSignedFileSelected($event)" #signedFileUpload>
             </div>
-            <div class="other_options">
-                <label class="req-text switch">
-                    <input [(ngModel)]="signedEtsiReport" type="checkbox" name="signedETSIReport">
-                    <span class="slider round"></span>
-                </label>
-                <label class="req-text">
-                    Signed ETSI report
-                </label>
-            </div>
+            <app-optional-validation-inputs [(ngModel)]="other_opts.signedETSIReport" (optsChanged)="setOtherOptions($event)" class="other-options" #optInp="ngModel"></app-optional-validation-inputs>
             <button mat-raised-button type="btn button" class="submit-button {{readyToSubmit() ? '':'disabled'}}"
                 (click)="submit()" [disabled]="!readyToSubmit()" disabled="true" #submitButton>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="sentRequest"></span>

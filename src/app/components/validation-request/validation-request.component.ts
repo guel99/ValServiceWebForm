@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OtherOptions } from 'src/app/model/utils/validate-other-options';
 import { ValRequestAssembler } from 'src/app/model/utils/valReqAssembler';
 import { ValidationResponse } from 'src/app/model/validationResponse';
 import { ResponseHandlingService } from 'src/app/service/responseHandling.service';
@@ -48,11 +49,6 @@ export class ValidationRequestComponent implements OnInit {
   signedFile?: File;
 
   /**
-   * Boolean that indicates if the ETSI validation report must be signed
-   */
-  signedEtsiReport: boolean = true;
-
-  /**
    * Response sent by the backoffice component
    */
   validationResponse: ValidationResponse | null = null;
@@ -62,6 +58,8 @@ export class ValidationRequestComponent implements OnInit {
    * sent to the back-end server
    */
   sentRequest: boolean = false;
+
+  other_opts: OtherOptions = new OtherOptions();
 
   /**
    * Reports to be displayed
@@ -137,10 +135,14 @@ export class ValidationRequestComponent implements OnInit {
             (this.relativePosition == this.adesRelPosition[2] ? this.originalFiles.length>0:true);
   }
 
+  setOtherOptions(opts: OtherOptions){
+    this.other_opts = opts;
+  }
+
   submit() {
     console.log('start submit');
     this.sentRequest = true;
-    var valReqAssembler = new ValRequestAssembler(this.signedFile!, this.originalFiles, this.signedEtsiReport);
+    var valReqAssembler = new ValRequestAssembler(this.signedFile!, this.originalFiles, this.other_opts.signedETSIReport, this.other_opts.certificateSource);
     valReqAssembler.assembleValRequest().then(validationRequest => {
       console.log(validationRequest)
       this.validationService.validate(validationRequest).then(validationResponse => {
