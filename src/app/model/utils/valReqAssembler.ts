@@ -48,11 +48,13 @@ export class ValRequestAssembler {
    */
     async assembleCertificateSource(certificateSourceFiles: Array<File>): Promise<AdditionalKeyInfoType[]> {
         var certificateSource = new Array<AdditionalKeyInfoType>();
-        var zip = JSZip();
         for (var file of certificateSourceFiles) {
-            var certBuffer = await file.arrayBuffer();
+            const certBuffer = await file.arrayBuffer();
+            var certString = new TextDecoder().decode(certBuffer);
+            certString = certString.replace(new RegExp("-----BEGIN CERTIFICATE-----\s*"), "");
+            certString = certString.replace(new RegExp("\s*-----END CERTIFICATE-----"), "");
             var cert = new AdditionalKeyInfoType();
-            cert.cert = Encoding.arrayBufferToB64String(certBuffer);
+            cert.cert = certString;
             certificateSource.push(cert);
         }
         return certificateSource;
