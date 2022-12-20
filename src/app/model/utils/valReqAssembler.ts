@@ -15,12 +15,12 @@ export class ValRequestAssembler {
     /**
      * The file that contains the signatures
      */
-    signedFile: File;
+    signatureFile: File;
 
     /**
      * The original signed files (if applied)
      */
-    originalFiles: Array<File>;
+    signedFiles: Array<File>;
 
     /**
      * Indicates if the ETSI validation report resulting 
@@ -33,9 +33,9 @@ export class ValRequestAssembler {
      */
     certificateSource?: Array<File>;
 
-    constructor(signedFile: File, originalFiles: Array<File>, signETSIReport: boolean, certificateSource: Array<File> | undefined = undefined) {
-        this.signedFile = signedFile;
-        this.originalFiles = originalFiles;
+    constructor(signatureFile: File, signedFiles: Array<File>, signETSIReport: boolean, certificateSource: Array<File> | undefined = undefined) {
+        this.signatureFile = this.signatureFile;
+        this.signedFiles = signedFiles;
         this.signETSIReport = signETSIReport;
         if (certificateSource != undefined)
             this.certificateSource = certificateSource;
@@ -77,7 +77,7 @@ export class ValRequestAssembler {
         request.inDocs = new InputDocuments();
         request.inDocs.doc = [];
 
-        for (var file of this.originalFiles) {
+        for (var file of this.signedFiles) {
             var buffer = <ArrayBuffer>await file.arrayBuffer();
             var newDoc = new InDocsDocType();
             newDoc.b64Data = new Base64DataType();
@@ -85,12 +85,14 @@ export class ValRequestAssembler {
             request.inDocs!.doc!.push(newDoc);
         }
 
-        request.sigObj = new SignatureObject();
-        request.sigObj.b64Sig = new Base64DataType();
-        var sigBuffer = <ArrayBuffer>await this.signedFile.arrayBuffer();
-        request.sigObj.b64Sig.val = Encoding.arrayBufferToB64String(sigBuffer);
+        if (this.signatureFile != undefined) {
+            request.sigObj = new SignatureObject();
+            request.sigObj.b64Sig = new Base64DataType();
+            var sigBuffer = <ArrayBuffer>await this.signatureFile.arrayBuffer();
+            request.sigObj.b64Sig.val = Encoding.arrayBufferToB64String(sigBuffer);
+        }
 
-        if(this.certificateSource != undefined && this.certificateSource.length > 0){
+        if (this.certificateSource != undefined && this.certificateSource.length > 0) {
             var certificateSource = await this.assembleCertificateSource(this.certificateSource);
             request.optInp.addKeyInfo = certificateSource;
         }

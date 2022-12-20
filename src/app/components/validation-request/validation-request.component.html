@@ -43,31 +43,32 @@
             </div>
             <div class="internalContainer">
                 <label class="req-text">
-                    Original File(s)
+                    Signed File(s)
                 </label>
-                <button class="attach-button {{relativePosition != this.adesRelPosition[2] ? 'disabled' : ''}}"
+                <button class="attach-button {{relativePosition == this.adesRelPosition[1] ? 'disabled' : ''}}"
                     mat-mini-fab type="button" (click)="originalFilesUpload.click()"
-                    [disabled]="relativePosition != this.adesRelPosition[2]">
+                    [disabled]="relativePosition == this.adesRelPosition[1]">
                     <mat-icon>attach_file</mat-icon>
                 </button>
-                <label class="req-text {{originalFiles.length > 0 ? 'removable' : ''}}"
+                <label class="req-text {{signedFiles.length > 0 ? 'removable' : ''}}"
                     (click)="clearLastOriginalFile()">
-                    {{ originalFiles.length > 0 ? getOriginalFileNames() : 'No original files uploaded yet.'
+                    {{ signedFiles.length > 0 ? getSignedFileNames() : 'No signed file(s) uploaded yet.'
                     }}
                 </label>
-                <input type="file" class="file-input" (change)="onOriginalFilesSelected($event)" #originalFilesUpload>
+                <input type="file" class="file-input" (change)="onSignedFilesSelected($event)" #originalFilesUpload>
             </div>
             <div class="internalContainer">
                 <label class="req-text">
-                    Signed File
+                    Signature File
                 </label>
-                <button class="attach-button" mat-mini-fab type="button" (click)="signedFileUpload.click()">
+                <button class="attach-button {{ relativePosition == this.adesRelPosition[0] || relativePosition == this.adesRelPosition[3] ? 'disabled' : ''}}" mat-mini-fab type="button" (click)="signedFileUpload.click()"
+                    [disabled]="relativePosition == this.adesRelPosition[0] || relativePosition == this.adesRelPosition[3]">
                     <mat-icon>attach_file</mat-icon>
                 </button>
-                <label class="req-text {{signedFile != null ? 'removable' : ''}}" (click)="signedFile = undefined">
-                    {{ signedFile != undefined ? signedFile.name : 'No signed file uploaded yet.' }}
+                <label class="req-text {{signatureFile != null ? 'removable' : ''}}" (click)="signatureFile = undefined">
+                    {{ signatureFile != undefined ? signatureFile.name : 'No signature file uploaded yet.' }}
                 </label>
-                <input type="file" class="file-input" (change)="onSignedFileSelected($event)" #signedFileUpload>
+                <input type="file" class="file-input" (change)="onSignatureFileSelected($event)" #signedFileUpload>
             </div>
             <app-optional-validation-inputs [(ngModel)]="other_opts.signedETSIReport" (optsChanged)="setOtherOptions($event)" class="other-options" #optInp="ngModel"></app-optional-validation-inputs>
             <button mat-raised-button type="btn button" class="submit-button {{readyToSubmit() ? '':'disabled'}}"
