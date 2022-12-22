@@ -70,7 +70,7 @@
                 </label>
                 <input type="file" class="file-input" (change)="onSignatureFileSelected($event)" #signedFileUpload>
             </div>
-            <app-optional-validation-inputs [(ngModel)]="other_opts.signedETSIReport" (optsChanged)="setOtherOptions($event)" class="other-options" #optInp="ngModel"></app-optional-validation-inputs>
+            <app-optional-validation-inputs (optsChanged)="setOtherOptions($event)" class="other-options"></app-optional-validation-inputs>
             <button mat-raised-button type="btn button" class="submit-button {{readyToSubmit() ? '':'disabled'}}"
                 (click)="submit()" [disabled]="!readyToSubmit()" disabled="true" #submitButton>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="sentRequest"></span>
