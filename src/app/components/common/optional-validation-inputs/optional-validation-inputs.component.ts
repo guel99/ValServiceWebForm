@@ -58,4 +58,8 @@ export class OptionalValidationInputsComponent {
     }
   }
 
+  searchPolicy(searchStr: String){
+    console.log("Searching for '" + searchStr + "'");
+  }
+
 }
