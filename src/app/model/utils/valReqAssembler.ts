@@ -34,7 +34,7 @@ export class ValRequestAssembler {
     certificateSource?: Array<File>;
 
     constructor(signatureFile: File, signedFiles: Array<File>, signETSIReport: boolean, certificateSource: Array<File> | undefined = undefined) {
-        this.signatureFile = this.signatureFile;
+        this.signatureFile = signatureFile;
         this.signedFiles = signedFiles;
         this.signETSIReport = signETSIReport;
         if (certificateSource != undefined)
