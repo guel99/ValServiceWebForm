@@ -42,21 +42,21 @@
             </div>
             <div class="p-2 d-flex flex-lg-column align-self-center">
                 <div>
-                    <button [disabled]="!specifyPolicy" class="attach-button {{ !specifyPolicy ? 'disabled' : ''}}"
+                    <button [disabled]="!specifyPolicy || this.value.policy != undefined"
+                        class="attach-button {{ !specifyPolicy || this.value.policy != undefined ? 'disabled' : ''}}"
                         mat-mini-fab type="button" (click)="policyFileUpload.click()">
                         <mat-icon>attach_file</mat-icon>
                     </button>
-                    <label class="req-text {{ this.value.policy != undefined ? 'removable' : ''}}"
-                        (click)="this.value.policy = undefined">
+                    <label class="req-text">
                         Select local policy
                     </label>
                     <input type="file" class="file-input" accept="application/xml"
                         (change)="onPolicyFileSelected($event)" #policyFileUpload>
                 </div>
                 <div class="input-group rounded" style="margin-top: 36px;">
-                    <input type="search" [disabled]="!specifyPolicy" class="form-control rounded"
-                        placeholder="Search by policyID" aria-label="Search" aria-describedby="search-addon"
-                        #policySearchEntry />
+                    <input type="search" [disabled]="!specifyPolicy || this.value.policy != undefined"
+                        class="form-control rounded" placeholder="Search by policyID" aria-label="Search"
+                        aria-describedby="search-addon" #policySearchEntry />
                     <span class="input-group-text border-0" id="search-addon"
                         (click)="searchPolicy(policySearchEntry.value)">
                         <i class="fa fa-search"></i>
@@ -65,10 +65,25 @@
 
             </div>
         </div>
-        <div class="alert alert-dark" *ngIf="searchResults != undefined">
+        <div class="alert alert-dark {{ searchResults != undefined && searchResults.length > 0 ? 'scrolled' : '' }}" *ngIf="searchResults != undefined">
+            <table *ngIf="searchResults != undefined && searchResults.length > 0">
+                <tr>
+                    <th>PolicyID</th>
+                    <th></th>
+                </tr>
+                <tr *ngFor="let policyId of searchResults">
+                    <th>{{ policyId.id }}</th>
+                    <th>
+                        <button class="clear-button" mat-icon-button color="basic" 
+                            (click)="onRemotePolicySelected(policyId)" style="color: green;">
+                            <mat-icon>check</mat-icon>
+                        </button>
+                    </th>
+                </tr>
+            </table>
             <label class="req-text {{ this.value.policy != undefined ? 'removable' : ''}}"
                 (click)="this.value.policy = undefined">
-                {{ this.value.policy != undefined ? this.value.policy.name : 'No policy uploaded yet.' }}
+                {{ this.value.policy != undefined ? this.value.policyName : 'No policy uploaded yet.' }}
             </label>
         </div>
         <div class="alert alert-danger" *ngIf="searchResults == undefined">

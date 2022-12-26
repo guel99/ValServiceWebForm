@@ -143,3 +143,8 @@ mat-card-content{
     color: white;
     background: rgba(4, 56, 134, 0.26);
 }
+
+.scrolled{
+    overflow: scroll;
+    height: 200px;
+}

@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { RemotePolicyDTO } from "../model/dto/remote-policy-dto";
 import { ValidationPolicyDTO } from "../model/dto/validation-policy-dto";
 import { ValidationPolicyGetResponseDTO } from "../model/dto/validation-policy-get-response-dto";
 import { ValidationPolicyResponseDTO } from "../model/dto/validation-policy-response-dto";
@@ -34,6 +35,6 @@ export class PolicyService {
     async searchPolicyByToken(token: String){
         const url = this.policyServer + "/searchFor/" + token;
         const headers = { "content-type": "application/json"};
-        return this.http.get<Array<String>>(url, {"headers": headers});
+        return this.http.get<Array<RemotePolicyDTO>>(url, {"headers": headers});
     }
 }

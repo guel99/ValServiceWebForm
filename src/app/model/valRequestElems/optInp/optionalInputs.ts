@@ -10,7 +10,7 @@ import { UseVerificationTimeType } from "./useVerificationTimeType";
 
 export class OptionalInputs{
 
-    policy?:Array<string>;
+    policy?:Array<String>;
 
     lang?:string;
     

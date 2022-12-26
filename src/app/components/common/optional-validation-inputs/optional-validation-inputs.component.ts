@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { catchError } from 'rxjs';
+import { RemotePolicyDTO } from 'src/app/model/dto/remote-policy-dto';
 import { OtherOptions } from 'src/app/model/utils/validate-other-options';
 import { PolicyService } from 'src/app/service/policy.service';
-import { ValidationService } from 'src/app/service/validation.service';
 
 @Component({
   selector: 'app-optional-validation-inputs',
@@ -18,7 +18,7 @@ export class OptionalValidationInputsComponent {
    * Variable that stored the results 
    * of the last policy search
    */
-  searchResults?: Array<String> = new Array<String>();
+  searchResults?: Array<RemotePolicyDTO> = new Array<RemotePolicyDTO>();
 
   /**
    * Variable that stores the last 
@@ -65,6 +65,12 @@ export class OptionalValidationInputsComponent {
 
   onSignedETSIReportChange() {
     this.optsChanged.emit(this._opts);
+  }
+
+  onRemotePolicySelected(policyId: RemotePolicyDTO) {
+    this._opts.policy = policyId;
+    this.searchResults?.splice(0);
+    this.searchErrorMessage = undefined;
   }
 
   clearLastCertificate() {

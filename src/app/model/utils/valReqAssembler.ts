@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import { SignatureObject } from "../valRequestElems/sigObj/signatureObject";
 import { OptionalInputs } from "../valRequestElems/optInp/optionalInputs";
 import { ReturnValReportType } from "../valRequestElems/optInp/returnValReportType";
-import * as JSZip from 'jszip';
 import { AdditionalKeyInfoType } from "../valRequestElems/optInp/additionalKeyInfoType";
+import { RemotePolicyDTO } from "../dto/remote-policy-dto";
 
 export class ValRequestAssembler {
 
@@ -33,12 +33,19 @@ export class ValRequestAssembler {
      */
     certificateSource?: Array<File>;
 
-    constructor(signatureFile: File, signedFiles: Array<File>, signETSIReport: boolean, certificateSource: Array<File> | undefined = undefined) {
+    /**
+     * The validation policy specified by the user
+     */
+    policy?: RemotePolicyDTO | File = undefined;
+
+    constructor(signatureFile: File, signedFiles: Array<File>, signETSIReport: boolean, certificateSource: Array<File> | undefined = undefined,
+        policy: File | RemotePolicyDTO | undefined) {
         this.signatureFile = signatureFile;
         this.signedFiles = signedFiles;
         this.signETSIReport = signETSIReport;
         if (certificateSource != undefined)
             this.certificateSource = certificateSource;
+        this.policy = policy;
     }
 
     /**
@@ -95,6 +102,14 @@ export class ValRequestAssembler {
         if (this.certificateSource != undefined && this.certificateSource.length > 0) {
             var certificateSource = await this.assembleCertificateSource(this.certificateSource);
             request.optInp.addKeyInfo = certificateSource;
+        }
+
+        if(this.policy != undefined){
+            if(this.policy instanceof RemotePolicyDTO){
+                request.optInp.policy = new Array<String>();
+                const policyURI = this.policy.source + "/" + this.policy.id;
+                request.optInp.policy.push(policyURI);
+            }
         }
         return request;
     }
