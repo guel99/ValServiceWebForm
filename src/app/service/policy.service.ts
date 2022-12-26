@@ -25,4 +25,15 @@ export class PolicyService {
         const url = this.policyServer + "/" + policyId;
         return this.http.get<ValidationPolicyGetResponseDTO>(url);
     }
+
+    /**
+     * Checks if the server contains any policy which 
+     * id contains the passed token (as substring)
+     * @param token The passed token
+     */
+    async searchPolicyByToken(token: String){
+        const url = this.policyServer + "/searchFor/" + token;
+        const headers = { "content-type": "application/json"};
+        return this.http.get<Array<String>>(url, {"headers": headers});
+    }
 }
