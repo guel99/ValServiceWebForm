@@ -162,7 +162,7 @@ export class ValidationRequestComponent implements OnInit {
     this.sentRequest = true;
     var valReqAssembler = new ValRequestAssembler(this.signatureFile!, this.signedFiles, this.other_opts.signedETSIReport, this.other_opts.certificateSource, this.other_opts.policy);
     valReqAssembler.assembleValRequest().then(validationRequest => {
-      console.log(validationRequest)
+      console.log(JSON.stringify(validationRequest));
       this.validationService.validate(validationRequest).then(validationResponse => {
         validationResponse.subscribe(valResponse => {
           this.validationResponse = valResponse;

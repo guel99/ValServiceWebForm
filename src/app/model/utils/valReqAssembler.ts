@@ -110,6 +110,15 @@ export class ValRequestAssembler {
                 const policyURI = this.policy.source + "/" + this.policy.id;
                 request.optInp.policy.push(policyURI);
             }
+            else{
+                request.optInp.policy = new Array<String>();
+                const policyURI = "file://" + this.policy.name;
+                request.optInp.policy.push(policyURI);
+                request.attachment = new Map<String, String>();
+                const buffer = await this.policy.arrayBuffer();
+                const b64Policy = Encoding.arrayBufferToB64String(buffer);
+                request.attachment[policyURI] = b64Policy;
+            }
         }
         return request;
     }
