@@ -71,6 +71,7 @@ export class OptionalValidationInputsComponent {
     this._opts.policy = policyId;
     this.searchResults?.splice(0);
     this.searchErrorMessage = undefined;
+    this.optsChanged.emit(this._opts);
   }
 
   clearLastCertificate() {

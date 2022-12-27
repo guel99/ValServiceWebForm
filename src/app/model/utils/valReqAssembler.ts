@@ -104,8 +104,9 @@ export class ValRequestAssembler {
             request.optInp.addKeyInfo = certificateSource;
         }
 
-        if(this.policy != undefined){
-            if(this.policy instanceof RemotePolicyDTO){
+        if(this.policy! != undefined){
+            // Equivalent to java's this.policy instance of RemotePolicyDTO
+            if('id' in this.policy && 'source' in this.policy){
                 request.optInp.policy = new Array<String>();
                 const policyURI = this.policy.source + "/" + this.policy.id;
                 request.optInp.policy.push(policyURI);
