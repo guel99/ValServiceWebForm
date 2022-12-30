@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { catchError } from 'rxjs';
 import { OtherOptions } from 'src/app/model/utils/validate-other-options';
 import { ValRequestAssembler } from 'src/app/model/utils/valReqAssembler';
 import { ValidationResponse } from 'src/app/model/validationResponse';
@@ -68,6 +69,8 @@ export class ValidationRequestComponent implements OnInit {
   detailedReport: string | null = null;
   diagnosticData: string | null = null;
   etsiReport: string | null = null;
+
+  serverErrorMessage: string | null = null;
 
   constructor(private validationService: ValidationService,
     private responseHandlingService: ResponseHandlingService) { }
@@ -164,7 +167,14 @@ export class ValidationRequestComponent implements OnInit {
     valReqAssembler.assembleValRequest().then(validationRequest => {
       console.log(JSON.stringify(validationRequest));
       this.validationService.validate(validationRequest).then(validationResponse => {
-        validationResponse.subscribe(valResponse => {
+        validationResponse
+        .pipe((catchError((err,caught) => {
+          this.sentRequest = false;
+          this.serverErrorMessage = err.error.body;
+          return [];
+        })))
+        .subscribe(valResponse => {
+          this.sentRequest = false;
           this.validationResponse = valResponse;
           this.setEtsiValidationReport();
           this.setOtherReports();

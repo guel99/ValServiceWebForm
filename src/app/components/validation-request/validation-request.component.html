@@ -76,6 +76,10 @@
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="sentRequest"></span>
                 {{ sentRequest ? 'Loading...' : 'Validate'}}
             </button>
+            <div class="alert alert-danger alert-dismissible" *ngIf="serverErrorMessage != null" style="margin: 1cm;">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>INTERNAL SERVER ERROR!</strong> {{ serverErrorMessage }}
+            </div>
         </form>
         <mat-tab-group mat-align-tabs="center" color="accent" *ngIf="validationResponse != null" #reportsTab>
             <mat-tab label="Simple Report">
