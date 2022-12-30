@@ -3,7 +3,8 @@
     <mat-card-content class="d-flex flex-lg-column" *ngIf="!disabled">
         <div class="p-2 d-flex justify-content-center">
             <label class="switch">
-                <input [(ngModel)]="value.signedETSIReport" (change)="onSignedETSIReportChange()" type="checkbox" name="signedETSIReport" id="signedButton">
+                <input [(ngModel)]="value.signedETSIReport" (change)="onSignedETSIReportChange()" type="checkbox"
+                    name="signedETSIReport" id="signedButton">
                 <span class="slider round"></span>11
             </label>
             <label class="req-text" for="signedButton">
@@ -12,33 +13,83 @@
         </div>
         <div class="p-2 d-flex justify-content-center" style="margin-top: 8mm;">
             <div class="p-2 form-check">
-                <input [(ngModel)]="specifyCertificates" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <input [(ngModel)]="specifyCertificates" class="form-check-input" type="checkbox" value=""
+                    id="flexCheckDefault">
             </div>
             <label class="req-text form-check-label" for="flexCheckDefault">
                 Certificate
             </label>
-            <button [disabled]="!specifyCertificates" class="attach-button attach-button {{ !specifyCertificates ? 'disabled' : ''}}" mat-mini-fab type="button" (click)="signedFileUpload.click()">
+            <button [disabled]="!specifyCertificates"
+                class="attach-button attach-button {{ !specifyCertificates ? 'disabled' : ''}}" mat-mini-fab
+                type="button" (click)="signedFileUpload.click()">
                 <mat-icon>attach_file</mat-icon>
             </button>
-            <label class="req-text {{ this.value.certificateSource.length > 0 ? 'removable' : ''}}" (click)="clearLastCertificate()">
+            <label class="req-text {{ this.value.certificateSource.length > 0 ? 'removable' : ''}}"
+                (click)="clearLastCertificate()">
                 {{ this.value.certificateSource.length > 0 ? this.value.getCertificateSourceFileNames() : 'No certificate(s).' }}
             </label>
-            <input type="file" class="file-input" accept="application/x-x509-ca-cert" (change)="onCertificateFileSelected($event)" #signedFileUpload>
+            <input type="file" class="file-input" accept="application/x-x509-ca-cert"
+                (change)="onCertificateFileSelected($event)" #signedFileUpload>
         </div>
-        <div class="p-2 d-flex justify-content-center" style="margin-top: 8mm;">
-            <div class="p-2 form-check">
-                <input [(ngModel)]="specifyPolicy" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <div class="p-2 d-flex justify-content-center"
+            style="margin-top: 8mm; border: 3px solid #05487f; margin-bottom: 20px; border-radius: 5px;">
+            <div class="p-2 form-check align-self-center" style="margin-top: 10px;">
+                <input [(ngModel)]="specifyPolicy" class="form-check-input" type="checkbox" value=""
+                    id="policyCkeckButton">
+                <label class="req-text" for="policyCkeckButton" style="margin-top: 1px;">
+                    Policy
+                </label>
             </div>
+            <div class="p-2 d-flex flex-lg-column align-self-center">
+                <div>
+                    <button [disabled]="!specifyPolicy || this.value.policy != undefined"
+                        class="attach-button {{ !specifyPolicy || this.value.policy != undefined ? 'disabled' : ''}}"
+                        mat-mini-fab type="button" (click)="policyFileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                    <label class="req-text">
+                        Select local policy
+                    </label>
+                    <input type="file" class="file-input" accept="application/xml"
+                        (change)="onPolicyFileSelected($event)" #policyFileUpload>
+                </div>
+                <div class="input-group rounded" style="margin-top: 36px;">
+                    <input type="search" [disabled]="!specifyPolicy || this.value.policy != undefined"
+                        class="form-control rounded" placeholder="Search by policyID" aria-label="Search"
+                        aria-describedby="search-addon" #policySearchEntry />
+                    <span class="input-group-text border-0" id="search-addon"
+                        (click)="searchPolicy(policySearchEntry.value)">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+        <div class="alert alert-dark {{ searchResults != undefined && searchResults.length > 0 ? 'scrolled' : '' }}" *ngIf="searchResults != undefined">
+            <table *ngIf="searchResults != undefined && searchResults.length > 0">
+                <tr>
+                    <th>PolicyID</th>
+                    <th></th>
+                </tr>
+                <tr *ngFor="let policyId of searchResults">
+                    <th>{{ policyId.id }}</th>
+                    <th>
+                        <button class="clear-button" mat-icon-button color="basic" 
+                            (click)="onRemotePolicySelected(policyId)" style="color: green;">
+                            <mat-icon>check</mat-icon>
+                        </button>
+                    </th>
+                </tr>
+            </table>
+            <label class="req-text {{ this.value.policy != undefined ? 'removable' : ''}}"
+                (click)="this.value.policy = undefined">
+                {{ this.value.policy != undefined ? this.value.policyName : 'No policy uploaded yet.' }}
+            </label>
+        </div>
+        <div class="alert alert-danger" *ngIf="searchResults == undefined">
             <label class="req-text">
-                Policy
+                {{ this.searchErrorMessage }}
             </label>
-            <button [disabled]="!specifyPolicy" class="attach-button {{ !specifyPolicy ? 'disabled' : ''}}" mat-mini-fab type="button" (click)="policyFileUpload.click()">
-                <mat-icon>attach_file</mat-icon>
-            </button>
-            <label class="req-text {{ this.value.policy != undefined ? 'removable' : ''}}" (click)="this.value.policy = undefined">
-                {{ this.value.policy != undefined ? this.value.policy.name : 'No policy uploaded yet.' }}
-            </label>
-            <input type="file" class="file-input" accept="application/xml" (change)="onPolicyFileSelected($event)" #policyFileUpload>
         </div>
     </mat-card-content>
 </mat-card>

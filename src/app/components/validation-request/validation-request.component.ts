@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { catchError } from 'rxjs';
 import { OtherOptions } from 'src/app/model/utils/validate-other-options';
 import { ValRequestAssembler } from 'src/app/model/utils/valReqAssembler';
 import { ValidationResponse } from 'src/app/model/validationResponse';
@@ -16,7 +17,7 @@ export class ValidationRequestComponent implements OnInit {
 
   readonly adesRelPosition = ["Enveloped", "Enveloping", "Detached", "Internally detached"];
 
-  readonly availablePackagingPerAdesType : Map<string, Array<boolean>> = new Map<string, Array<boolean>> ([
+  readonly availablePackagingPerAdesType: Map<string, Array<boolean>> = new Map<string, Array<boolean>>([
     ["ASiC", [true, true, true, true]],
     ["CAdES", [true, false, false, true]],
     ["JAdES", [true, false, false, true]],
@@ -27,26 +28,26 @@ export class ValidationRequestComponent implements OnInit {
   /**
    * The disabled status of each packaging type
    */
-  packagingStatus : Array<boolean> = [true, true, true, true];
+  packagingStatus: Array<boolean> = [true, true, true, true];
 
   /**
    * The type of AdES signature 
    * selected
    */
-  selected?:string = undefined;
+  selected?: string = undefined;
 
   /**
    * The singature relative position 
    * to signed data
    */
-  relativePosition?:string = undefined;
+  relativePosition?: string = undefined;
 
   /**
    * Original files uploaded by the client
    */
-  originalFiles:Array<File>;
+  signedFiles: Array<File>;
 
-  signedFile?: File;
+  signatureFile?: File;
 
   /**
    * Response sent by the backoffice component
@@ -66,32 +67,34 @@ export class ValidationRequestComponent implements OnInit {
    */
   simpleReport: string | null = null;
   detailedReport: string | null = null;
-  diagnosticData: string | null  = null;
+  diagnosticData: string | null = null;
   etsiReport: string | null = null;
 
-  constructor(private validationService: ValidationService, 
+  serverErrorMessage: string | null = null;
+
+  constructor(private validationService: ValidationService,
     private responseHandlingService: ResponseHandlingService) { }
 
   ngOnInit(): void {
     this.selected = undefined;
     this.relativePosition = undefined;
-    this.originalFiles = new Array<File>();
-    this.signedFile = undefined;
+    this.signedFiles = new Array<File>();
+    this.signatureFile = undefined;
   }
 
-  setAdesPossiblePackagingOptions(selected: string){
+  setAdesPossiblePackagingOptions(selected: string) {
     this.packagingStatus = this.availablePackagingPerAdesType.get(selected)!;
     this.relativePosition = undefined;
   }
 
-  uncheckAllRelativePosOpts() : void {
+  uncheckAllRelativePosOpts(): void {
     var list = document.getElementsByName("relPosType");
     list.forEach(elem => (elem as HTMLInputElement).checked = false);
   }
 
-  getOriginalFileNames(): Array<string> {
+  getSignedFileNames(): Array<string> {
     var ret = new Array<string>();
-    for(const file of this.originalFiles){
+    for (const file of this.signedFiles) {
       ret.push(file.name);
     }
     return ret;
@@ -101,25 +104,25 @@ export class ValidationRequestComponent implements OnInit {
    * Handles the selected original files event
    * @param event
    */
-  onOriginalFilesSelected(event:Event) {
+  onSignedFilesSelected(event: Event) {
     var selected = (event.target as HTMLInputElement).files;
     var size = selected != undefined ? selected?.length : 0;
-    for(var i = 0; i<size; i++){
-      if(selected?.item(i) != undefined){
+    for (var i = 0; i < size; i++) {
+      if (selected?.item(i) != undefined) {
         var file = selected?.item(i) as File;
-        this.originalFiles.push(file);
+        this.signedFiles.push(file);
       }
     }
   }
-  
+
   /**
    * Handles the selected signed file event
    * @param event 
    */
-  onSignedFileSelected(event:Event) {
+  onSignatureFileSelected(event: Event) {
     var selected = (event.target as HTMLInputElement).files;
-    if(selected?.item(0) != undefined){
-      this.signedFile = selected?.item(0) as File;
+    if (selected?.item(0) != undefined) {
+      this.signatureFile = selected?.item(0) as File;
     }
   }
 
@@ -129,24 +132,49 @@ export class ValidationRequestComponent implements OnInit {
    * @returns 
    */
   readyToSubmit(): boolean {
-    return this.signedFile != undefined &&
-        this.selected != undefined &&
-            (this.selected != this.adesTypes[0] ? this.relativePosition != undefined : true) &&
-            (this.relativePosition == this.adesRelPosition[2] ? this.originalFiles.length>0:true);
+    var ready = this.selected != undefined && this.relativePosition != undefined;
+
+    if (this.selected == "ASiC")
+      ready = this.signatureFile != undefined;
+    else {
+      switch (this.relativePosition) {
+
+        case "Enveloped":
+          ready = this.signedFiles.length == 1;
+          break;
+        case "Enveloping":
+          ready = this.signatureFile != undefined;
+          break;
+        case "Detached":
+          ready = this.signedFiles.length >= 1 && this.signatureFile != undefined;
+          break;
+        case "Internally detached":
+          ready = this.signedFiles.length == 1;
+          break;
+      }
+    }
+    return ready;
   }
 
-  setOtherOptions(opts: OtherOptions){
+  setOtherOptions(opts: OtherOptions) {
     this.other_opts = opts;
   }
 
   submit() {
     console.log('start submit');
     this.sentRequest = true;
-    var valReqAssembler = new ValRequestAssembler(this.signedFile!, this.originalFiles, this.other_opts.signedETSIReport, this.other_opts.certificateSource);
+    var valReqAssembler = new ValRequestAssembler(this.signatureFile!, this.signedFiles, this.other_opts.signedETSIReport, this.other_opts.certificateSource, this.other_opts.policy);
     valReqAssembler.assembleValRequest().then(validationRequest => {
-      console.log(validationRequest)
+      console.log(JSON.stringify(validationRequest));
       this.validationService.validate(validationRequest).then(validationResponse => {
-        validationResponse.subscribe(valResponse => {
+        validationResponse
+        .pipe((catchError((err,caught) => {
+          this.sentRequest = false;
+          this.serverErrorMessage = err.error.body;
+          return [];
+        })))
+        .subscribe(valResponse => {
+          this.sentRequest = false;
           this.validationResponse = valResponse;
           this.setEtsiValidationReport();
           this.setOtherReports();
@@ -158,18 +186,18 @@ export class ValidationRequestComponent implements OnInit {
   /**
    * Clears all file inputs
    */
-  clearFileInputs() : void {
-    this.originalFiles.length = 0
-    this.signedFile = undefined;
+  clearFileInputs(): void {
+    this.signedFiles.length = 0
+    this.signatureFile = undefined;
   }
 
-  clearSignedFile() : void {
-    this.signedFile = undefined;
+  clearSignedFile(): void {
+    this.signatureFile = undefined;
   }
 
-  clearLastOriginalFile() : void {
-    if(this.originalFiles.length>0)
-      this.originalFiles.pop();
+  clearLastOriginalFile(): void {
+    if (this.signedFiles.length > 0)
+      this.signedFiles.pop();
   }
 
   setEtsiValidationReport() {
@@ -190,11 +218,11 @@ export class ValidationRequestComponent implements OnInit {
     });
   }
 
-  clear(){
+  clear() {
     this.validationResponse = null;
   }
 
-  debug(event:any){
+  debug(event: any) {
     console.log(event); // https://stackoverflow.com/questions/44301560/angular-2-two-way-binding-with-disabled
   }
 }

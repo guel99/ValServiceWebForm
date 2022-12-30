@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { RemotePolicyDTO } from "../model/dto/remote-policy-dto";
 import { ValidationPolicyDTO } from "../model/dto/validation-policy-dto";
 import { ValidationPolicyGetResponseDTO } from "../model/dto/validation-policy-get-response-dto";
 import { ValidationPolicyResponseDTO } from "../model/dto/validation-policy-response-dto";
@@ -24,5 +25,16 @@ export class PolicyService {
     async get(policyId: string) : Promise<Observable<ValidationPolicyGetResponseDTO>> {
         const url = this.policyServer + "/" + policyId;
         return this.http.get<ValidationPolicyGetResponseDTO>(url);
+    }
+
+    /**
+     * Checks if the server contains any policy which 
+     * id contains the passed token (as substring)
+     * @param token The passed token
+     */
+    async searchPolicyByToken(token: String){
+        const url = this.policyServer + "/searchFor/" + token;
+        const headers = { "content-type": "application/json"};
+        return this.http.get<Array<RemotePolicyDTO>>(url, {"headers": headers});
     }
 }

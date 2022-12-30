@@ -7,20 +7,20 @@ import { v4 as uuidv4 } from "uuid";
 import { SignatureObject } from "../valRequestElems/sigObj/signatureObject";
 import { OptionalInputs } from "../valRequestElems/optInp/optionalInputs";
 import { ReturnValReportType } from "../valRequestElems/optInp/returnValReportType";
-import * as JSZip from 'jszip';
 import { AdditionalKeyInfoType } from "../valRequestElems/optInp/additionalKeyInfoType";
+import { RemotePolicyDTO } from "../dto/remote-policy-dto";
 
 export class ValRequestAssembler {
 
     /**
      * The file that contains the signatures
      */
-    signedFile: File;
+    signatureFile: File;
 
     /**
      * The original signed files (if applied)
      */
-    originalFiles: Array<File>;
+    signedFiles: Array<File>;
 
     /**
      * Indicates if the ETSI validation report resulting 
@@ -33,12 +33,19 @@ export class ValRequestAssembler {
      */
     certificateSource?: Array<File>;
 
-    constructor(signedFile: File, originalFiles: Array<File>, signETSIReport: boolean, certificateSource: Array<File> | undefined = undefined) {
-        this.signedFile = signedFile;
-        this.originalFiles = originalFiles;
+    /**
+     * The validation policy specified by the user
+     */
+    policy?: RemotePolicyDTO | File = undefined;
+
+    constructor(signatureFile: File, signedFiles: Array<File>, signETSIReport: boolean, certificateSource: Array<File> | undefined = undefined,
+        policy: File | RemotePolicyDTO | undefined) {
+        this.signatureFile = signatureFile;
+        this.signedFiles = signedFiles;
         this.signETSIReport = signETSIReport;
         if (certificateSource != undefined)
             this.certificateSource = certificateSource;
+        this.policy = policy;
     }
 
     /**
@@ -48,11 +55,13 @@ export class ValRequestAssembler {
    */
     async assembleCertificateSource(certificateSourceFiles: Array<File>): Promise<AdditionalKeyInfoType[]> {
         var certificateSource = new Array<AdditionalKeyInfoType>();
-        var zip = JSZip();
         for (var file of certificateSourceFiles) {
-            var certBuffer = await file.arrayBuffer();
+            const certBuffer = await file.arrayBuffer();
+            var certString = new TextDecoder().decode(certBuffer);
+            certString = certString.replace(new RegExp("-----BEGIN CERTIFICATE-----\s*"), "");
+            certString = certString.replace(new RegExp("\s*-----END CERTIFICATE-----"), "");
             var cert = new AdditionalKeyInfoType();
-            cert.cert = Encoding.arrayBufferToB64String(certBuffer);
+            cert.cert = certString;
             certificateSource.push(cert);
         }
         return certificateSource;
@@ -75,7 +84,7 @@ export class ValRequestAssembler {
         request.inDocs = new InputDocuments();
         request.inDocs.doc = [];
 
-        for (var file of this.originalFiles) {
+        for (var file of this.signedFiles) {
             var buffer = <ArrayBuffer>await file.arrayBuffer();
             var newDoc = new InDocsDocType();
             newDoc.b64Data = new Base64DataType();
@@ -83,14 +92,34 @@ export class ValRequestAssembler {
             request.inDocs!.doc!.push(newDoc);
         }
 
-        request.sigObj = new SignatureObject();
-        request.sigObj.b64Sig = new Base64DataType();
-        var sigBuffer = <ArrayBuffer>await this.signedFile.arrayBuffer();
-        request.sigObj.b64Sig.val = Encoding.arrayBufferToB64String(sigBuffer);
+        if (this.signatureFile != undefined) {
+            request.sigObj = new SignatureObject();
+            request.sigObj.b64Sig = new Base64DataType();
+            var sigBuffer = <ArrayBuffer>await this.signatureFile.arrayBuffer();
+            request.sigObj.b64Sig.val = Encoding.arrayBufferToB64String(sigBuffer);
+        }
 
-        if(this.certificateSource != undefined && this.certificateSource.length > 0){
+        if (this.certificateSource != undefined && this.certificateSource.length > 0) {
             var certificateSource = await this.assembleCertificateSource(this.certificateSource);
             request.optInp.addKeyInfo = certificateSource;
+        }
+
+        if(this.policy! != undefined){
+            // Equivalent to java's this.policy instance of RemotePolicyDTO
+            if('id' in this.policy && 'source' in this.policy){
+                request.optInp.policy = new Array<String>();
+                const policyURI = this.policy.source + "/" + this.policy.id;
+                request.optInp.policy.push(policyURI);
+            }
+            else{
+                request.optInp.policy = new Array<String>();
+                const policyURI = "file://" + this.policy.name;
+                request.optInp.policy.push(policyURI);
+                request.attachment = new Map<String, String>();
+                const buffer = await this.policy.arrayBuffer();
+                const b64Policy = Encoding.arrayBufferToB64String(buffer);
+                request.attachment[policyURI] = b64Policy;
+            }
         }
         return request;
     }

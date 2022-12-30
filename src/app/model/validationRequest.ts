@@ -31,4 +31,10 @@ export class ValidationRequest{
      * of the input documents
      */
     sigObj?:SignatureObject;
+
+    /**
+     * Other atached inputs that complements the request. In our 
+     * case, this is used to send to the server a local validation policy
+     */
+    attachment: any;
 }

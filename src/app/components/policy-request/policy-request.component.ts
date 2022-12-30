@@ -73,6 +73,7 @@ export class PolicyRequestComponent implements OnInit {
           if(save.value){
             this.policyService.get(policyResponse.policyId).then(response => {
               response.subscribe(policyData => {
+                this.submittedRequest = false;
                 this.fileSaveService.save(policyResponse.policyId, 'xml', Encoding.fromB4String(policyData.policyXmlB64), 'application/xml');
                 window.location.reload();
               });

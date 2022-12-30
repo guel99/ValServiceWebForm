@@ -1,8 +1,10 @@
+import { RemotePolicyDTO } from "../dto/remote-policy-dto";
+
 export class OtherOptions{
 
     signedETSIReport: boolean = true;
     certificateSource: Array<File> = new Array<File>();
-    policy?: File = undefined;
+    policy?: File | RemotePolicyDTO = undefined;
 
     constructor() {}
 
@@ -11,6 +13,12 @@ export class OtherOptions{
         for(var file of this.certificateSource)
             list.push(file.name);
         return list;
+    }
+
+    get policyName(): String | undefined {
+        if(this.policy == undefined)
+            return undefined;
+        return this.policy instanceof File ? this.policy.name : this.policy!.id;
     }
 
     clone() : OtherOptions{
