@@ -70,7 +70,7 @@ export class BasicSignatureConstraintsDTO extends ConstraintDTO {
       this.undefinedChanges = dic.get('UndefinedChanges') as String;
       this.trustedServiceTypeIdentifier = dic.get('TrustedServiceTypeIdentifier') as MultiValuesConstraintDTO;
       this.trustedServiceStatus = dic.get('TrustedServiceStatus') as MultiValuesConstraintDTO;
-      this.cryptographicConstraints = dic.get('CryptographicConstraints') as CryptographicConstraintDTO;
+      this.cryptographicConstraints = dic.get('Cryptographic') as CryptographicConstraintDTO;
 
       var signingCertificateConstraintsDic = dic.get('SigningCertificate');
       if (signingCertificateConstraintsDic != undefined) {
