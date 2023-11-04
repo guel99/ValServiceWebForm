@@ -4,6 +4,8 @@ import { ConstraintDTO } from "./constraint-dto";
 
 export class CryptographicConstraintDTO extends ConstraintDTO{
 
+    level: string;
+
     acceptableEncryptionAlgo: Array<Algo>;
 
     acceptableDigestAlgo: Array<Algo>;

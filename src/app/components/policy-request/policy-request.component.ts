@@ -69,11 +69,12 @@ export class PolicyRequestComponent implements OnInit {
     this.submittedRequest = true;
     this.policyService.createPolicy(this.policyRequest, this.selectedMode!).then(response => {
       response.subscribe(policyResponse => {
+        this.submittedRequest = false;
         this.alert("Policy created", this.feedbackService.getSuccessMessage(policyResponse.policyId, policyResponse.timestamp), 'success').then(save => {
           if(save.value){
             this.policyService.get(policyResponse.policyId).then(response => {
               response.subscribe(policyData => {
-                this.submittedRequest = false;
+                
                 this.fileSaveService.save(policyResponse.policyId, 'xml', Encoding.fromB4String(policyData.policyXmlB64), 'application/xml');
                 window.location.reload();
               });

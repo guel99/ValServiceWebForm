@@ -70,6 +70,6 @@ export class CertificateConstraintsDTO extends ConstraintDTO {
         this.issuedToLegalPerson = dic.get('IssuedToLegalPerson') as string;
         this.semanticsIdentifier = dic.get('SemanticsIdentifier') as MultiValuesConstraintDTO;
         this.usePseudonym = dic.get('UsePseudonym') as string;
-        this.cryptographicConstraint = dic.get('CryptographicConstraint') as CryptographicConstraintDTO;
+        this.cryptographicConstraint = dic.get('Cryptographic') as CryptographicConstraintDTO;
     }
 }

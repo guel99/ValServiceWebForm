@@ -79,6 +79,7 @@ export class CryptographicConstraintComponent extends LevelConstraintComponent i
       this.acceptableDigestAlgo.forEach(algo => {
         cryptographic.acceptableDigestAlgo.push(algo)
       });
+      cryptographic.level = this.selected!;
       this.setted.emit(cryptographic);
   }
 
